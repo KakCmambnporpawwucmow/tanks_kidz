@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=3 uid="uid://d2ie7t1fstent"]
+
+[ext_resource type="Script" uid="uid://drvi1adsyy8yy" path="res://entities/tanks/base_turret.gd" id="1_2qrap"]
+[ext_resource type="Texture2D" uid="uid://dvx716tijpoea" path="res://assets/graphics/tanks/tanks_tankTracks4.png" id="2_nmepd"]
+[ext_resource type="PackedScene" uid="uid://bnbxaeoqkl1wn" path="res://entities/tanks/base_cannon.tscn" id="3_b5kbp"]
+[ext_resource type="PackedScene" uid="uid://c1b5k26ufnqc5" path="res://components/move_component.tscn" id="4_nmepd"]
+[ext_resource type="PackedScene" uid="uid://cgl1dlbqrkxly" path="res://entities/projectiles/bb_shell.tscn" id="5_b5kbp"]
+
+[node name="BaseTurret" type="Node2D"]
+script = ExtResource("1_2qrap")
+
+[node name="view" type="Sprite2D" parent="."]
+texture = ExtResource("2_nmepd")
+
+[node name="BaseCannon" parent="." instance=ExtResource("3_b5kbp")]
+
+[node name="MoveComponent" parent="." instance=ExtResource("4_nmepd")]
+
+[node name="shell_bb" parent="." instance=ExtResource("5_b5kbp")]
+visible = false
+count_in_turret = 20

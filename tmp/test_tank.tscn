@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmlpmubeqin1q"]
+
+[ext_resource type="PackedScene" uid="uid://d2ie7t1fstent" path="res://entities/tanks/base_turret.tscn" id="1_tx1ne"]
+
+[node name="TestTank" type="Node2D"]
+
+[node name="BaseTurret" parent="." instance=ExtResource("1_tx1ne")]
+position = Vector2(314, 226)
