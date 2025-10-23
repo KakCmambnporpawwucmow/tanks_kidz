@@ -9,14 +9,13 @@ var is_rotating: bool = false
 var target_angle: float = 0.0
 
 func smooth_look_at(target_position: Vector2):
-	var direction = target_position - parent.global_position
-	target_angle = direction.angle()
+	target_angle = (target_position - parent.global_position).angle()
 	is_rotating = true
 
 func _process(delta):
 	if is_rotating:
 		# Плавная интерполяция угла
-		parent.rotation = lerp_angle(parent.rotation, target_angle, rotation_speed * delta)
+		parent.rotation = rotate_toward(parent.rotation, target_angle, rotation_speed * delta)
 		
 		# Проверка завершения поворота (с небольшой погрешностью)
 		if abs(parent.rotation - target_angle) < 0.01:
