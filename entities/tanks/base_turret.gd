@@ -31,5 +31,6 @@ func fire():
 	if is_instance_valid(_current_shell) \
 	and is_instance_valid(cannon) \
 	and _current_shell.count_in_turret > 0:
+		$blast_animation.play("blast")
 		cannon.fire()
 		_current_shell.count_in_turret -= 1
