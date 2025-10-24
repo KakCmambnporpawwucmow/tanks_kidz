@@ -1,18 +1,25 @@
-[gd_scene load_steps=5 format=3 uid="uid://c73i8so634xku"]
+[gd_scene load_steps=6 format=3 uid="uid://c73i8so634xku"]
 
 [ext_resource type="Script" uid="uid://cg4llv0d33fgp" path="res://entities/tanks/base_tank.gd" id="1_48o11"]
 [ext_resource type="Texture2D" uid="uid://djnv56ibjh2hh" path="res://assets/graphics/tanks/medium_tank.png" id="2_tnxf0"]
 [ext_resource type="PackedScene" uid="uid://d2ie7t1fstent" path="res://entities/tanks/base_turret.tscn" id="3_aljos"]
 [ext_resource type="PackedScene" uid="uid://c1b5k26ufnqc5" path="res://components/move_component.tscn" id="4_uq7a4"]
 
-[node name="BaseTank" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_48o11"]
+size = Vector2(64, 64)
+
+[node name="BaseTank" type="Area2D"]
 script = ExtResource("1_48o11")
 
 [node name="view" type="Sprite2D" parent="."]
 position = Vector2(220, 709)
 texture = ExtResource("2_tnxf0")
 offset = Vector2(-220, -709)
+flip_v = true
 
 [node name="BaseTurret" parent="." instance=ExtResource("3_aljos")]
 
 [node name="MoveComponent" parent="." instance=ExtResource("4_uq7a4")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_48o11")
