@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://d2ie7t1fstent"]
+[gd_scene load_steps=29 format=3 uid="uid://d2ie7t1fstent"]
 
 [ext_resource type="Script" uid="uid://drvi1adsyy8yy" path="res://entities/tanks/base_turret.gd" id="1_2qrap"]
 [ext_resource type="Texture2D" uid="uid://dvx716tijpoea" path="res://assets/graphics/tanks/tanks_tankTracks4.png" id="2_nmepd"]
@@ -8,6 +8,8 @@
 [ext_resource type="AudioStream" uid="uid://chjirvo6bj5lu" path="res://assets/sounds/explosion.mp3" id="6_ftpc4"]
 [ext_resource type="Texture2D" uid="uid://bwpxgjfhuurq2" path="res://assets/graphics/effects/tank_explosion3.png" id="7_tmqr5"]
 [ext_resource type="Texture2D" uid="uid://bholyr77qn14q" path="res://assets/graphics/effects/smoke_trail.png" id="8_cdy0x"]
+[ext_resource type="Script" uid="uid://djh8uo5nylsuw" path="res://entities/tanks/path_crosshair.gd" id="9_cdy0x"]
+[ext_resource type="Texture2D" uid="uid://dxwekdr11ih5f" path="res://assets/graphics/tanks/crosshair066.png" id="9_tmqr5"]
 
 [sub_resource type="Animation" id="Animation_cc472"]
 length = 0.001
@@ -164,6 +166,12 @@ linear_accel_max = 56.599995
 scale_curve = SubResource("CurveTexture_h0diw")
 scale_over_velocity_curve = SubResource("CurveTexture_latu3")
 
+[sub_resource type="Curve2D" id="Curve2D_cdy0x"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 50, 0, 0, 0, 0, 0, 800, 0)
+}
+point_count = 2
+
 [node name="BaseTurret" type="Node2D"]
 script = ExtResource("1_2qrap")
 
@@ -187,7 +195,7 @@ libraries = {
 stream = ExtResource("6_ftpc4")
 
 [node name="fire" type="GPUParticles2D" parent="."]
-position = Vector2(39, 1)
+position = Vector2(39, 0)
 emitting = false
 amount = 5
 texture = ExtResource("7_tmqr5")
@@ -204,3 +212,16 @@ texture = ExtResource("8_cdy0x")
 lifetime = 0.6
 one_shot = true
 process_material = SubResource("ParticleProcessMaterial_sn1ov")
+
+[node name="path_crosshair" type="Path2D" parent="."]
+curve = SubResource("Curve2D_cdy0x")
+script = ExtResource("9_cdy0x")
+move_speed = 300.0
+auto_follow_mouse = true
+
+[node name="mover_crosshair" type="PathFollow2D" parent="path_crosshair"]
+position = Vector2(50, 0)
+
+[node name="view" type="Sprite2D" parent="path_crosshair/mover_crosshair"]
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("9_tmqr5")
