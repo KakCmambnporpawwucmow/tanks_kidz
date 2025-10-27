@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://drvi1adsyy8yy" path="res://entities/tanks/base_turret.gd" id="1_2qrap"]
 [ext_resource type="Texture2D" uid="uid://dvx716tijpoea" path="res://assets/graphics/tanks/tanks_tankTracks4.png" id="2_nmepd"]
 [ext_resource type="PackedScene" uid="uid://bnbxaeoqkl1wn" path="res://entities/tanks/base_cannon.tscn" id="3_b5kbp"]
-[ext_resource type="PackedScene" uid="uid://c1b5k26ufnqc5" path="res://components/move_component.tscn" id="4_nmepd"]
 [ext_resource type="PackedScene" uid="uid://cgl1dlbqrkxly" path="res://entities/projectiles/bb_shell.tscn" id="5_b5kbp"]
 [ext_resource type="AudioStream" uid="uid://chjirvo6bj5lu" path="res://assets/sounds/explosion.mp3" id="6_ftpc4"]
 [ext_resource type="Texture2D" uid="uid://bwpxgjfhuurq2" path="res://assets/graphics/effects/tank_explosion3.png" id="7_tmqr5"]
 [ext_resource type="Texture2D" uid="uid://bholyr77qn14q" path="res://assets/graphics/effects/smoke_trail.png" id="8_cdy0x"]
 [ext_resource type="Script" uid="uid://djh8uo5nylsuw" path="res://entities/tanks/path_crosshair.gd" id="9_cdy0x"]
 [ext_resource type="Texture2D" uid="uid://dxwekdr11ih5f" path="res://assets/graphics/tanks/crosshair066.png" id="9_tmqr5"]
+[ext_resource type="PackedScene" uid="uid://c412mn85j2jpq" path="res://components/area_move_component.tscn" id="10_cdy0x"]
 
 [sub_resource type="Animation" id="Animation_cc472"]
 length = 0.001
@@ -180,10 +180,9 @@ texture = ExtResource("2_nmepd")
 
 [node name="BaseCannon" parent="." instance=ExtResource("3_b5kbp")]
 
-[node name="MoveComponent" parent="." instance=ExtResource("4_nmepd")]
-
 [node name="shell_bb" parent="." instance=ExtResource("5_b5kbp")]
 visible = false
+physics_material_override = null
 count_in_turret = 20
 
 [node name="blast_animation" type="AnimationPlayer" parent="."]
@@ -225,3 +224,5 @@ position = Vector2(50, 0)
 [node name="view" type="Sprite2D" parent="path_crosshair/mover_crosshair"]
 scale = Vector2(0.3, 0.3)
 texture = ExtResource("9_tmqr5")
+
+[node name="AreaMoveComponent" parent="." instance=ExtResource("10_cdy0x")]

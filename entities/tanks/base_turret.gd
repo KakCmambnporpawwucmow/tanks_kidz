@@ -1,14 +1,14 @@
 extends Node2D
 	
-@export var rotation_speed:float = 2
+@export var rotation_speed:float = 50
 
 @onready var cannon:BaseCannon = $BaseCannon
-@onready var mover:MoveComponent = $MoveComponent
+@onready var mover:BaseMoveComponent = $AreaMoveComponent
 
 var _current_shell:BaseShell = null
 
 func _ready() -> void:
-	mover.rotation_speed = rotation_speed
+	mover.rotation_speed = deg_to_rad(rotation_speed)
 	_current_shell = $shell_bb
 	load_shell()
 

@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1b5k26ufnqc5"]
-
-[ext_resource type="Script" uid="uid://r3xbwc07nafq" path="res://components/move_component.gd" id="1_bbx4t"]
-
-[node name="MoveComponent" type="Node"]
-script = ExtResource("1_bbx4t")
