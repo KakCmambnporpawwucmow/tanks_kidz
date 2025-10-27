@@ -9,7 +9,6 @@ func load_shell(shell:BaseShell):
 	if is_instance_valid(parent):
 		parent.remove_child(shell)
 	_loaded_shell = shell
-	_loaded_shell.visible = true
 
 func fire():
 	if is_instance_valid(_loaded_shell):

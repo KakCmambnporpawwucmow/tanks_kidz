@@ -11,7 +11,7 @@ position = Vector2(20, 0)
 texture = ExtResource("2_8edx3")
 
 [node name="mazzle_from" type="Marker2D" parent="."]
-position = Vector2(39, 0)
+position = Vector2(50, 0)
 
 [node name="mazzle_to" type="Marker2D" parent="."]
-position = Vector2(50, 0)
+position = Vector2(70, 0)
