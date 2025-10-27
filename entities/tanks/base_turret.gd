@@ -17,7 +17,6 @@ func _input(event):
 		mover.smooth_look_at(get_global_mouse_position())
 	if event is InputEventMouseButton and event.is_pressed():
 		fire()
-		load_shell()
 		
 func load_shell():
 	if is_instance_valid(_current_shell) \
@@ -34,3 +33,4 @@ func fire():
 		$blast_animation.play("blast")
 		cannon.fire()
 		_current_shell.count_in_turret -= 1
+		load_shell()
