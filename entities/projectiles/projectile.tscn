@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://cb5lh0m66sxsf"]
+
+[ext_resource type="Script" uid="uid://bclynkkjs5mjj" path="res://entities/projectiles/projectile.gd" id="1_2utaj"]
+[ext_resource type="PackedScene" uid="uid://n5f6cscf40nc" path="res://components/armor_component.tscn" id="3_i4vl8"]
+[ext_resource type="PackedScene" uid="uid://ci10irdq7u6in" path="res://components/health_component.tscn" id="4_vvec8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i7x7j"]
+radius = 8.0
+height = 16.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yhooh"]
+radius = 8.0
+height = 16.0
+
+[node name="Projectile" type="RigidBody2D" node_paths=PackedStringArray("armor_component", "health_component")]
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_2utaj")
+armor_component = NodePath("ArmorComponent")
+health_component = NodePath("HealthComponent")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_i7x7j")
+
+[node name="ArmorComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_i4vl8")]
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmorComponent"]
+shape = SubResource("CapsuleShape2D_yhooh")
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_vvec8")]

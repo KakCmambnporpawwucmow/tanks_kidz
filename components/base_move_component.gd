@@ -47,26 +47,16 @@ func rotate_stop():
 	target_angle = 0
 	is_rotating = false
 	rotation_finished.emit()
-
-func move_forward():
-	start_move_direction = Vector2.UP
-	update_movement_direction()
-	is_moving_straight = true
-	movement_started.emit()
-
-func move_back():
-	start_move_direction = Vector2.DOWN
-	update_movement_direction()
-	is_moving_straight = true
-	movement_started.emit()
-
-func move_stop():
-	is_moving_straight = false
-	movement_stopped.emit()
-
-func move_to_position(target_position: Vector2):
-	smooth_look_at(target_position)
-	move_forward()
+	
+func move(direction:Vector2):
+	if direction != Vector2.ZERO:
+		start_move_direction = direction
+		update_movement_direction()
+		is_moving_straight = true
+		movement_started.emit()
+	else:
+		is_moving_straight = false
+		movement_stopped.emit()
 
 # === Внутренняя логика ===
 func update_movement_direction():

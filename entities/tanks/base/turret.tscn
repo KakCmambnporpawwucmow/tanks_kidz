@@ -1,0 +1,38 @@
+[gd_scene load_steps=8 format=3 uid="uid://dndfuj2pggsg6"]
+
+[ext_resource type="Script" uid="uid://5pjwh8dglf06" path="res://entities/tanks/base/turret.gd" id="1_6hsos"]
+[ext_resource type="Texture2D" uid="uid://dvx716tijpoea" path="res://assets/graphics/tanks/tanks_tankTracks4.png" id="2_2mmuj"]
+[ext_resource type="Texture2D" uid="uid://p0c48yw18unq" path="res://assets/graphics/tanks/tanks_turret1.png" id="3_wosp4"]
+[ext_resource type="PackedScene" uid="uid://und3t0v7d5a8" path="res://entities/projectiles/weapon_system.tscn" id="4_4c8sn"]
+[ext_resource type="PackedScene" uid="uid://c0lru8c5px8xl" path="res://components/base_move_component.tscn" id="5_fykkl"]
+[ext_resource type="Script" uid="uid://bku60ifu8avc3" path="res://entities/tanks/base/smart_crosshair.gd" id="6_txwkl"]
+[ext_resource type="Texture2D" uid="uid://dxwekdr11ih5f" path="res://assets/graphics/tanks/crosshair066.png" id="7_ieolg"]
+
+[node name="Turret" type="Node2D" node_paths=PackedStringArray("mover")]
+script = ExtResource("1_6hsos")
+mover = NodePath("BaseMoveComponent")
+
+[node name="turret" type="Sprite2D" parent="."]
+texture = ExtResource("2_2mmuj")
+
+[node name="cannon" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+texture = ExtResource("3_wosp4")
+centered = false
+
+[node name="WeaponSystem" parent="." instance=ExtResource("4_4c8sn")]
+
+[node name="BaseMoveComponent" parent="." instance=ExtResource("5_fykkl")]
+rotation_speed = 0.8
+move_speed = 0.0
+acceleration = 10.0
+deceleration = 15.0
+
+[node name="CrosshairSprite" type="Sprite2D" parent="."]
+position = Vector2(30, 0)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("7_ieolg")
+script = ExtResource("6_txwkl")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(40, 0)

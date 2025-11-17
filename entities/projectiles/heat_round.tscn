@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwpcipxppj87x"]
+
+[ext_resource type="PackedScene" uid="uid://cb5lh0m66sxsf" path="res://entities/projectiles/projectile.tscn" id="1_7wrv0"]
+[ext_resource type="Texture2D" uid="uid://bxx8b70nmy7hn" path="res://assets/graphics/projectiles/heat_shell.png" id="2_skdsh"]
+
+[node name="Projectile" instance=ExtResource("1_7wrv0")]
+describe = "HEAT"
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_skdsh")

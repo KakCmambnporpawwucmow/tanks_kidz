@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c55aqv4idi2wo"]
+
+[ext_resource type="PackedScene" uid="uid://cb5lh0m66sxsf" path="res://entities/projectiles/projectile.tscn" id="1_lqkrn"]
+[ext_resource type="Texture2D" uid="uid://boht7lhjuayyi" path="res://assets/graphics/projectiles/tank_bullet3.png" id="2_wjolt"]
+
+[node name="Projectile" instance=ExtResource("1_lqkrn")]
+initial_speed = 100.0
+max_travel_distance = 2000.0
+payload_damage = 50.0
+describe = "Missile"
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_wjolt")
