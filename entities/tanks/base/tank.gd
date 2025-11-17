@@ -72,6 +72,7 @@ func _input(event):
 func fire():
 	var success = weapon_system.fire_projectile(current_ammo_type, turret.get_fire_position(), turret.get_fire_direction())
 	if success:
+		turret.fire_effect()
 		print("Fired ", get_ammo_type_name(), " round")
 	else:
 		print("Cannot fire - reloading or out of ammo")

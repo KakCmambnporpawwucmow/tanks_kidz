@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dndfuj2pggsg6"]
+[gd_scene load_steps=17 format=3 uid="uid://dndfuj2pggsg6"]
 
 [ext_resource type="Script" uid="uid://5pjwh8dglf06" path="res://entities/tanks/base/turret.gd" id="1_6hsos"]
 [ext_resource type="Texture2D" uid="uid://dvx716tijpoea" path="res://assets/graphics/tanks/tanks_tankTracks4.png" id="2_2mmuj"]
@@ -7,10 +7,185 @@
 [ext_resource type="PackedScene" uid="uid://c0lru8c5px8xl" path="res://components/base_move_component.tscn" id="5_fykkl"]
 [ext_resource type="Script" uid="uid://bku60ifu8avc3" path="res://entities/tanks/base/smart_crosshair.gd" id="6_txwkl"]
 [ext_resource type="Texture2D" uid="uid://dxwekdr11ih5f" path="res://assets/graphics/tanks/crosshair066.png" id="7_ieolg"]
+[ext_resource type="Texture2D" uid="uid://m38evhpltulw" path="res://assets/graphics/effects/tank_explosion9.png" id="8_741i7"]
+[ext_resource type="AudioStream" uid="uid://d2gewkpow478" path="res://assets/sounds/tank_shot.ogg" id="9_xac3o"]
+[ext_resource type="Texture2D" uid="uid://bwpxgjfhuurq2" path="res://assets/graphics/effects/tank_explosion3.png" id="10_se7ov"]
+
+[sub_resource type="Curve" id="Curve_g66pe"]
+_limits = [0.0, 3.0, 0.0, 1.0]
+_data = [Vector2(0.004608296, 0.2696631), 0.0, 0.0, 0, 0, Vector2(0.99078345, 0.43820238), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_etlhu"]
+curve = SubResource("Curve_g66pe")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v5q8a"]
+particle_flag_disable_z = true
+angle_min = 1.0728835e-05
+angle_max = 67.90001
+inherit_velocity_ratio = 0.105
+spread = 75.315
+initial_velocity_max = 28.31
+gravity = Vector3(100, 0, 0)
+scale_over_velocity_curve = SubResource("CurveTexture_etlhu")
+
+[sub_resource type="Animation" id="Animation_by1jk"]
+resource_name = "fire"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fire/explosion:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("fire/smoke:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("fire/sound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("fire/explosion:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.01, 0.01), Vector2(0.7, 0.7)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("fire/smoke:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_8kq4o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("fire/explosion:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("fire/smoke:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("fire/sound:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("fire/explosion:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.1, 0.1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("fire/smoke:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jf5uq"]
+_data = {
+&"RESET": SubResource("Animation_8kq4o"),
+&"fire": SubResource("Animation_by1jk")
+}
 
 [node name="Turret" type="Node2D" node_paths=PackedStringArray("mover")]
 script = ExtResource("1_6hsos")
 mover = NodePath("BaseMoveComponent")
+
+[node name="fire" type="Node2D" parent="."]
+
+[node name="smoke" type="GPUParticles2D" parent="fire"]
+visible = false
+position = Vector2(40, 0)
+emitting = false
+amount = 5
+texture = ExtResource("8_741i7")
+lifetime = 0.91
+one_shot = true
+speed_scale = 3.3
+explosiveness = 0.49
+process_material = SubResource("ParticleProcessMaterial_v5q8a")
+
+[node name="sound" type="AudioStreamPlayer2D" parent="fire"]
+stream = ExtResource("9_xac3o")
+
+[node name="explosion" type="Sprite2D" parent="fire"]
+position = Vector2(40, 0)
+scale = Vector2(0.009999998, 0.009999998)
+texture = ExtResource("10_se7ov")
 
 [node name="turret" type="Sprite2D" parent="."]
 texture = ExtResource("2_2mmuj")
@@ -35,4 +210,10 @@ texture = ExtResource("7_ieolg")
 script = ExtResource("6_txwkl")
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(40, 0)
+position = Vector2(50, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+active = false
+libraries = {
+&"": SubResource("AnimationLibrary_jf5uq")
+}

@@ -7,7 +7,6 @@ class_name Turret
 @export var movement_threshold: float = 10.0  # Порог скорости для рассеивания
 @export var static_spread:int = 150
 
-
 var current_aim_position: Vector2 = Vector2.ZERO
 var is_moving: bool = false
 var last_position: Vector2 = Vector2.ZERO
@@ -17,6 +16,7 @@ var last_position: Vector2 = Vector2.ZERO
 func _ready() -> void:
 	assert(mover != null, "Turret: BaseMoveComponent must be assigned")
 	last_position = global_position
+	$AnimationPlayer.active = true
 
 func _process(delta):
 	check_movement()
@@ -38,8 +38,12 @@ func get_fire_direction() -> Vector2:
 	var current_spread = static_spread * aim.get_spread_norm()
 	var spread_position = aim.global_position + Vector2(randf_range(-current_spread, current_spread), randf_range(-current_spread, current_spread))
 	print("Curr spread {0}, spread_position {1}, aim.global_position {2}".format([current_spread, spread_position, aim.global_position]))
+	
 	return (spread_position - global_position).normalized()
 
 # Получить позицию выстрела (может быть немного случайной для реализма)
 func get_fire_position() -> Vector2:
 	return $Marker2D.global_position
+	
+func fire_effect():
+	$AnimationPlayer.play("fire")
