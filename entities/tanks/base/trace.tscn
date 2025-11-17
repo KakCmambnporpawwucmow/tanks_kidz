@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgibaxsnf2b5j"]
+
+[ext_resource type="Script" uid="uid://d0dwo2nmtmjx8" path="res://entities/tanks/base/trace.gd" id="1_rny71"]
+[ext_resource type="Texture2D" uid="uid://k7u3s0x3a6rx" path="res://assets/graphics/tanks/tracksLarge.png" id="2_dc447"]
+
+[node name="trace" type="Line2D"]
+script = ExtResource("1_rny71")
+trail_texture = ExtResource("2_dc447")
+point_spacing = 25.0
+fade_timer = 0.3
+trail_width = 70.0

@@ -1,6 +1,8 @@
 # tank.gd
 extends Area2D
 
+class_name Tank
+
 @export_group("Components")
 @export var turret: Turret = null
 @export var move_component: BaseMoveComponent = null
@@ -32,6 +34,8 @@ func _ready():
 		if armor_component:
 			armor_component.armor_penetrated.connect(_on_armor_penetrated.bind(armor_component))
 			armor_component.armor_ricochet.connect(_on_armor_ricochet.bind(armor_component))
+			
+	$engine.playing = true
 
 func _input(event):
 	# Управление движением танка

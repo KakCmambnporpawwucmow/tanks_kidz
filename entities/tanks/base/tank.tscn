@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://15pucv5g7w3p"]
+[gd_scene load_steps=18 format=3 uid="uid://15pucv5g7w3p"]
 
 [ext_resource type="Script" uid="uid://jxqce0b0d6hr" path="res://entities/tanks/base/tank.gd" id="1_6u466"]
 [ext_resource type="Texture2D" uid="uid://ol82tm8544cy" path="res://assets/graphics/tanks/heavy_tank.png" id="2_ciwkk"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bwpcipxppj87x" path="res://entities/projectiles/heat_round.tscn" id="9_fjw05"]
 [ext_resource type="PackedScene" uid="uid://dlq2qdqk1qn31" path="res://entities/projectiles/he_round.tscn" id="10_1jco5"]
 [ext_resource type="PackedScene" uid="uid://c55aqv4idi2wo" path="res://entities/projectiles/missile.tscn" id="11_oyii4"]
+[ext_resource type="AudioStream" uid="uid://dl2kom5a1lqtm" path="res://assets/sounds/tractor-digs-a-hole.ogg" id="12_pu3tq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ym7oc"]
 
@@ -50,6 +51,32 @@ rotation_speed = 1.5
 move_speed = 200.0
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_raro8")]
+
+[node name="WeaponSystem" parent="." node_paths=PackedStringArray("ap_round", "he_round", "heat_round", "missile_round") instance=ExtResource("7_ym7oc")]
+ap_round = NodePath("ap")
+he_round = NodePath("he")
+heat_round = NodePath("heat")
+missile_round = NodePath("missile")
+
+[node name="ap" parent="WeaponSystem" instance=ExtResource("8_p8ptd")]
+visible = false
+contact_monitor = false
+max_contacts_reported = 0
+
+[node name="heat" parent="WeaponSystem" instance=ExtResource("9_fjw05")]
+visible = false
+contact_monitor = false
+max_contacts_reported = 0
+
+[node name="he" parent="WeaponSystem" instance=ExtResource("10_1jco5")]
+visible = false
+contact_monitor = false
+max_contacts_reported = 0
+
+[node name="missile" parent="WeaponSystem" instance=ExtResource("11_oyii4")]
+visible = false
+contact_monitor = false
+max_contacts_reported = 0
 
 [node name="front_armor" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_jmxtk")]
 thickness = 100.0
@@ -91,28 +118,8 @@ health_component = NodePath("../HealthComponent")
 position = Vector2(0, 20)
 shape = SubResource("RectangleShape2D_1jco5")
 
-[node name="WeaponSystem" parent="." node_paths=PackedStringArray("ap_round", "he_round", "heat_round", "missile_round") instance=ExtResource("7_ym7oc")]
-ap_round = NodePath("ap")
-he_round = NodePath("he")
-heat_round = NodePath("heat")
-missile_round = NodePath("missile")
-
-[node name="ap" parent="WeaponSystem" instance=ExtResource("8_p8ptd")]
-visible = false
-contact_monitor = false
-max_contacts_reported = 0
-
-[node name="heat" parent="WeaponSystem" instance=ExtResource("9_fjw05")]
-visible = false
-contact_monitor = false
-max_contacts_reported = 0
-
-[node name="he" parent="WeaponSystem" instance=ExtResource("10_1jco5")]
-visible = false
-contact_monitor = false
-max_contacts_reported = 0
-
-[node name="missile" parent="WeaponSystem" instance=ExtResource("11_oyii4")]
-visible = false
-contact_monitor = false
-max_contacts_reported = 0
+[node name="engine" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_pu3tq")
+volume_db = -7.172
+pitch_scale = 0.78
+parameters/looping = true
