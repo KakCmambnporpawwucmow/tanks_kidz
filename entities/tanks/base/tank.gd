@@ -16,6 +16,8 @@ class_name Tank
 @export var right_armor: ArmorComponent = null
 
 var current_ammo_type: WeaponSystem.ProjectileType = WeaponSystem.ProjectileType.AP
+var is_move:bool = false
+var is_rotate:bool = false
 
 func _ready():
 	assert(turret != null, "Tank: Turret must be assigned")
@@ -41,23 +43,36 @@ func _input(event):
 	# Управление движением танка
 	if event.is_action_pressed("move_forward"):
 		move_component.move(Vector2.RIGHT)
+		is_move = true
+		$engine.pitch_scale = 1.5
 	elif event.is_action_released("move_forward"):
 		move_component.move(Vector2.ZERO)
+		is_move = false
 	
 	if event.is_action_pressed("move_backward"):
 		move_component.move(Vector2.LEFT)
+		is_move = true
 	elif event.is_action_released("move_backward"):
 		move_component.move(Vector2.ZERO)
+		is_move = false
 	
 	if event.is_action_pressed("rotate_left"):
 		move_component.rotate_left()
+		is_rotate = true
 	elif event.is_action_released("rotate_left"):
 		move_component.rotate_stop()
+		is_rotate = false
 	
 	if event.is_action_pressed("rotate_right"):
 		move_component.rotate_right()
+		is_rotate = true
 	elif event.is_action_released("rotate_right"):
 		move_component.rotate_stop()
+		is_rotate = false
+	if is_move || is_rotate:
+		$engine.pitch_scale = 1.5
+	else:
+		$engine.pitch_scale = 1.0
 	
 	# Управление стрельбой и боеприпасами
 	if event.is_action_pressed("fire"):

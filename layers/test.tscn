@@ -9,3 +9,5 @@
 tank = NodePath("../Tank")
 
 [node name="Tank" parent="." instance=ExtResource("1_oifa8")]
+
+[node name="ui_intercept" type="Node2D" parent="."]
