@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://btn1t3i446gl0"]
+[gd_scene load_steps=4 format=3 uid="uid://btn1t3i446gl0"]
 
 [ext_resource type="PackedScene" uid="uid://15pucv5g7w3p" path="res://entities/tanks/base/tank.tscn" id="1_oifa8"]
 [ext_resource type="PackedScene" uid="uid://dgibaxsnf2b5j" path="res://entities/tanks/base/trace.tscn" id="2_xdo3h"]
+[ext_resource type="PackedScene" uid="uid://bvdf70d445trs" path="res://command/command_producer.tscn" id="3_i5ewn"]
 
 [node name="TestTank" type="Node2D"]
 
@@ -9,5 +10,10 @@
 tank = NodePath("../Tank")
 
 [node name="Tank" parent="." instance=ExtResource("1_oifa8")]
+position = Vector2(305, 181)
 
-[node name="ui_intercept" type="Node2D" parent="."]
+[node name="Tank2" parent="." instance=ExtResource("1_oifa8")]
+position = Vector2(645, 345)
+
+[node name="command_producer" parent="." node_paths=PackedStringArray("tank") instance=ExtResource("3_i5ewn")]
+tank = NodePath("../Tank")

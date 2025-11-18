@@ -15,6 +15,8 @@ class_name Tank
 @export var left_armor: ArmorComponent = null
 @export var right_armor: ArmorComponent = null
 
+enum ERotate{LEFT, RIGHT, STOP}
+
 var current_ammo_type: WeaponSystem.ProjectileType = WeaponSystem.ProjectileType.AP
 var is_move:bool = false
 var is_rotate:bool = false
@@ -39,55 +41,34 @@ func _ready():
 			
 	$engine.playing = true
 
-func _input(event):
-	# Управление движением танка
-	if event.is_action_pressed("move_forward"):
-		move_component.move(Vector2.RIGHT)
-		is_move = true
-		$engine.pitch_scale = 1.5
-	elif event.is_action_released("move_forward"):
-		move_component.move(Vector2.ZERO)
-		is_move = false
+func proc_command(command:Command):
+	command.execute(self)
+
+func move(dir:Vector2):
+	move_component.move(dir)
+	is_move = true if dir != Vector2.ZERO else false
 	
-	if event.is_action_pressed("move_backward"):
-		move_component.move(Vector2.LEFT)
-		is_move = true
-	elif event.is_action_released("move_backward"):
-		move_component.move(Vector2.ZERO)
-		is_move = false
-	
-	if event.is_action_pressed("rotate_left"):
-		move_component.rotate_left()
-		is_rotate = true
-	elif event.is_action_released("rotate_left"):
-		move_component.rotate_stop()
-		is_rotate = false
-	
-	if event.is_action_pressed("rotate_right"):
-		move_component.rotate_right()
-		is_rotate = true
-	elif event.is_action_released("rotate_right"):
-		move_component.rotate_stop()
-		is_rotate = false
 	if is_move || is_rotate:
 		$engine.pitch_scale = 1.5
 	else:
 		$engine.pitch_scale = 1.0
-	
-	# Управление стрельбой и боеприпасами
-	if event.is_action_pressed("fire"):
-		fire()
-	
-	if event.is_action_pressed("ammo_ap"):
-		switch_ammo_type(WeaponSystem.ProjectileType.AP)
-	elif event.is_action_pressed("ammo_he"):
-		switch_ammo_type(WeaponSystem.ProjectileType.HE)
-	elif event.is_action_pressed("ammo_heat"):
-		switch_ammo_type(WeaponSystem.ProjectileType.HEAT)
-	elif event.is_action_pressed("ammo_missile"):
-		switch_ammo_type(WeaponSystem.ProjectileType.MISSILE)
 		
-# В метод fire() танка
+func rotating(rotate:ERotate):
+	match rotate:
+		ERotate.LEFT:
+			move_component.rotate_left()
+			is_rotate = true
+		ERotate.RIGHT:
+			move_component.rotate_right()
+			is_rotate = true
+		ERotate.STOP:
+			move_component.rotate_stop()
+			is_rotate = false
+	if is_move || is_rotate:
+		$engine.pitch_scale = 1.5
+	else:
+		$engine.pitch_scale = 1.0
+
 func fire():
 	var success = weapon_system.fire_projectile(current_ammo_type, turret.get_fire_position(), turret.get_fire_direction())
 	if success:
@@ -96,6 +77,13 @@ func fire():
 	else:
 		print("Cannot fire - reloading or out of ammo")
 
+func switch_ammo_type(new_type: WeaponSystem.ProjectileType):
+	if weapon_system.get_remaining_ammo(new_type) > 0:
+		current_ammo_type = new_type
+		print("Switched to: ", get_ammo_type_name())
+	else:
+		print("Cannot switch to ", weapon_system.get_projectile_name(new_type), " - out of ammo")
+		
 # Новый метод для получения полной информации о точности
 func get_accuracy_info() -> Dictionary:
 	#var spread_info = turret.get_spread_info()
@@ -105,17 +93,10 @@ func get_accuracy_info() -> Dictionary:
 		#"spread_percentage": spread_info.spread_percentage,
 		#"spread_angle": spread_info.spread_angle,
 		#"accuracy": spread_info.accuracy,
-		#"is_moving": spread_info.is_moving,
+		"is_move": is_move,
 		"is_fully_accurate": turret.is_fully_accurate(),
 		"health_effect": health_status.health_percentage  # Здоровье может влиять на точность
 	}
-
-func switch_ammo_type(new_type: WeaponSystem.ProjectileType):
-	if weapon_system.get_remaining_ammo(new_type) > 0:
-		current_ammo_type = new_type
-		print("Switched to: ", get_ammo_type_name())
-	else:
-		print("Cannot switch to ", weapon_system.get_projectile_name(new_type), " - out of ammo")
 
 func get_ammo_type_name() -> String:
 	return weapon_system.get_projectile_name(current_ammo_type)
