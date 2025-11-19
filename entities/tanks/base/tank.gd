@@ -83,7 +83,10 @@ func switch_ammo_type(new_type: WeaponSystem.ProjectileType):
 		print("Switched to: ", get_ammo_type_name())
 	else:
 		print("Cannot switch to ", weapon_system.get_projectile_name(new_type), " - out of ammo")
-		
+
+func rotating_turret_to(position:Vector2):
+	turret.update_position(position)
+
 # Новый метод для получения полной информации о точности
 func get_accuracy_info() -> Dictionary:
 	#var spread_info = turret.get_spread_info()

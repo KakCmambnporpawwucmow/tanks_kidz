@@ -10,6 +10,7 @@ class_name Turret
 var current_aim_position: Vector2 = Vector2.ZERO
 var is_moving: bool = false
 var last_position: Vector2 = Vector2.ZERO
+var aim_position: Vector2 = Vector2.ZERO
 
 @onready var aim:Sprite2D = $CrosshairSprite
 
@@ -21,16 +22,11 @@ func _ready() -> void:
 func _process(delta):
 	check_movement()
 
-func _input(event):
-	if event is InputEventMouseMotion:
-		mover.smooth_look_at(get_global_mouse_position())
-		aim.update_position()
-
 func check_movement():
 	# Проверяем движение по изменению позиции
 	if global_position.distance_to(last_position) > movement_threshold:
-		mover.smooth_look_at(get_global_mouse_position())
-		aim.update_position()
+		mover.smooth_look_at(aim_position)
+		aim.update_position(aim_position)
 		last_position = global_position
 
 # Получить направление выстрела с учетом рассеивания
@@ -47,3 +43,8 @@ func get_fire_position() -> Vector2:
 	
 func fire_effect():
 	$AnimationPlayer.play("fire")
+	
+func update_position(position:Vector2):
+	aim_position = position
+	mover.smooth_look_at(aim_position)
+	aim.update_position(aim_position)

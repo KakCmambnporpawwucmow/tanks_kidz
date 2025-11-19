@@ -2,16 +2,17 @@
 class_name TankRotateTurretCommand
 extends Command
 
-var target_angle: float
+var target_pos: Vector2
 
-func init(angle: float) -> void:
-	target_angle = angle
+func init(pos: Vector2) -> Command:
+	target_pos = pos
+	return self
 
 func execute(entity: Node) -> void:
 	if entity is Tank:
-		entity.rotate_turret(target_angle)
+		entity.rotating_turret_to(target_pos)
 
 func serialize() -> Dictionary:
 	var data = super()
-	data["target_angle"] = target_angle
+	data["target_pos"] = target_pos
 	return data

@@ -7,6 +7,7 @@ extends Node2D
 @export var unscale_time: float = 2.0
 var tween_move:Tween = null
 var delta_scale = max_scale.x - min_scale.x
+var last_position:Vector2 = Vector2.ZERO
 
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -24,7 +25,9 @@ func move(distance:int):
 func get_spread_norm()->float:
 	return (scale.x - min_scale.x) / delta_scale
 
-func update_position():
-	var parent = get_parent() as Node2D
-	parent.global_position.distance_to(get_global_mouse_position())
-	move(parent.global_position.distance_to(get_global_mouse_position()))
+func update_position(position:Vector2 = Vector2.ZERO):
+	if position == Vector2.ZERO:
+		position = last_position
+	else:
+		last_position = position
+	move(get_parent().global_position.distance_to(position))

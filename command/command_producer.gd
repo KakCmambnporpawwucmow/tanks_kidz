@@ -7,6 +7,7 @@ var tankMoveCommand:TankMoveCommand = null
 var tankRotateCommand:TankRotateCommand = null
 var tankFireCommand:TankShootCommand = null
 var tankSwitchAmmoCommand:TankSwitchAmmoCommand = null
+var tankRotateTurretCommand:TankRotateTurretCommand = null
 var currentCommand:Command = null
 
 func _ready() -> void:
@@ -14,6 +15,7 @@ func _ready() -> void:
 	tankRotateCommand = TankRotateCommand.new()
 	tankFireCommand = TankShootCommand.new()
 	tankSwitchAmmoCommand = TankSwitchAmmoCommand.new()
+	tankRotateTurretCommand = TankRotateTurretCommand.new()
 
 func _input(event):
 	currentCommand = null
@@ -24,7 +26,8 @@ func _input(event):
 		currentCommand = tankMoveCommand.init(Vector2.LEFT)
 	if event.is_action_released("move_forward") || event.is_action_released("move_backward"):
 		currentCommand = tankMoveCommand.init(Vector2.ZERO)
-	
+		
+	# Управление поворотом
 	if event.is_action_pressed("rotate_left"):
 		currentCommand = tankRotateCommand.init(Tank.ERotate.LEFT)
 	if event.is_action_pressed("rotate_right"):
@@ -32,11 +35,11 @@ func _input(event):
 	if event.is_action_released("rotate_left") || event.is_action_released("rotate_right"):
 		currentCommand = tankRotateCommand.init(Tank.ERotate.STOP)
 	
-	
-	# Управление стрельбой и боеприпасами
+	# Управление стрельбой
 	if event.is_action_pressed("fire"):
 		currentCommand = tankFireCommand
-	
+		
+	# Управление переключением боеприпасов
 	if event.is_action_pressed("ammo_ap"):
 		currentCommand = tankSwitchAmmoCommand.init(WeaponSystem.ProjectileType.AP)
 	elif event.is_action_pressed("ammo_he"):
@@ -45,6 +48,9 @@ func _input(event):
 		currentCommand = tankSwitchAmmoCommand.init(WeaponSystem.ProjectileType.HEAT)
 	elif event.is_action_pressed("ammo_missile"):
 		currentCommand = tankSwitchAmmoCommand.init(WeaponSystem.ProjectileType.MISSILE)
+		
+	if event is InputEventMouseMotion:
+		currentCommand = tankRotateTurretCommand.init(get_global_mouse_position())
 		
 	if currentCommand:
 		tank.proc_command(currentCommand)
