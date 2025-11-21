@@ -16,16 +16,16 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ym7oc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ch0vs"]
-size = Vector2(8, 16)
+size = Vector2(8, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8ptd"]
-size = Vector2(8, 16)
+size = Vector2(3, 29)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fjw05"]
-size = Vector2(64, 8)
+size = Vector2(60, 5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1jco5"]
-size = Vector2(64, 8)
+size = Vector2(60, 5)
 
 [node name="Tank" type="Area2D" node_paths=PackedStringArray("turret", "move_component", "health_component", "weapon_system", "front_armor", "rear_armor", "left_armor", "right_armor")]
 script = ExtResource("1_6u466")
@@ -60,43 +60,46 @@ missile_round = NodePath("missile")
 
 [node name="ap" parent="WeaponSystem" instance=ExtResource("8_p8ptd")]
 visible = false
+freeze = true
 contact_monitor = false
 max_contacts_reported = 0
+show_trajectory = false
 
 [node name="heat" parent="WeaponSystem" instance=ExtResource("9_fjw05")]
 visible = false
+freeze = true
 contact_monitor = false
 max_contacts_reported = 0
 
 [node name="he" parent="WeaponSystem" instance=ExtResource("10_1jco5")]
 visible = false
+freeze = true
 contact_monitor = false
 max_contacts_reported = 0
 
 [node name="missile" parent="WeaponSystem" instance=ExtResource("11_oyii4")]
 visible = false
+freeze = true
 contact_monitor = false
 max_contacts_reported = 0
 
 [node name="front_armor" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_jmxtk")]
 thickness = 100.0
-hardness = 1.5
 min_impact_speed = 30.0
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="front_armor"]
-position = Vector2(28, 0)
+position = Vector2(30, 0.5)
 shape = SubResource("RectangleShape2D_ch0vs")
 
 [node name="back_armor" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_jmxtk")]
 position = Vector2(-56, 0)
 thickness = 20.0
-hardness = 1.0
 min_impact_speed = 30.0
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="back_armor"]
-position = Vector2(28, 0)
+position = Vector2(23, 0.5)
 shape = SubResource("RectangleShape2D_p8ptd")
 
 [node name="left_armor" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_jmxtk")]
@@ -106,7 +109,7 @@ min_impact_speed = 30.0
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="left_armor"]
-position = Vector2(32, -20)
+position = Vector2(27, -17)
 shape = SubResource("RectangleShape2D_fjw05")
 
 [node name="right_armor" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_jmxtk")]
@@ -115,7 +118,7 @@ min_impact_speed = 30.0
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="right_armor"]
-position = Vector2(0, 20)
+position = Vector2(-5, 18)
 shape = SubResource("RectangleShape2D_1jco5")
 
 [node name="engine" type="AudioStreamPlayer2D" parent="."]

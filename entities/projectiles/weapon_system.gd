@@ -59,6 +59,7 @@ func fire_projectile(projectile_type: ProjectileType, position: Vector2, directi
 		return false
 
 	# Создаем копию снаряда и настраиваем
+	projectile.freeze = false
 	if not setup_projectile(projectile, position, direction):
 		projectile.queue_free()
 		return false

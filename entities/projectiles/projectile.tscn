@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cb5lh0m66sxsf"]
+[gd_scene load_steps=11 format=3 uid="uid://cb5lh0m66sxsf"]
 
 [ext_resource type="Script" uid="uid://bclynkkjs5mjj" path="res://entities/projectiles/projectile.gd" id="1_2utaj"]
 [ext_resource type="PackedScene" uid="uid://n5f6cscf40nc" path="res://components/armor_component.tscn" id="3_i4vl8"]
+[ext_resource type="Texture2D" uid="uid://dgl7l0bkqvwfp" path="res://assets/graphics/ui/tank_arrowFull.png" id="4_n3d54"]
 [ext_resource type="PackedScene" uid="uid://ci10irdq7u6in" path="res://components/health_component.tscn" id="4_vvec8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i7x7j"]
@@ -11,6 +12,71 @@ height = 16.0
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yhooh"]
 radius = 8.0
 height = 16.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_eyncd"]
+font_size = 21
+font_color = Color(0.03137255, 0.023529412, 0.02745098, 1)
+outline_size = 3
+
+[sub_resource type="Animation" id="Animation_eyncd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PenetrationMarker:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PenetrationMarker:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_n3d54"]
+resource_name = "view_damage"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PenetrationMarker:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PenetrationMarker:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5990576, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.003921569)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k64t1"]
+_data = {
+&"RESET": SubResource("Animation_eyncd"),
+&"view_damage": SubResource("Animation_n3d54")
+}
 
 [node name="Projectile" type="RigidBody2D" node_paths=PackedStringArray("armor_component", "health_component")]
 gravity_scale = 0.0
@@ -22,15 +88,42 @@ health_component = NodePath("HealthComponent")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="view" type="Sprite2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_i7x7j")
 
 [node name="ArmorComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_i4vl8")]
+payload_damage = 30.0
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArmorComponent"]
 shape = SubResource("CapsuleShape2D_yhooh")
 
 [node name="HealthComponent" parent="." instance=ExtResource("4_vvec8")]
+max_health = 10.0
+auto_destroy_on_death = false
+
+[node name="PenetrationMarker" type="Sprite2D" parent="."]
+position = Vector2(-50, 0)
+scale = Vector2(0.6153846, 0.5)
+texture = ExtResource("4_n3d54")
+
+[node name="Label" type="Label" parent="PenetrationMarker"]
+offset_left = -13.000001
+offset_top = -16.0
+offset_right = 39.000004
+offset_bottom = 16.0
+label_settings = SubResource("LabelSettings_eyncd")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_k64t1")
+}
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="damage_done" from="ArmorComponent" to="." method="_on_armor_component_damage_done"]
+[connection signal="death" from="HealthComponent" to="." method="on_death"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

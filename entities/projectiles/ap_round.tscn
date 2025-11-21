@@ -5,9 +5,7 @@
 
 [node name="Projectile" instance=ExtResource("1_77q60")]
 initial_speed = 500.0
-max_travel_distance = 1500.0
-payload_damage = 10.0
 describe = "Armor-Piercing"
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="view" parent="." index="1"]
 texture = ExtResource("2_5ev53")
