@@ -34,6 +34,9 @@ func _process(delta):
 		timer = 0.0
 
 func add_trail_points():
+	if not is_instance_valid(tank):
+		queue_free()
+		return
 	var current_pos = tank.global_position
 	
 	# Добавляем точку если уехали достаточно далеко или это первая точка
