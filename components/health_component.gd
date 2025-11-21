@@ -9,7 +9,7 @@ var current_health: float
 var is_alive: bool = true
 
 signal health_changed(new_health: float)
-signal damage_taken(source: Node, amount: float)  # Теперь сначала source, потом amount
+signal damage_taken(amount: float, source: Node)  # Теперь сначала source, потом amount
 signal death()
 signal low_health(health_percentage: float)
 
@@ -24,7 +24,7 @@ func take_damage(amount: float, source: Node = null):
 	current_health = max(0, current_health - amount)
 	
 	health_changed.emit(current_health)
-	damage_taken.emit(source, amount)  # Сначала source, потом amount
+	damage_taken.emit(amount, source)  # Сначала source, потом amount
 	
 	# Проверка критического здоровья
 	if current_health <= max_health * 0.3 and old_health > max_health * 0.3:

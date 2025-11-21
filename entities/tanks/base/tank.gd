@@ -116,10 +116,10 @@ func reload_all_ammo():
 
 # Методы для обработки здоровья
 func _on_health_changed(new_health: float):
-	print("Tank health: ", new_health, "/", health_component.max_health)
+	print("Tank {0} health: {1} / {2}".format([name, new_health, health_component.max_health]))
 
 func _on_damage_taken(amount: float, source: Node):
-	print("Tank took ", amount, " damage from ", source.name if source else "unknown")
+	print("Tank {0} took {1}, damage from {2}".format([name, amount, source.name if source else "unknown"]))
 
 func _on_death():
 	print("Tank destroyed!")
@@ -128,7 +128,7 @@ func _on_death():
 # Методы для обработки брони
 func _on_armor_penetrated(penetrator: ArmorComponent, total_damage: float, armor_component: ArmorComponent):
 	var armor_location = get_armor_location_name(armor_component)
-	print("Tank ", armor_location, " armor penetrated! Damage: ", total_damage)
+	print("Tank {0}, {1} armor penetrated! Damage: {2}".format([name, armor_location, total_damage]))
 	create_armor_penetration_effects(armor_location)
 
 func _on_armor_ricochet(hit_angle: float, armor_component: ArmorComponent):
