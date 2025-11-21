@@ -9,10 +9,6 @@ var tween_move:Tween = null
 var delta_scale = max_scale.x - min_scale.x
 var last_position:Vector2 = Vector2.ZERO
 
-func _input(event):
-	if event is InputEventMouseMotion:
-		update_position()
-
 func move(distance:int):
 	if tween_move != null && tween_move.is_valid():
 		tween_move.kill()

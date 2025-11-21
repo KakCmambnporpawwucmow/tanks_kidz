@@ -124,6 +124,7 @@ libraries = {
 }
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="armor_ricochet" from="ArmorComponent" to="." method="_on_armor_component_armor_ricochet"]
 [connection signal="damage_done" from="ArmorComponent" to="." method="_on_armor_component_damage_done"]
 [connection signal="death" from="HealthComponent" to="." method="on_death"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

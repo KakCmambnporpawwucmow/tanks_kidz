@@ -19,12 +19,19 @@ var _start_position: Vector2
 var _distance_traveled: float = 0.0
 var _original_direction: Vector2  # Исходное направление без рассеивания
 var _damage:int = 0
+var _owner_tank:Tank = null
 
 func _ready():
 	assert(armor_component != null, "Projectile: ArmorComponent must be assigned")
 	assert(health_component != null, "Projectile: HealthComponent must be assigned")
 	$PenetrationMarker.visible = false
 	
+func set_owner_tank(tank:Tank):
+	_owner_tank = tank
+	
+func get_owner_tank()->Tank:
+	return _owner_tank
+
 func set_damage(damage:int):
 	_damage = damage
 	
@@ -75,3 +82,7 @@ func _on_armor_component_damage_done(damage: int) -> void:
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
+
+func _on_armor_component_armor_ricochet(hit_angle: float) -> void:
+	#linear_velocity = linear_velocity * hit_angle
+	pass

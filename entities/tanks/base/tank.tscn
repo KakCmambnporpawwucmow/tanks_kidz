@@ -59,26 +59,22 @@ heat_round = NodePath("heat")
 missile_round = NodePath("missile")
 
 [node name="ap" parent="WeaponSystem" instance=ExtResource("8_p8ptd")]
-visible = false
 freeze = true
 contact_monitor = false
 max_contacts_reported = 0
 show_trajectory = false
 
 [node name="heat" parent="WeaponSystem" instance=ExtResource("9_fjw05")]
-visible = false
 freeze = true
 contact_monitor = false
 max_contacts_reported = 0
 
 [node name="he" parent="WeaponSystem" instance=ExtResource("10_1jco5")]
-visible = false
 freeze = true
 contact_monitor = false
 max_contacts_reported = 0
 
 [node name="missile" parent="WeaponSystem" instance=ExtResource("11_oyii4")]
-visible = false
 freeze = true
 contact_monitor = false
 max_contacts_reported = 0
