@@ -59,7 +59,6 @@ heat_round = NodePath("heat")
 missile_round = NodePath("missile")
 
 [node name="ap" parent="WeaponSystem" instance=ExtResource("8_p8ptd")]
-freeze = true
 contact_monitor = false
 max_contacts_reported = 0
 show_trajectory = false
@@ -119,5 +118,5 @@ shape = SubResource("RectangleShape2D_1jco5")
 
 [node name="engine" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("12_pu3tq")
-volume_db = -7.172
+volume_db = -22.209
 parameters/looping = true
