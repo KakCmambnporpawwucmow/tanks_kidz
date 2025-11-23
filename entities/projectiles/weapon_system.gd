@@ -59,7 +59,6 @@ func fire_projectile(projectile_type: ProjectileType, position: Vector2, directi
 		return false
 
 	# Создаем копию снаряда и настраиваем
-	projectile.freeze = false
 	if not setup_projectile(projectile, position, direction):
 		projectile.queue_free()
 		return false
@@ -85,7 +84,6 @@ func setup_projectile(projectile: Projectile, position: Vector2, direction: Vect
 		return false
 	projectile.visible = true
 	parent.add_child(projectile)
-	
 	# АКТИВИРУЕМ снаряд после добавления в сцену
 	projectile.activate(position, direction)
 	
