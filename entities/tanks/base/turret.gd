@@ -33,9 +33,7 @@ func check_movement():
 func get_fire_direction() -> Vector2:
 	var current_spread = static_spread * aim.get_spread_norm()
 	var spread_position = aim.global_position + Vector2(randf_range(-current_spread, current_spread), randf_range(-current_spread, current_spread))
-	print("Curr spread {0}, spread_position {1}, aim.global_position {2}".format([current_spread, spread_position, aim.global_position]))
-	
-	return (spread_position - global_position).normalized()
+	return $Marker2D.global_position.direction_to(spread_position).normalized()
 
 # Получить позицию выстрела (может быть немного случайной для реализма)
 func get_fire_position() -> Vector2:

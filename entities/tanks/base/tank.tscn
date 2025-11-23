@@ -45,6 +45,7 @@ shape = SubResource("RectangleShape2D_ym7oc")
 texture = ExtResource("2_ciwkk")
 
 [node name="Turret" parent="." instance=ExtResource("3_raro8")]
+static_spread = 50
 
 [node name="AreaMoveComponent" parent="." instance=ExtResource("4_jmxtk")]
 rotation_speed = 1.5
