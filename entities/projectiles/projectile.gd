@@ -47,10 +47,6 @@ func activate(fire_position: Vector2, fire_direction: Vector2):
 	if show_trajectory and Engine.is_editor_hint():
 		draw_trajectory_debug()
 
-func _physics_process(delta):
-	if linear_velocity < _original_direction * 200:
-		on_death()
-
 func on_death():
 	set_physics_process(false)
 	linear_velocity = Vector2.ZERO
