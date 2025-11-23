@@ -13,6 +13,7 @@ var last_position: Vector2 = Vector2.ZERO
 var aim_position: Vector2 = Vector2.ZERO
 
 @onready var aim:Sprite2D = $CrosshairSprite
+@onready var mark:Marker2D = $Marker2D
 
 func _ready() -> void:
 	assert(mover != null, "Turret: BaseMoveComponent must be assigned")
@@ -31,13 +32,22 @@ func check_movement():
 
 # Получить направление выстрела с учетом рассеивания
 func get_fire_direction() -> Vector2:
+	var distance_to_aim = global_position.distance_to(aim.global_position)
+	var distance_to_mark = global_position.distance_to(mark.global_position)
+	# Не стреляем если есть риск попасть по себе
+	if distance_to_mark > distance_to_aim:
+		return Vector2.ZERO
+		
 	var current_spread = static_spread * aim.get_spread_norm()
 	var spread_position = aim.global_position + Vector2(randf_range(-current_spread, current_spread), randf_range(-current_spread, current_spread))
-	return $Marker2D.global_position.direction_to(spread_position).normalized()
+	# При стрельбе вупор рассеивание не играет роли, убираем его.
+	if distance_to_aim < distance_to_mark * 2:
+		spread_position = aim.global_position
+	return mark.global_position.direction_to(spread_position).normalized()
 
 # Получить позицию выстрела (может быть немного случайной для реализма)
 func get_fire_position() -> Vector2:
-	return $Marker2D.global_position
+	return mark.global_position
 	
 func fire_effect():
 	$AnimationPlayer.play("fire")
