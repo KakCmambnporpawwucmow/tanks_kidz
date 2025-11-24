@@ -52,5 +52,5 @@ func _input(event):
 	if event is InputEventMouseMotion:
 		currentCommand = tankRotateTurretCommand.init(get_global_mouse_position())
 		
-	if currentCommand:
+	if currentCommand and is_instance_valid(tank):
 		tank.proc_command(currentCommand)
