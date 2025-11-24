@@ -120,10 +120,6 @@ func _apply_movement(movement: Vector2):
 	"""Применяет движение - переопределить в дочерних классах"""
 	parent.position += movement
 
-func _stop_physics_body():
-	"""Останавливает физическое тело - переопределить при необходимости"""
-	pass
-
 # === Публичные методы ===
 func get_current_direction() -> Vector2:
 	return move_direction
@@ -133,12 +129,3 @@ func get_current_speed() -> float:
 
 func is_moving() -> bool:
 	return is_moving_straight and current_velocity.length_squared() > 0.1
-
-func set_movement_speed(speed: float):
-	move_speed = speed
-
-func set_rotation_speed(speed: float):
-	rotation_speed = speed
-
-func get_forward_direction() -> Vector2:
-	return Vector2.UP.rotated(parent.global_rotation)
