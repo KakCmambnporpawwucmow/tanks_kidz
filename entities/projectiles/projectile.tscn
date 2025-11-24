@@ -1,15 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://cb5lh0m66sxsf"]
+[gd_scene load_steps=9 format=3 uid="uid://cb5lh0m66sxsf"]
 
 [ext_resource type="Script" uid="uid://bclynkkjs5mjj" path="res://entities/projectiles/projectile.gd" id="1_2utaj"]
-[ext_resource type="PackedScene" uid="uid://n5f6cscf40nc" path="res://components/armor_component.tscn" id="3_i4vl8"]
 [ext_resource type="Texture2D" uid="uid://dgl7l0bkqvwfp" path="res://assets/graphics/ui/tank_arrowFull.png" id="4_n3d54"]
-[ext_resource type="PackedScene" uid="uid://ci10irdq7u6in" path="res://components/health_component.tscn" id="4_vvec8"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yjiti"]
+bounce = 1.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i7x7j"]
-radius = 8.0
-height = 16.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yhooh"]
 radius = 8.0
 height = 16.0
 
@@ -78,31 +75,21 @@ _data = {
 &"view_damage": SubResource("Animation_n3d54")
 }
 
-[node name="Projectile" type="RigidBody2D" node_paths=PackedStringArray("armor_component", "health_component")]
+[node name="Projectile" type="RigidBody2D"]
+z_index = 2
+physics_material_override = SubResource("PhysicsMaterial_yjiti")
 gravity_scale = 0.0
+lock_rotation = true
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_2utaj")
-armor_component = NodePath("ArmorComponent")
-health_component = NodePath("HealthComponent")
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-
-[node name="view" type="Sprite2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_i7x7j")
 
-[node name="ArmorComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_i4vl8")]
-payload_damage = 30.0
-health_component = NodePath("../HealthComponent")
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ArmorComponent"]
-shape = SubResource("CapsuleShape2D_yhooh")
-
-[node name="HealthComponent" parent="." instance=ExtResource("4_vvec8")]
-max_health = 10.0
-auto_destroy_on_death = false
+[node name="view" type="Sprite2D" parent="."]
 
 [node name="PenetrationMarker" type="Sprite2D" parent="."]
 position = Vector2(-50, 0)
@@ -123,8 +110,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_k64t1")
 }
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
-[connection signal="armor_ricochet" from="ArmorComponent" to="." method="_on_armor_component_armor_ricochet"]
-[connection signal="damage_done" from="ArmorComponent" to="." method="_on_armor_component_damage_done"]
-[connection signal="death" from="HealthComponent" to="." method="on_death"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -5,9 +5,9 @@
 
 [node name="Projectile" instance=ExtResource("1_lqkrn")]
 initial_speed = 100.0
-max_travel_distance = 2000.0
-payload_damage = 50.0
 describe = "Missile"
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="view" parent="." index="2"]
+position = Vector2(-3.9999998, 0)
+scale = Vector2(0.6315789, 0.61538464)
 texture = ExtResource("2_wjolt")
