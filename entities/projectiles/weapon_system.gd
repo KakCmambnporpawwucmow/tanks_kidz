@@ -10,10 +10,10 @@ enum ProjectileType {
 }
 
 @export_group("Projectile Instances")
-@export var ap_round: Projectile = null
-@export var he_round: Projectile = null
-@export var heat_round: Projectile = null
-@export var missile_round: Projectile = null
+@export var ap_round: PackedScene = null
+@export var he_round: PackedScene = null
+@export var heat_round: PackedScene = null
+@export var missile_round: PackedScene = null
 
 @export_group("Spawn Settings")
 @export var projectiles_parent: Node = null
@@ -28,10 +28,11 @@ enum ProjectileType {
 @export var initial_missile_rounds: int = 2
 
 class ProjectileState:
-	var projectile:Projectile = null
+	var projectile:PackedScene = null
 	var count:int = 0
 	var max_load:int = 0
-	func _init(_projectile:Projectile, _count:int) -> void:
+	var desc:String
+	func _init(_projectile:PackedScene, _count:int, _desc:String) -> void:
 		projectile = _projectile
 		count = _count
 		max_load = _count
@@ -42,10 +43,10 @@ var last_reload_time: int = 0
 
 func _ready():
 	# Инициализация боеприпасов из настроек редактора
-	projectile_storage[ProjectileType.AP] = ProjectileState.new(ap_round, initial_ap_rounds)
-	projectile_storage[ProjectileType.HE] = ProjectileState.new(he_round, initial_he_rounds)
-	projectile_storage[ProjectileType.HEAT] = ProjectileState.new(heat_round, initial_heat_rounds)
-	projectile_storage[ProjectileType.MISSILE] = ProjectileState.new(missile_round, initial_missile_rounds)
+	projectile_storage[ProjectileType.AP] = ProjectileState.new(ap_round, initial_ap_rounds, "AP")
+	projectile_storage[ProjectileType.HE] = ProjectileState.new(he_round, initial_he_rounds, "HE")
+	projectile_storage[ProjectileType.HEAT] = ProjectileState.new(heat_round, initial_heat_rounds, "HEAT")
+	projectile_storage[ProjectileType.MISSILE] = ProjectileState.new(missile_round, initial_missile_rounds, "MISSILE")
 	print("WeaponSystem initialized")
 
 # Основные методы стрельбы
@@ -73,7 +74,7 @@ func fire_projectile(projectile_type: ProjectileType, position: Vector2, directi
 
 func get_projectile_instance(projectile_type: ProjectileType) -> Projectile:
 	if projectile_storage[projectile_type].projectile != null:
-		return projectile_storage[projectile_type].projectile.duplicate()
+		return projectile_storage[projectile_type].projectile.instantiate()
 	return null
 
 func setup_projectile(projectile: Projectile, position: Vector2, direction: Vector2) -> bool:
@@ -125,5 +126,5 @@ func reload_ammo(projectile_type: ProjectileType, amount: int)->int:
 func get_projectile_name(projectile_type: ProjectileType) -> String:
 	var proj_state:ProjectileState = get_projectile_state(projectile_type)
 	if proj_state != null:
-		return proj_state.projectile.describe
+		return proj_state.desc
 	return "Unknown"
