@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://n5f6cscf40nc"]
+[gd_scene load_steps=3 format=3 uid="uid://n5f6cscf40nc"]
 
 [ext_resource type="Script" uid="uid://xnuuo8tt3xwh" path="res://components/armor_component.gd" id="1_akvko"]
 
-[node name="ArmorComponent" type="Area2D"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_85mua"]
+bounce = 2.0
+absorbent = true
+
+[node name="ArmorComponent" type="StaticBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_85mua")
 script = ExtResource("1_akvko")
