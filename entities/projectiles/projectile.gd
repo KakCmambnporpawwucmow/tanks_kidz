@@ -12,7 +12,6 @@ class_name Projectile
 
 func _ready():
 	set_physics_process(false)
-	$PenetrationMarker.visible = false
 	
 func activate(fire_position: Vector2, fire_direction: Vector2):
 	global_position = fire_position
@@ -20,23 +19,15 @@ func activate(fire_position: Vector2, fire_direction: Vector2):
 	linear_velocity = fire_direction * initial_speed
 	set_physics_process(true)
 
-func _physics_process(_delta: float) -> void:
-	if linear_velocity.length() < min_speed:
-		on_death()
-
 func on_death(_damage:int = 0):
 	set_physics_process(false)
 	linear_velocity = Vector2.ZERO
 	$view.visible = false
-	create_destruction_effects()
 	if _damage > 0:
 		$PenetrationMarker/Label.text = str(damage)
-		$AnimationPlayer.play("view_damage")
+		$AnimationPlayer.play("penetracion")
 	else:
 		queue_free()
-
-func create_destruction_effects():
-	pass
 
 func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 	queue_free()
@@ -48,3 +39,5 @@ func _on_body_entered(body: Node) -> void:
 	if body is ArmorComponent:
 		if body.check_penetration(armor_penetration, damage):
 			on_death(damage)
+		else:
+			$AnimationPlayer.play("ricoshet")
