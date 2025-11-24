@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://15pucv5g7w3p"]
+[gd_scene load_steps=17 format=3 uid="uid://15pucv5g7w3p"]
 
 [ext_resource type="Script" uid="uid://jxqce0b0d6hr" path="res://entities/tanks/base/tank.gd" id="1_6u466"]
 [ext_resource type="Texture2D" uid="uid://ol82tm8544cy" path="res://assets/graphics/tanks/heavy_tank.png" id="2_ciwkk"]
@@ -6,14 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://c412mn85j2jpq" path="res://components/area_move_component.tscn" id="4_jmxtk"]
 [ext_resource type="PackedScene" uid="uid://ci10irdq7u6in" path="res://components/health_component.tscn" id="5_raro8"]
 [ext_resource type="PackedScene" uid="uid://n5f6cscf40nc" path="res://components/armor_component.tscn" id="6_jmxtk"]
+[ext_resource type="PackedScene" uid="uid://dwuu5fjugl025" path="res://entities/projectiles/ap_round.tscn" id="7_55dvl"]
 [ext_resource type="PackedScene" uid="uid://und3t0v7d5a8" path="res://entities/projectiles/weapon_system.tscn" id="7_ym7oc"]
-[ext_resource type="PackedScene" uid="uid://dwuu5fjugl025" path="res://entities/projectiles/ap_round.tscn" id="8_p8ptd"]
-[ext_resource type="PackedScene" uid="uid://bwpcipxppj87x" path="res://entities/projectiles/heat_round.tscn" id="9_fjw05"]
-[ext_resource type="PackedScene" uid="uid://dlq2qdqk1qn31" path="res://entities/projectiles/he_round.tscn" id="10_1jco5"]
-[ext_resource type="PackedScene" uid="uid://c55aqv4idi2wo" path="res://entities/projectiles/missile.tscn" id="11_oyii4"]
+[ext_resource type="PackedScene" uid="uid://bwpcipxppj87x" path="res://entities/projectiles/heat_round.tscn" id="8_pu3tq"]
+[ext_resource type="PackedScene" uid="uid://dlq2qdqk1qn31" path="res://entities/projectiles/he_round.tscn" id="9_ie120"]
+[ext_resource type="PackedScene" uid="uid://c55aqv4idi2wo" path="res://entities/projectiles/missile.tscn" id="10_di8a4"]
 [ext_resource type="AudioStream" uid="uid://dl2kom5a1lqtm" path="res://assets/sounds/tractor-digs-a-hole.ogg" id="12_pu3tq"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ym7oc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ch0vs"]
 size = Vector2(8, 40)
@@ -27,7 +25,7 @@ size = Vector2(60, 5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1jco5"]
 size = Vector2(60, 5)
 
-[node name="Tank" type="Area2D" node_paths=PackedStringArray("turret", "move_component", "health_component", "weapon_system", "front_armor", "rear_armor", "left_armor", "right_armor")]
+[node name="Tank" type="Node2D" node_paths=PackedStringArray("turret", "move_component", "health_component", "weapon_system", "front_armor", "rear_armor", "side_armor")]
 script = ExtResource("1_6u466")
 turret = NodePath("Turret")
 move_component = NodePath("AreaMoveComponent")
@@ -35,13 +33,9 @@ health_component = NodePath("HealthComponent")
 weapon_system = NodePath("WeaponSystem")
 front_armor = NodePath("front_armor")
 rear_armor = NodePath("back_armor")
-left_armor = NodePath("left_armor")
-right_armor = NodePath("right_armor")
+side_armor = NodePath("side_armor")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_ym7oc")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="view" type="Sprite2D" parent="."]
 texture = ExtResource("2_ciwkk")
 
 [node name="Turret" parent="." instance=ExtResource("3_raro8")]
@@ -52,36 +46,16 @@ rotation_speed = 1.5
 move_speed = 200.0
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_raro8")]
+max_health = 1000.0
 
-[node name="WeaponSystem" parent="." node_paths=PackedStringArray("ap_round", "he_round", "heat_round", "missile_round") instance=ExtResource("7_ym7oc")]
-ap_round = NodePath("ap")
-he_round = NodePath("he")
-heat_round = NodePath("heat")
-missile_round = NodePath("missile")
-
-[node name="ap" parent="WeaponSystem" instance=ExtResource("8_p8ptd")]
-contact_monitor = false
-max_contacts_reported = 0
-show_trajectory = false
-
-[node name="heat" parent="WeaponSystem" instance=ExtResource("9_fjw05")]
-freeze = true
-contact_monitor = false
-max_contacts_reported = 0
-
-[node name="he" parent="WeaponSystem" instance=ExtResource("10_1jco5")]
-freeze = true
-contact_monitor = false
-max_contacts_reported = 0
-
-[node name="missile" parent="WeaponSystem" instance=ExtResource("11_oyii4")]
-freeze = true
-contact_monitor = false
-max_contacts_reported = 0
+[node name="WeaponSystem" parent="." instance=ExtResource("7_ym7oc")]
+ap_round = ExtResource("7_55dvl")
+he_round = ExtResource("9_ie120")
+heat_round = ExtResource("8_pu3tq")
+missile_round = ExtResource("10_di8a4")
 
 [node name="front_armor" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_jmxtk")]
 thickness = 100.0
-min_impact_speed = 30.0
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="front_armor"]
@@ -91,30 +65,23 @@ shape = SubResource("RectangleShape2D_ch0vs")
 [node name="back_armor" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_jmxtk")]
 position = Vector2(-56, 0)
 thickness = 20.0
-min_impact_speed = 30.0
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="back_armor"]
 position = Vector2(23, 0.5)
 shape = SubResource("RectangleShape2D_p8ptd")
 
-[node name="left_armor" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_jmxtk")]
+[node name="side_armor" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_jmxtk")]
 position = Vector2(-32, 0)
 thickness = 40.0
-min_impact_speed = 30.0
 health_component = NodePath("../HealthComponent")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="left_armor"]
+[node name="left" type="CollisionShape2D" parent="side_armor"]
 position = Vector2(27, -17)
 shape = SubResource("RectangleShape2D_fjw05")
 
-[node name="right_armor" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("6_jmxtk")]
-thickness = 40.0
-min_impact_speed = 30.0
-health_component = NodePath("../HealthComponent")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="right_armor"]
-position = Vector2(-5, 18)
+[node name="right" type="CollisionShape2D" parent="side_armor"]
+position = Vector2(27, 18)
 shape = SubResource("RectangleShape2D_1jco5")
 
 [node name="engine" type="AudioStreamPlayer2D" parent="."]

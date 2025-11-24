@@ -1,5 +1,5 @@
 # tank.gd
-extends Area2D
+extends Node2D
 
 class_name Tank
 
@@ -12,8 +12,7 @@ class_name Tank
 @export_group("Armor Components")
 @export var front_armor: ArmorComponent = null
 @export var rear_armor: ArmorComponent = null
-@export var left_armor: ArmorComponent = null
-@export var right_armor: ArmorComponent = null
+@export var side_armor: ArmorComponent = null
 
 enum ERotate{LEFT, RIGHT, STOP}
 
@@ -29,16 +28,8 @@ func _ready():
 	
 	# Подключаем сигналы здоровья
 	health_component.health_changed.connect(_on_health_changed)
-	health_component.damage_taken.connect(_on_damage_taken)
 	health_component.death.connect(_on_death)
 	
-	# Подключаем сигналы брони
-	var armor_components = [front_armor, rear_armor, left_armor, right_armor]
-	for armor_component in armor_components:
-		if armor_component:
-			armor_component.armor_penetrated.connect(_on_armor_penetrated.bind(armor_component))
-			armor_component.armor_ricochet.connect(_on_armor_ricochet.bind(armor_component))
-			
 	$engine.playing = true
 
 func proc_command(command:Command):
@@ -93,20 +84,6 @@ func switch_ammo_type(new_type: WeaponSystem.ProjectileType):
 func rotating_turret_to(position:Vector2):
 	turret.update_position(position)
 
-# Новый метод для получения полной информации о точности
-func get_accuracy_info() -> Dictionary:
-	#var spread_info = turret.get_spread_info()
-	var health_status = get_health_status()
-	
-	return {
-		#"spread_percentage": spread_info.spread_percentage,
-		#"spread_angle": spread_info.spread_angle,
-		#"accuracy": spread_info.accuracy,
-		"is_move": is_move,
-		"is_fully_accurate": turret.is_fully_accurate(),
-		"health_effect": health_status.health_percentage  # Здоровье может влиять на точность
-	}
-
 func get_ammo_type_name() -> String:
 	return weapon_system.get_projectile_name(current_ammo_type)
 
@@ -131,55 +108,6 @@ func _on_death():
 	print("Tank destroyed!")
 	queue_free()
 
-# Методы для обработки брони
-func _on_armor_penetrated(penetrator: ArmorComponent, total_damage: float, armor_component: ArmorComponent):
-	var armor_location = get_armor_location_name(armor_component)
-	print("Tank {0}, {1} armor penetrated! Damage: {2}".format([name, armor_location, total_damage]))
-	create_armor_penetration_effects(armor_location)
-
-func _on_armor_ricochet(hit_angle: float, armor_component: ArmorComponent):
-	var armor_location = get_armor_location_name(armor_component)
-	print("Tank ", armor_location, " armor ricochet! Angle: ", hit_angle)
-	create_ricochet_effects(armor_location)
-
-func get_armor_location_name(armor_component: ArmorComponent) -> String:
-	if armor_component == front_armor:
-		return "front"
-	elif armor_component == rear_armor:
-		return "rear"
-	elif armor_component == left_armor:
-		return "left"
-	elif armor_component == right_armor:
-		return "right"
-	else:
-		return "unknown"
-
-func create_armor_penetration_effects(armor_location: String):
-	# Эффекты пробития брони (искры, дым, звук) в зависимости от локации
-	match armor_location:
-		"front":
-			# Эффекты для передней брони
-			pass
-		"rear":
-			# Эффекты для задней брони
-			pass
-		"left", "right":
-			# Эффекты для боковой брони
-			pass
-
-func create_ricochet_effects(armor_location: String):
-	# Эффекты рикошета (искры, звук) в зависимости от локации
-	match armor_location:
-		"front":
-			# Эффекты рикошета от передней брони
-			pass
-		"rear":
-			# Эффекты рикошета от задней брони
-			pass
-		"left", "right":
-			# Эффекты рикошета от боковой брони
-			pass
-
 func get_health_status() -> Dictionary:
 	return {
 		"current_health": health_component.get_current_health(),
@@ -187,19 +115,9 @@ func get_health_status() -> Dictionary:
 		"health_percentage": health_component.get_health_percentage()
 	}
 
-# Методы для получения информации о броне
-func get_armor_status() -> Dictionary:
-	return {
-		"front_armor": front_armor.get_durability_percentage() if front_armor else 0.0,
-		"rear_armor": rear_armor.get_durability_percentage() if rear_armor else 0.0,
-		"left_armor": left_armor.get_durability_percentage() if left_armor else 0.0,
-		"right_armor": right_armor.get_durability_percentage() if right_armor else 0.0
-	}
-
 # Метод для получения общей информации о танке
 func get_tank_status() -> Dictionary:
 	var status = get_health_status()
-	status["armor"] = get_armor_status()
 	status["current_ammo_type"] = get_ammo_type_name()
 	status["remaining_ammo"] = get_remaining_ammo()
 	return status
