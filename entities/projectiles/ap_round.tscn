@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dwuu5fjugl025"]
 
 [ext_resource type="PackedScene" uid="uid://cb5lh0m66sxsf" path="res://entities/projectiles/projectile.tscn" id="1_77q60"]
-[ext_resource type="Texture2D" uid="uid://bujjlwtp52vgs" path="res://assets/graphics/projectiles/he_shell.png" id="2_dri8i"]
+[ext_resource type="Texture2D" uid="uid://dvi5v10167436" path="res://assets/graphics/projectiles/ap_shell.png" id="2_dri8i"]
 
 [node name="Projectile" instance=ExtResource("1_77q60")]
 initial_speed = 500.0

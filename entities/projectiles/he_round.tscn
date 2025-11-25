@@ -1,11 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://dlq2qdqk1qn31"]
 
 [ext_resource type="PackedScene" uid="uid://cb5lh0m66sxsf" path="res://entities/projectiles/projectile.tscn" id="1_i37io"]
-[ext_resource type="Texture2D" uid="uid://bxx8b70nmy7hn" path="res://assets/graphics/projectiles/heat_shell.png" id="2_ns17x"]
+[ext_resource type="Texture2D" uid="uid://bujjlwtp52vgs" path="res://assets/graphics/projectiles/he_shell.png" id="2_ns17x"]
 
 [node name="Projectile" instance=ExtResource("1_i37io")]
 initial_speed = 200.0
-describe = "High-Explosive"
 
 [node name="view" parent="." index="2"]
 position = Vector2(-4.0000005, 4.172325e-07)
