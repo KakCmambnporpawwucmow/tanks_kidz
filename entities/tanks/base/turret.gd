@@ -14,6 +14,7 @@ var aim_position: Vector2 = Vector2.ZERO
 
 @onready var aim:Sprite2D = $CrosshairSprite
 @onready var mark:Marker2D = $Marker2D
+@onready var cd_ind:TextureProgressBar = $CrosshairSprite/CD_progress
 
 func _ready() -> void:
 	assert(mover != null, "Turret: BaseMoveComponent must be assigned")
@@ -43,6 +44,7 @@ func get_fire_direction() -> Vector2:
 	# При стрельбе вупор рассеивание не играет роли, убираем его.
 	if distance_to_aim < distance_to_mark * 2:
 		spread_position = aim.global_position
+	cd_ind.value = 0
 	return mark.global_position.direction_to(spread_position).normalized()
 
 # Получить позицию выстрела (может быть немного случайной для реализма)
@@ -56,3 +58,12 @@ func update_position(position:Vector2):
 	aim_position = position
 	mover.smooth_look_at(aim_position)
 	aim.update_position(aim_position)
+	
+func CD_indicator(cooldown_time_ms:float):
+	if cd_ind.max_value == 0:
+		cd_ind.max_value = cooldown_time_ms
+	cd_ind.value = 0
+	var tween = create_tween()
+	tween.tween_property(cd_ind, "value", cooldown_time_ms, cooldown_time_ms / 1000)
+	tween.set_ease(Tween.EASE_IN_OUT)
+	
