@@ -5,6 +5,8 @@ extends Command
 var ammo_type: WeaponSystem.ProjectileType
 
 func init(ammo: WeaponSystem.ProjectileType) -> Command:
+	entity_id = "TankSwitchAmmoCommand"
+	timestamp = Time.get_ticks_msec()
 	ammo_type = ammo
 	return self
 

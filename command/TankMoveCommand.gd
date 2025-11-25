@@ -5,6 +5,8 @@ extends Command
 var direction: Vector2
 
 func init(dir: Vector2) -> Command:
+	entity_id = "TankMoveCommand"
+	timestamp = Time.get_ticks_msec()
 	direction = dir
 	return self
 	

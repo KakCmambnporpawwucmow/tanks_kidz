@@ -37,7 +37,7 @@ func _input(event):
 	
 	# Управление стрельбой
 	if event.is_action_pressed("fire"):
-		currentCommand = tankFireCommand
+		currentCommand = tankFireCommand.init()
 		
 	# Управление переключением боеприпасов
 	if event.is_action_pressed("ammo_ap"):
