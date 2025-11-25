@@ -128,3 +128,9 @@ func get_projectile_name(projectile_type: ProjectileType) -> String:
 	if proj_state != null:
 		return proj_state.desc
 	return "Unknown"
+	
+func get_proj_max_load(projectile_type: ProjectileType)->int:
+	return projectile_storage[projectile_type].max_load
+	
+func get_proj_count(projectile_type: ProjectileType)->int:
+	return projectile_storage[projectile_type].count
