@@ -13,16 +13,20 @@ func _ready() -> void:
 	
 func update():
 	$ap.value = weapon_system.get_proj_count(WeaponSystem.ProjectileType.AP)
-	$ap/count.text = str($ap.value)
+	$ap.visible = true if $ap.value > 0 else false
+	$ap/count.text = str(int($ap.value))
 	
 	$he.value = weapon_system.get_proj_count(WeaponSystem.ProjectileType.HE)
-	$he/count.text = str($he.value)
+	$he.visible = true if $he.value > 0 else false
+	$he/count.text = str(int($he.value))
 	
 	$heat.value = weapon_system.get_proj_count(WeaponSystem.ProjectileType.HEAT)
-	$heat/count.text = str($heat.value)
+	$heat.visible = true if $heat.value > 0 else false
+	$heat/count.text = str(int($heat.value))
 	
 	$missile.value = weapon_system.get_proj_count(WeaponSystem.ProjectileType.MISSILE)
-	$missile/count.text = str($missile.value)
+	$missile.visible = true if $missile.value > 0 else false
+	$missile/count.text = str(int($missile.value))
 	
 func set_ammo_type(type:WeaponSystem.ProjectileType):
 	$v_ap.visible = false
