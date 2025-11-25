@@ -4,6 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://bxx8b70nmy7hn" path="res://assets/graphics/projectiles/heat_shell.png" id="2_v2ry8"]
 
 [node name="Projectile" instance=ExtResource("1_7wrv0")]
+initial_speed = 400.0
+damage = 50
+armor_penetration = 100
 
 [node name="view" parent="." index="2"]
 position = Vector2(-4.0000005, 0)

@@ -4,7 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://bujjlwtp52vgs" path="res://assets/graphics/projectiles/he_shell.png" id="2_ns17x"]
 
 [node name="Projectile" instance=ExtResource("1_i37io")]
-initial_speed = 200.0
+initial_speed = 400.0
+damage = 300
+armor_penetration = 40
 
 [node name="view" parent="." index="2"]
 position = Vector2(-4.0000005, 4.172325e-07)
