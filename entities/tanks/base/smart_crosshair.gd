@@ -19,7 +19,7 @@ func move(distance:int):
 	tween_move.set_ease(Tween.EASE_IN_OUT)
 	
 func get_spread_norm()->float:
-	return (scale.x - min_scale.x) / delta_scale
+	return 1 + (scale.x - min_scale.x) / delta_scale
 
 func update_position(position:Vector2 = Vector2.ZERO):
 	if position == Vector2.ZERO:
