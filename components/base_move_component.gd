@@ -5,6 +5,7 @@ extends Node
 @export_category("Base Movement Settings")
 @export var rotation_speed: float = 2.0
 @export var move_speed: float = 20.0
+@export var reverse_speed: float = 20.0
 @export var acceleration: float = 5.0
 @export var deceleration: float = 8.0
 
@@ -19,6 +20,7 @@ var is_rotating: bool = false
 var is_moving_straight: bool = false
 var target_angle: float = 0.0
 var _target_position: Vector2 = Vector2.ZERO
+var _current_speed:float = move_speed
 
 # Сигналы
 signal rotation_started()
@@ -50,7 +52,9 @@ func rotate_stop():
 	
 func move(direction:Vector2):
 	if direction != Vector2.ZERO:
+		_current_speed = reverse_speed if direction == Vector2.LEFT else move_speed
 		start_move_direction = direction
+		print("move dir ", direction)
 		update_movement_direction()
 		is_moving_straight = true
 		movement_started.emit()
@@ -96,16 +100,16 @@ func _process_continuous_rotation(delta):
 func _process_movement(delta):
 	var target_velocity = Vector2.ZERO
 	if is_moving_straight:
-		target_velocity = move_direction * move_speed
+		target_velocity = move_direction * _current_speed
 	
 	# Плавное изменение скорости
 	if is_moving_straight:
 		if current_velocity.length_squared() < 0.1:
 			current_velocity = target_velocity * 0.1
 		else:
-			current_velocity = current_velocity.move_toward(target_velocity, acceleration * move_speed * delta)
+			current_velocity = current_velocity.move_toward(target_velocity, acceleration * _current_speed * delta)
 	else:
-		current_velocity = current_velocity.move_toward(Vector2.ZERO, deceleration * move_speed * delta)
+		current_velocity = current_velocity.move_toward(Vector2.ZERO, deceleration * _current_speed * delta)
 	
 	# Применяем движение
 	if current_velocity.length_squared() > 0.1:
