@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://15pucv5g7w3p"]
+[gd_scene load_steps=21 format=3 uid="uid://15pucv5g7w3p"]
 
 [ext_resource type="Script" uid="uid://jxqce0b0d6hr" path="res://entities/tanks/base/tank.gd" id="1_6u466"]
 [ext_resource type="Texture2D" uid="uid://ol82tm8544cy" path="res://assets/graphics/tanks/heavy_tank.png" id="2_ciwkk"]
@@ -12,6 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://dlq2qdqk1qn31" path="res://entities/projectiles/he_round.tscn" id="9_ie120"]
 [ext_resource type="PackedScene" uid="uid://c55aqv4idi2wo" path="res://entities/projectiles/missile.tscn" id="10_di8a4"]
 [ext_resource type="AudioStream" uid="uid://dl2kom5a1lqtm" path="res://assets/sounds/tractor-digs-a-hole.ogg" id="12_pu3tq"]
+[ext_resource type="Texture2D" uid="uid://bfw4o1mytjyfv" path="res://assets/graphics/obstacles/sand.png" id="13_di8a4"]
+[ext_resource type="Texture2D" uid="uid://cg05i6uspyrj7" path="res://assets/graphics/obstacles/grass.png" id="14_hjgt5"]
+[ext_resource type="PackedScene" uid="uid://52vbpdjmqg0y" path="res://entities/tanks/base/ammo_stat.tscn" id="15_hjgt5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ch0vs"]
 size = Vector2(8, 40)
@@ -24,6 +27,10 @@ size = Vector2(60, 5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1jco5"]
 size = Vector2(60, 5)
+
+[sub_resource type="LabelSettings" id="LabelSettings_0pyek"]
+font_size = 7
+font_color = Color(0.023529412, 0.015686275, 0.023529412, 1)
 
 [node name="Tank" type="Node2D" node_paths=PackedStringArray("turret", "move_component", "health_component", "weapon_system", "front_armor", "rear_armor", "side_armor")]
 script = ExtResource("1_6u466")
@@ -44,6 +51,7 @@ static_spread = 50
 [node name="AreaMoveComponent" parent="." instance=ExtResource("4_jmxtk")]
 rotation_speed = 1.5
 move_speed = 200.0
+reverse_speed = 100.0
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_raro8")]
 max_health = 1000.0
@@ -88,3 +96,34 @@ shape = SubResource("RectangleShape2D_1jco5")
 stream = ExtResource("12_pu3tq")
 volume_db = -22.209
 parameters/looping = true
+
+[node name="HP_progress" type="TextureProgressBar" parent="."]
+anchors_preset = -1
+anchor_left = 0.51600003
+anchor_top = 0.5
+anchor_right = 0.51600003
+anchor_bottom = 0.5
+offset_left = -21.658356
+offset_top = -20.195755
+offset_right = 19.821297
+offset_bottom = -10.854111
+rotation = 1.5707964
+max_value = 0.0
+nine_patch_stretch = true
+texture_under = ExtResource("13_di8a4")
+texture_progress = ExtResource("14_hjgt5")
+
+[node name="count" type="Label" parent="HP_progress"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.9990001
+offset_top = -1.0
+offset_right = 0.0008239746
+offset_bottom = 10.0
+text = "1000"
+label_settings = SubResource("LabelSettings_0pyek")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ammo_stat" parent="." node_paths=PackedStringArray("weapon_system") instance=ExtResource("15_hjgt5")]
+weapon_system = NodePath("../WeaponSystem")

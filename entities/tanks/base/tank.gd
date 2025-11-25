@@ -31,6 +31,9 @@ func _ready():
 	health_component.death.connect(_on_death)
 	
 	$engine.playing = true
+	$HP_progress.max_value = health_component.max_health
+	$HP_progress.value = health_component.max_health
+	$ammo_stat.set_ammo_type(current_ammo_type)
 
 func proc_command(command:Command):
 	command.execute(self)
@@ -68,6 +71,8 @@ func fire()->bool:
 	var success = weapon_system.fire_projectile(current_ammo_type, turret.get_fire_position(), turret.get_fire_direction())
 	if success:
 		turret.fire_effect()
+		turret.CD_indicator(weapon_system.reload_time_ms)
+		$ammo_stat.update()
 		print("Fired ", get_ammo_type_name(), " round")
 	else:
 		print("Cannot fire - reloading or out of ammo")
@@ -75,7 +80,8 @@ func fire()->bool:
 	return true
 
 func switch_ammo_type(new_type: WeaponSystem.ProjectileType):
-	if weapon_system.get_remaining_ammo(new_type) > 0:
+	if weapon_system.get_proj_count(new_type) > 0:
+		$ammo_stat.set_ammo_type(new_type)
 		current_ammo_type = new_type
 		print("Switched to: ", get_ammo_type_name())
 	else:
@@ -99,7 +105,11 @@ func reload_all_ammo():
 
 # Методы для обработки здоровья
 func _on_health_changed(new_health: float):
-	print("Tank {0} health: {1} / {2}".format([name, new_health, health_component.max_health]))
+	#print("Tank {0} health: {1} / {2}".format([name, new_health, health_component.max_health]))
+	$HP_progress/count.text = "{0}/{1}".format([int(new_health), int(health_component.max_health)])
+	var tween = create_tween()
+	tween.tween_property($HP_progress, "value", new_health, 1.0)
+	tween.set_ease(Tween.EASE_IN_OUT)
 
 func _on_damage_taken(amount: float, source: Node):
 	print("Tank {0} took {1}, damage from {2}".format([name, amount, source.name if source else "unknown"]))
