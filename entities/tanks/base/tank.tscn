@@ -15,7 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bfw4o1mytjyfv" path="res://assets/graphics/obstacles/sand.png" id="13_di8a4"]
 [ext_resource type="Texture2D" uid="uid://cg05i6uspyrj7" path="res://assets/graphics/obstacles/grass.png" id="14_hjgt5"]
 [ext_resource type="PackedScene" uid="uid://52vbpdjmqg0y" path="res://entities/tanks/base/ammo_stat.tscn" id="15_hjgt5"]
-[ext_resource type="Texture2D" uid="uid://csnpfikm5j2fe" path="res://assets/graphics/tanks/death_tank.png" id="16_b71p2"]
+[ext_resource type="PackedScene" uid="uid://dnk82ft28fnqj" path="res://entities/tanks/base/death_holder.tscn" id="16_vyw1x"]
 [ext_resource type="AudioStream" uid="uid://chjirvo6bj5lu" path="res://assets/sounds/explosion.mp3" id="17_0pyek"]
 [ext_resource type="Texture2D" uid="uid://dv4sqiv4ee42m" path="res://assets/graphics/effects/tank_explosion4.png" id="18_vyw1x"]
 [ext_resource type="Texture2D" uid="uid://m38evhpltulw" path="res://assets/graphics/effects/tank_explosion9.png" id="19_e6wdd"]
@@ -55,43 +55,43 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("tank_death_holder:self_modulate")
+tracks/1/path = NodePath("explosion:playing")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.011764706)]
+"update": 1,
+"values": [true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("explosion:playing")
+tracks/2/path = NodePath("s_explosion:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Vector2(0.01, 0.01)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("s_explosion:scale")
+tracks/3/path = NodePath("s_explosion/part1:position")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.01, 0.01)]
+"values": [Vector2(0, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("s_explosion/part1:position")
+tracks/4/path = NodePath("s_explosion/part2:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -103,22 +103,10 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("s_explosion/part2:position")
+tracks/5/path = NodePath("s_explosion/part3:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("s_explosion/part3:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -143,70 +131,58 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("tank_death_holder:self_modulate")
+tracks/1/path = NodePath("explosion:playing")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(1.5962284, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.011764706), Color(1, 1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("explosion:playing")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("s_explosion:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("s_explosion:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0, 1.7265869),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0.01, 0.01), Vector2(1, 1)]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("s_explosion/part1:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1.96),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(50, 50)]
+}
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("s_explosion/part1:position")
+tracks/4/path = NodePath("s_explosion/part2:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 1.96),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(50, 50)]
+"values": [Vector2(0, 0), Vector2(-50, -50)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("s_explosion/part2:position")
+tracks/5/path = NodePath("s_explosion/part3:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 1.96),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(-50, -50)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("s_explosion/part3:position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
 "times": PackedFloat32Array(0, 2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
@@ -229,12 +205,13 @@ weapon_system = NodePath("WeaponSystem")
 front_armor = NodePath("front_armor")
 rear_armor = NodePath("back_armor")
 side_armor = NodePath("side_armor")
+death_holder = ExtResource("16_vyw1x")
 
 [node name="view" type="Sprite2D" parent="."]
 texture = ExtResource("2_ciwkk")
 
 [node name="Turret" parent="." instance=ExtResource("3_raro8")]
-static_spread = 50
+static_spread = 20
 
 [node name="AreaMoveComponent" parent="." instance=ExtResource("4_jmxtk")]
 rotation_speed = 1.5
@@ -321,11 +298,6 @@ weapon_system = NodePath("../WeaponSystem")
 libraries = {
 &"": SubResource("AnimationLibrary_e6wdd")
 }
-
-[node name="tank_death_holder" type="Sprite2D" parent="."]
-self_modulate = Color(1, 1, 1, 0.011764706)
-position = Vector2(-1.5803748e-06, 0)
-texture = ExtResource("16_b71p2")
 
 [node name="explosion" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("17_0pyek")

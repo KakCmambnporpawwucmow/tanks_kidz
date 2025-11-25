@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnk82ft28fnqj"]
+
+[ext_resource type="Texture2D" uid="uid://csnpfikm5j2fe" path="res://assets/graphics/tanks/death_tank.png" id="1_m40d3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vyw1x"]
+size = Vector2(70, 70)
+
+[node name="death_holder" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(6.267005e-07, 0)
+shape = SubResource("RectangleShape2D_vyw1x")
+
+[node name="tank_death_holder" type="Sprite2D" parent="."]
+texture = ExtResource("1_m40d3")

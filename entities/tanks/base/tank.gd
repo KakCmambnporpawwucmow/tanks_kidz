@@ -14,6 +14,9 @@ class_name Tank
 @export var rear_armor: ArmorComponent = null
 @export var side_armor: ArmorComponent = null
 
+@export_group("Dependencies")
+@export var death_holder: PackedScene = null
+
 enum ERotate{LEFT, RIGHT, STOP}
 
 var current_ammo_type: WeaponSystem.ProjectileType = WeaponSystem.ProjectileType.AP
@@ -26,6 +29,7 @@ func _ready():
 	assert(move_component != null, "Tank: BaseMoveComponent must be assigned")
 	assert(health_component != null, "Tank: HealthComponent must be assigned")
 	assert(weapon_system != null, "Tank: WeaponSystem must be assigned")
+	assert(death_holder != null, "Tank: death_holder must be assigned")
 	
 	# Подключаем сигналы здоровья
 	health_component.health_changed.connect(_on_health_changed)
@@ -142,9 +146,7 @@ func get_tank_status() -> Dictionary:
 	return status
 
 func _on_animation_animation_finished(anim_name: StringName) -> void:
-	var holder = $tank_death_holder
-	var glob_pos = holder.global_position
-	remove_child(holder)
-	get_parent().add_child(holder)
-	holder.global_position = glob_pos
+	var death_holder_imp = death_holder.instantiate()
+	death_holder_imp.global_position = global_position
+	get_parent().add_child(death_holder_imp)
 	queue_free()
