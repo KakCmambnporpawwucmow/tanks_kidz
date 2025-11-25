@@ -19,6 +19,7 @@ enum ERotate{LEFT, RIGHT, STOP}
 var current_ammo_type: WeaponSystem.ProjectileType = WeaponSystem.ProjectileType.AP
 var is_move:bool = false
 var is_rotate:bool = false
+var is_death:bool = false
 
 func _ready():
 	assert(turret != null, "Tank: Turret must be assigned")
@@ -36,7 +37,8 @@ func _ready():
 	$ammo_stat.set_ammo_type(current_ammo_type)
 
 func proc_command(command:Command):
-	command.execute(self)
+	if is_death == false:
+		command.execute(self)
 
 func move(dir:Vector2):
 	move_component.move(dir)
@@ -72,6 +74,10 @@ func fire()->bool:
 	if success:
 		turret.fire_effect()
 		turret.CD_indicator(weapon_system.reload_time_ms)
+		if weapon_system.get_proj_count(current_ammo_type) == 0:
+			for ammo in WeaponSystem.ProjectileType.values():
+				if switch_ammo_type(ammo):
+					break
 		$ammo_stat.update()
 		print("Fired ", get_ammo_type_name(), " round")
 	else:
@@ -79,13 +85,15 @@ func fire()->bool:
 		return false
 	return true
 
-func switch_ammo_type(new_type: WeaponSystem.ProjectileType):
+func switch_ammo_type(new_type: WeaponSystem.ProjectileType)->bool:
 	if weapon_system.get_proj_count(new_type) > 0:
 		$ammo_stat.set_ammo_type(new_type)
 		current_ammo_type = new_type
 		print("Switched to: ", get_ammo_type_name())
+		return true
 	else:
 		print("Cannot switch to ", weapon_system.get_projectile_name(new_type), " - out of ammo")
+	return false
 
 func rotating_turret_to(position:Vector2):
 	turret.update_position(position)
@@ -115,8 +123,9 @@ func _on_damage_taken(amount: float, source: Node):
 	print("Tank {0} took {1}, damage from {2}".format([name, amount, source.name if source else "unknown"]))
 
 func _on_death():
+	is_death = true
 	print("Tank destroyed!")
-	queue_free()
+	$animation.play("death")
 
 func get_health_status() -> Dictionary:
 	return {
@@ -131,3 +140,11 @@ func get_tank_status() -> Dictionary:
 	status["current_ammo_type"] = get_ammo_type_name()
 	status["remaining_ammo"] = get_remaining_ammo()
 	return status
+
+func _on_animation_animation_finished(anim_name: StringName) -> void:
+	var holder = $tank_death_holder
+	var glob_pos = holder.global_position
+	remove_child(holder)
+	get_parent().add_child(holder)
+	holder.global_position = glob_pos
+	queue_free()
