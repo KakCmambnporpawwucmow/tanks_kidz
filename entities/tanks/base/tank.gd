@@ -8,11 +8,11 @@ class_name Tank
 @export var move_component: BaseMoveComponent = null
 @export var health_component: HealthComponent = null
 @export var weapon_system: WeaponSystem = null
-
-@export_group("Armor Components")
-@export var front_armor: ArmorComponent = null
-@export var rear_armor: ArmorComponent = null
-@export var side_armor: ArmorComponent = null
+#
+#@export_group("Armor Components")
+#@export var front_armor: ArmorComponent = null
+#@export var rear_armor: ArmorComponent = null
+#@export var side_armor: ArmorComponent = null
 
 @export_group("Dependencies")
 @export var death_holder: PackedScene = null
@@ -150,3 +150,8 @@ func _on_animation_animation_finished(anim_name: StringName) -> void:
 	death_holder_imp.global_position = global_position
 	get_parent().add_child(death_holder_imp)
 	queue_free()
+
+#func _process(delta: float) -> void:
+	#if $front_check.is_colliding() or $back_check.is_colliding():
+		#move(Vector2.ZERO)
+		

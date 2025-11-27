@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://btn1t3i446gl0"]
+[gd_scene load_steps=5 format=3 uid="uid://btn1t3i446gl0"]
 
 [ext_resource type="PackedScene" uid="uid://15pucv5g7w3p" path="res://entities/tanks/base/tank.tscn" id="1_oifa8"]
 [ext_resource type="PackedScene" uid="uid://dgibaxsnf2b5j" path="res://entities/tanks/base/trace.tscn" id="2_xdo3h"]
 [ext_resource type="PackedScene" uid="uid://bvdf70d445trs" path="res://command/command_producer.tscn" id="3_i5ewn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i5ewn"]
+radius = 60.959003
 
 [node name="TestTank" type="Node2D"]
 
@@ -19,3 +22,9 @@ position = Vector2(645, 345)
 
 [node name="command_producer" parent="." node_paths=PackedStringArray("tank") instance=ExtResource("3_i5ewn")]
 tank = NodePath("../Tank")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(779, 172)
+shape = SubResource("CircleShape2D_i5ewn")
