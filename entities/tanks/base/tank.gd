@@ -39,6 +39,10 @@ func _ready():
 	$HP_progress.max_value = health_component.max_health
 	$HP_progress.value = health_component.max_health
 	$ammo_stat.set_ammo_type(current_ammo_type)
+	
+	var trace = $trace
+	remove_child(trace)
+	get_parent().call_deferred("add_child", trace)
 
 func proc_command(command:Command):
 	if is_death == false:

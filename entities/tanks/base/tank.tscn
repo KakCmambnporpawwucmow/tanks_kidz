@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://15pucv5g7w3p"]
+[gd_scene load_steps=30 format=3 uid="uid://15pucv5g7w3p"]
 
 [ext_resource type="Script" uid="uid://jxqce0b0d6hr" path="res://entities/tanks/base/tank.gd" id="1_6u466"]
 [ext_resource type="Texture2D" uid="uid://ol82tm8544cy" path="res://assets/graphics/tanks/heavy_tank.png" id="2_ciwkk"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://m38evhpltulw" path="res://assets/graphics/effects/tank_explosion9.png" id="19_e6wdd"]
 [ext_resource type="Texture2D" uid="uid://djtcvrp8cro3s" path="res://assets/graphics/effects/tank_explosion8.png" id="20_albxe"]
 [ext_resource type="Texture2D" uid="uid://duqqt7gw33yni" path="res://assets/graphics/effects/tank_explosion6.png" id="21_5ixb2"]
+[ext_resource type="PackedScene" uid="uid://dgibaxsnf2b5j" path="res://entities/tanks/base/trace.tscn" id="21_vyw1x"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0pyek"]
 font_size = 7
@@ -221,6 +222,7 @@ move_speed = 200.0
 reverse_speed = 70.0
 
 [node name="Turret" parent="." instance=ExtResource("3_raro8")]
+z_index = 1
 static_spread = 20
 
 [node name="ammo_stat" parent="." node_paths=PackedStringArray("weapon_system") instance=ExtResource("15_hjgt5")]
@@ -295,5 +297,10 @@ texture = ExtResource("20_albxe")
 
 [node name="part3" type="Sprite2D" parent="s_explosion"]
 texture = ExtResource("21_5ixb2")
+
+[node name="trace" parent="." node_paths=PackedStringArray("tank") instance=ExtResource("21_vyw1x")]
+max_points = 3
+trail_width = 80.0
+tank = NodePath("..")
 
 [connection signal="animation_finished" from="animation" to="." method="_on_animation_animation_finished"]

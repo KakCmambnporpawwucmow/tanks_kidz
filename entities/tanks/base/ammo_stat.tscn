@@ -94,20 +94,24 @@ vertical_alignment = 1
 
 [node name="v_ap" type="Sprite2D" parent="."]
 visible = false
+z_index = 2
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_xhpm1")
 
 [node name="v_he" type="Sprite2D" parent="."]
 visible = false
+z_index = 2
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("3_mb5o4")
 
 [node name="v_heat" type="Sprite2D" parent="."]
 visible = false
+z_index = 2
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("4_ca7d5")
 
 [node name="v_missile" type="Sprite2D" parent="."]
 visible = false
+z_index = 2
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_ncrx1")

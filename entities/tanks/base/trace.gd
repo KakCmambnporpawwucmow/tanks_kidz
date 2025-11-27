@@ -57,9 +57,3 @@ func remove_old_points():
 # Функция для полной очистки следа
 func clear_trail():
 	clear_points()
-
-# Функция для включения/выключения следа
-func set_trail_enabled(enabled: bool):
-	set_process(enabled)
-	if not enabled:
-		clear_trail()
