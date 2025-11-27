@@ -118,37 +118,6 @@ tracks/7/keys = {
 "values": [Vector2(0.1, 0.1)]
 }
 
-[sub_resource type="Animation" id="Animation_n3d54"]
-resource_name = "view_damage"
-
-[sub_resource type="Animation" id="Animation_nyema"]
-resource_name = "ricoshet"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ricoshet/ricoshet:playing")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ricoshet/view:self_modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.099920094, 0.39999998, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.003921569), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.011764706)]
-}
-
 [sub_resource type="Animation" id="Animation_k64t1"]
 resource_name = "penetracion"
 length = 0.5
@@ -225,6 +194,37 @@ tracks/5/keys = {
 "values": [Vector2(0.1, 0.1), Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_nyema"]
+resource_name = "ricoshet"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ricoshet/ricoshet:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ricoshet/view:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.099920094, 0.39999998, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.003921569), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0.011764706)]
+}
+
+[sub_resource type="Animation" id="Animation_n3d54"]
+resource_name = "view_damage"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_k64t1"]
 _data = {
 &"RESET": SubResource("Animation_eyncd"),
@@ -290,6 +290,6 @@ position = Vector2(-9.536743e-07, 9.536743e-07)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("6_k64t1")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
