@@ -54,7 +54,6 @@ func move(direction:Vector2):
 	if direction != Vector2.ZERO:
 		_current_speed = reverse_speed if direction == Vector2.LEFT else move_speed
 		start_move_direction = direction
-		print("move dir ", direction)
 		update_movement_direction()
 		is_moving_straight = true
 		movement_started.emit()
