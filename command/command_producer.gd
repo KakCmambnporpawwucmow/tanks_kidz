@@ -1,13 +1,14 @@
 extends Node2D
 
 class_name CommandProducer
+const add_method_name = "add_receiver"
 
-@export var tank:Tank
+@export var resivers:Array[Node2D]
 var tankMoveCommand:TankMoveCommand = null
 var tankRotateCommand:TankRotateCommand = null
 var tankFireCommand:TankShootCommand = null
 var tankSwitchAmmoCommand:TankSwitchAmmoCommand = null
-var tankRotateTurretCommand:TankRotateTurretCommand = null
+var rotateToCommand:RotateToCommand = null
 var currentCommand:Command = null
 
 func _ready() -> void:
@@ -15,7 +16,10 @@ func _ready() -> void:
 	tankRotateCommand = TankRotateCommand.new()
 	tankFireCommand = TankShootCommand.new()
 	tankSwitchAmmoCommand = TankSwitchAmmoCommand.new()
-	tankRotateTurretCommand = TankRotateTurretCommand.new()
+	rotateToCommand = RotateToCommand.new()
+	
+	for item in resivers:
+		assert(item.has_method("proc_command"), "CommandProducer: all resivers must have method 'proc_command'")
 
 func _input(event):
 	currentCommand = null
@@ -50,7 +54,21 @@ func _input(event):
 		currentCommand = tankSwitchAmmoCommand.init(WeaponSystem.ProjectileType.MISSILE)
 		
 	if event is InputEventMouseMotion:
-		currentCommand = tankRotateTurretCommand.init(get_global_mouse_position())
+		currentCommand = rotateToCommand.init(get_global_mouse_position())
 		
-	if currentCommand and is_instance_valid(tank):
-		tank.proc_command(currentCommand)
+	var is_need_filtering:bool = false
+	if currentCommand:
+		for item in resivers:
+			if is_instance_valid(item):
+				item.proc_command(currentCommand)
+			else:
+				is_need_filtering = true
+
+		if is_need_filtering:
+			resivers = resivers.filter(func(item): return item != null)
+
+func add_receiver(node:Node2D)->bool:
+	if node.has_method("proc_command"):
+		resivers.append(node)
+		return true
+	return false
