@@ -1,14 +1,69 @@
-[gd_scene load_steps=3 format=3 uid="uid://c55aqv4idi2wo"]
+[gd_scene load_steps=12 format=3 uid="uid://c55aqv4idi2wo"]
 
 [ext_resource type="PackedScene" uid="uid://cb5lh0m66sxsf" path="res://entities/projectiles/projectile.tscn" id="1_lqkrn"]
+[ext_resource type="Script" uid="uid://1qa4d5gyky6c" path="res://entities/projectiles/missile.gd" id="2_lt0se"]
 [ext_resource type="Texture2D" uid="uid://boht7lhjuayyi" path="res://assets/graphics/projectiles/tank_bullet3.png" id="2_wjolt"]
+[ext_resource type="PackedScene" uid="uid://c0lru8c5px8xl" path="res://components/base_move_component.tscn" id="3_neo75"]
+[ext_resource type="Texture2D" uid="uid://m5g53x5vt2s3" path="res://assets/graphics/effects/muzzle_flash.png" id="5_o2xr0"]
+[ext_resource type="AudioStream" uid="uid://c2ss3bn4uhofy" path="res://assets/sounds/rocket.ogg" id="6_xpthj"]
 
-[node name="Projectile" instance=ExtResource("1_lqkrn")]
+[sub_resource type="Curve" id="Curve_xpthj"]
+_data = [Vector2(0.37327188, 1), 0.0, 0.0, 0, 0, Vector2(0.9769585, 0.033707857), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_4v70y"]
+curve = SubResource("Curve_xpthj")
+
+[sub_resource type="Gradient" id="Gradient_vhdac"]
+colors = PackedColorArray(0.972549, 0.45490196, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_sxavt"]
+gradient = SubResource("Gradient_vhdac")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jru1w"]
+particle_flag_disable_z = true
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = 4.9999776
+gravity = Vector3(-40, 0, 0)
+scale_min = 0.5
+scale_max = 0.5
+color_ramp = SubResource("GradientTexture1D_sxavt")
+alpha_curve = SubResource("CurveTexture_4v70y")
+
+[node name="Projectile" node_paths=PackedStringArray("move_component") instance=ExtResource("1_lqkrn")]
+script = ExtResource("2_lt0se")
+move_component = NodePath("BaseMoveComponent")
 initial_speed = 200.0
-damage = 300
-armor_penetration = 10
+damage = 400
+armor_penetration = 8
 
 [node name="view" parent="." index="2"]
 position = Vector2(-3.9999998, 0)
 scale = Vector2(0.6315789, 0.61538464)
 texture = ExtResource("2_wjolt")
+
+[node name="BaseMoveComponent" parent="." index="7" instance=ExtResource("3_neo75")]
+move_speed = 200.0
+reverse_speed = 0.0
+
+[node name="fly" type="Node2D" parent="." index="8"]
+
+[node name="smoke_missile" type="GPUParticles2D" parent="fly" index="0"]
+position = Vector2(-32, 0)
+texture = ExtResource("5_o2xr0")
+lifetime = 2.0
+local_coords = true
+trail_lifetime = 2.53
+process_material = SubResource("ParticleProcessMaterial_jru1w")
+
+[node name="rocket_sound" type="AudioStreamPlayer2D" parent="fly" index="1"]
+stream = ExtResource("6_xpthj")
+autoplay = true
+parameters/looping = true
+
+[node name="Timer" type="Timer" parent="." index="9"]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
