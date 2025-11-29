@@ -1,5 +1,5 @@
 # tank.gd
-extends Node2D
+extends CharacterBody2D
 
 class_name Tank
 
@@ -8,11 +8,6 @@ class_name Tank
 @export var move_component: BaseMoveComponent = null
 @export var health_component: HealthComponent = null
 @export var weapon_system: WeaponSystem = null
-#
-#@export_group("Armor Components")
-#@export var front_armor: ArmorComponent = null
-#@export var rear_armor: ArmorComponent = null
-#@export var side_armor: ArmorComponent = null
 
 @export_group("Dependencies")
 @export var death_holder: PackedScene = null
@@ -103,7 +98,7 @@ func switch_ammo_type(new_type: WeaponSystem.ProjectileType)->bool:
 		print("Cannot switch to ", weapon_system.get_projectile_name(new_type), " - out of ammo")
 	return false
 
-func rotating_turret_to(position:Vector2):
+func rotating_to(position:Vector2):
 	turret.update_position(position)
 
 func get_ammo_type_name() -> String:
