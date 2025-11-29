@@ -9,18 +9,13 @@ class_name Projectile
 @export var armor_penetration:int = 50
 
 @onready var visible_notifier = $VisibleOnScreenNotifier2D
-
-func _ready():
-	set_physics_process(false)
 	
 func activate(fire_position: Vector2, fire_direction: Vector2):
 	global_position = fire_position
 	global_rotation = fire_direction.angle()
 	linear_velocity = fire_direction * initial_speed
-	set_physics_process(true)
-
+	
 func on_death(_damage:int = 0):
-	set_physics_process(false)
 	linear_velocity = Vector2.ZERO
 	$view.visible = false
 	if _damage > 0:
@@ -45,3 +40,5 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 				on_death(damage)
 			else:
 				$AnimationPlayer.play("ricoshet")
+			damage = 0
+			armor_penetration = 0

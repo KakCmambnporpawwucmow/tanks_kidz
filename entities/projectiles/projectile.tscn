@@ -10,9 +10,9 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yjiti"]
 bounce = 1.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i7x7j"]
-radius = 8.0
-height = 16.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k64t1"]
+radius = 4.0
+height = 8.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_eyncd"]
 font_size = 21
@@ -243,7 +243,7 @@ max_contacts_reported = 1
 script = ExtResource("1_2utaj")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_i7x7j")
+shape = SubResource("CapsuleShape2D_k64t1")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
