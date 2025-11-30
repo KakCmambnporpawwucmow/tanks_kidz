@@ -15,9 +15,9 @@ signal low_health(health_percentage: float)
 func _ready():
 	current_health = max_health
 
-func take_damage(amount: float):
+func take_damage(amount: float)->int:
 	if not is_alive:
-		return
+		return 0
 	
 	var old_health = current_health
 	current_health = max(0, current_health - amount)
@@ -29,6 +29,7 @@ func take_damage(amount: float):
 	
 	if current_health <= 0:
 		die()
+	return old_health - current_health
 
 func die():
 	if not is_alive:
