@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d0yxcr6keb7e5" path="res://components/damage_component.gd" id="1_k5ofo"]
 
-[node name="DamageComponent" type="Node2D"]
+[node name="DamageComponent" type="Node"]
 script = ExtResource("1_k5ofo")
 
 [node name="Timer" type="Timer" parent="."]
