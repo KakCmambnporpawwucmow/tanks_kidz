@@ -66,4 +66,7 @@ wait_time = 10.0
 one_shot = true
 autostart = true
 
+[node name="DamageComponent" parent="." index="10"]
+damage = 400
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

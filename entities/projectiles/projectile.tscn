@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cb5lh0m66sxsf"]
+[gd_scene load_steps=16 format=3 uid="uid://cb5lh0m66sxsf"]
 
 [ext_resource type="Script" uid="uid://bclynkkjs5mjj" path="res://entities/projectiles/projectile.gd" id="1_2utaj"]
 [ext_resource type="AudioStream" uid="uid://cxuejgulujaws" path="res://assets/sounds/metal_hit.ogg" id="3_n3d54"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bqr440kq7u377" path="res://assets/graphics/projectiles/tank_bulletFly6.png" id="4_k64t1"]
 [ext_resource type="Texture2D" uid="uid://dgl7l0bkqvwfp" path="res://assets/graphics/ui/tank_arrowFull.png" id="4_n3d54"]
 [ext_resource type="Texture2D" uid="uid://dpnjrrobrx5kl" path="res://assets/graphics/effects/tank_explosion2.png" id="6_k64t1"]
+[ext_resource type="PackedScene" uid="uid://bg11jx8tfrmoe" path="res://components/damage_component.tscn" id="7_nyema"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_yjiti"]
 bounce = 1.0
@@ -241,6 +242,10 @@ lock_rotation = true
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_2utaj")
+initial_speed = null
+damage = null
+min_speed = null
+armor_penetration = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_k64t1")
@@ -289,6 +294,8 @@ visible = false
 position = Vector2(-9.536743e-07, 9.536743e-07)
 scale = Vector2(0.1, 0.1)
 texture = ExtResource("6_k64t1")
+
+[node name="DamageComponent" parent="." instance=ExtResource("7_nyema")]
 
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

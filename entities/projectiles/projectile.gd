@@ -4,7 +4,6 @@ class_name Projectile
 
 @export_group("Projectile Settings")
 @export var initial_speed: float = 300.0
-@export var damage:int = 100
 @export var min_speed:int = 100
 @export var armor_penetration:int = 50
 
@@ -19,7 +18,7 @@ func on_death(_damage:int = 0):
 	linear_velocity = Vector2.ZERO
 	$view.visible = false
 	if _damage > 0:
-		$PenetrationMarker/Label.text = str(damage)
+		$PenetrationMarker/Label.text = str($DamageComponent.get_current_damage())
 		$AnimationPlayer.play("penetracion")
 	else:
 		queue_free()
@@ -36,9 +35,8 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 		if body_shape_owner_id != -1:
 			var body_shape = body.shape_owner_get_owner(body_shape_owner_id).shape
 			if body_shape is RectangleShape2D and armor_penetration >= min(body_shape.size.x, body_shape.size.y): 
-				body.health_component.take_damage(damage)
+				var damage = $DamageComponent.execute(body.health_component)
 				on_death(damage)
 			else:
 				$AnimationPlayer.play("ricoshet")
-			damage = 0
-			armor_penetration = 0
+			$DamageComponent.done()

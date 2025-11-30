@@ -12,3 +12,6 @@ armor_penetration = 3
 position = Vector2(-4.0000005, 4.172325e-07)
 scale = Vector2(0.7058823, 0.8)
 texture = ExtResource("2_ns17x")
+
+[node name="DamageComponent" parent="." index="7"]
+damage = 300

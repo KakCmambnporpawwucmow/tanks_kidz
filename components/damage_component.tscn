@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bg11jx8tfrmoe"]
+
+[ext_resource type="Script" uid="uid://d0yxcr6keb7e5" path="res://components/damage_component.gd" id="1_k5ofo"]
+
+[node name="DamageComponent" type="Node2D"]
+script = ExtResource("1_k5ofo")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -5,10 +5,13 @@
 
 [node name="Projectile" instance=ExtResource("1_7wrv0")]
 initial_speed = 400.0
-damage = 50
+damage = 500
 armor_penetration = 9
 
 [node name="view" parent="." index="2"]
 position = Vector2(-4.0000005, 0)
 scale = Vector2(0.7058824, 0.8)
 texture = ExtResource("2_v2ry8")
+
+[node name="DamageComponent" parent="." index="7"]
+damage = 500
