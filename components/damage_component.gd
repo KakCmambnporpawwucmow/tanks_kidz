@@ -1,5 +1,7 @@
 extends Node
 
+class_name DamageComponent
+
 @export var damage:int = 0
 var _current_damage:int = 0
 var _is_done:bool = false
