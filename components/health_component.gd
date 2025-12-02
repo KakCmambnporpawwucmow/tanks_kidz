@@ -2,20 +2,20 @@
 class_name HealthComponent
 extends Node
 
-@export var max_health: float = 100.0
+@export var max_health: int = 100.0
 @export var auto_destroy_on_death: bool = true
 
-var current_health: float
+var current_health: int
 var is_alive: bool = true
 
-signal health_changed(new_health: float)
+signal health_changed(new_health: int)
 signal death()
 signal low_health(health_percentage: float)
 
 func _ready():
 	current_health = max_health
 
-func take_damage(amount: float)->int:
+func take_damage(amount: int)->int:
 	if not is_alive:
 		return 0
 	
@@ -52,7 +52,7 @@ func get_health_percentage() -> float:
 func is_full_health() -> bool:
 	return current_health >= max_health
 
-func heal(amount: float):
+func heal(amount: int):
 	if not is_alive:
 		return
 	
