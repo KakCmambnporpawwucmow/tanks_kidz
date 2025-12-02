@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bykltpew30wb8"]
+
+[ext_resource type="Script" uid="uid://f1etn3lcg5qr" path="res://entities/tanks/base/taran.gd" id="1_0ll6f"]
+[ext_resource type="PackedScene" uid="uid://bg11jx8tfrmoe" path="res://components/damage_component.tscn" id="1_xub5b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5ixb2"]
+size = Vector2(2, 42)
+
+[node name="taran" type="Area2D" node_paths=PackedStringArray("damage")]
+script = ExtResource("1_0ll6f")
+damage = NodePath("DamageComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_5ixb2")
+
+[node name="DamageComponent" parent="." instance=ExtResource("1_xub5b")]
+damage = 50
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
