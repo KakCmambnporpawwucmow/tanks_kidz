@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://15pucv5g7w3p"]
+[gd_scene load_steps=29 format=3 uid="uid://15pucv5g7w3p"]
 
 [ext_resource type="Script" uid="uid://jxqce0b0d6hr" path="res://entities/tanks/base/tank.gd" id="1_6u466"]
 [ext_resource type="Texture2D" uid="uid://ol82tm8544cy" path="res://assets/graphics/tanks/heavy_tank.png" id="2_ciwkk"]
@@ -11,8 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://c55aqv4idi2wo" path="res://entities/projectiles/missile.tscn" id="10_di8a4"]
 [ext_resource type="PackedScene" uid="uid://bbgt2gksvekjb" path="res://components/character_move_component.tscn" id="10_n8ip8"]
 [ext_resource type="AudioStream" uid="uid://dl2kom5a1lqtm" path="res://assets/sounds/tractor-digs-a-hole.ogg" id="12_pu3tq"]
-[ext_resource type="Texture2D" uid="uid://bfw4o1mytjyfv" path="res://assets/graphics/obstacles/sand.png" id="13_di8a4"]
-[ext_resource type="Texture2D" uid="uid://cg05i6uspyrj7" path="res://assets/graphics/obstacles/grass.png" id="14_hjgt5"]
+[ext_resource type="PackedScene" uid="uid://dgsy215usa2ne" path="res://entities/misc/hp_indicator.tscn" id="14_vyw1x"]
 [ext_resource type="PackedScene" uid="uid://52vbpdjmqg0y" path="res://entities/tanks/base/ammo_stat.tscn" id="15_hjgt5"]
 [ext_resource type="PackedScene" uid="uid://dnk82ft28fnqj" path="res://entities/tanks/base/death_holder.tscn" id="16_vyw1x"]
 [ext_resource type="AudioStream" uid="uid://chjirvo6bj5lu" path="res://assets/sounds/explosion.mp3" id="17_0pyek"]
@@ -21,10 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://djtcvrp8cro3s" path="res://assets/graphics/effects/tank_explosion8.png" id="20_albxe"]
 [ext_resource type="Texture2D" uid="uid://duqqt7gw33yni" path="res://assets/graphics/effects/tank_explosion6.png" id="21_5ixb2"]
 [ext_resource type="PackedScene" uid="uid://dgibaxsnf2b5j" path="res://entities/tanks/base/trace.tscn" id="21_vyw1x"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_0pyek"]
-font_size = 7
-font_color = Color(0.023529412, 0.015686275, 0.023529412, 1)
+[ext_resource type="PackedScene" uid="uid://bykltpew30wb8" path="res://entities/tanks/base/taran.tscn" id="22_e6wdd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n8ip8"]
 size = Vector2(9, 42)
@@ -208,7 +204,7 @@ death_holder = ExtResource("16_vyw1x")
 texture = ExtResource("2_ciwkk")
 
 [node name="HealthComponent" parent="." instance=ExtResource("5_raro8")]
-max_health = 1000.0
+max_health = 1000
 auto_destroy_on_death = false
 
 [node name="WeaponSystem" parent="." instance=ExtResource("7_ym7oc")]
@@ -218,6 +214,8 @@ heat_round = ExtResource("8_pu3tq")
 missile_round = ExtResource("10_di8a4")
 
 [node name="CharacterMoveComponent" parent="." instance=ExtResource("10_n8ip8")]
+use_snap = false
+stop_on_slope = false
 move_speed = 200.0
 reverse_speed = 70.0
 
@@ -233,33 +231,13 @@ stream = ExtResource("12_pu3tq")
 volume_db = -22.209
 parameters/looping = true
 
-[node name="HP_progress" type="TextureProgressBar" parent="."]
-anchors_preset = -1
-anchor_left = 0.51600003
-anchor_top = 0.5
-anchor_right = 0.51600003
-anchor_bottom = 0.5
-offset_left = -21.658356
-offset_top = -20.195755
-offset_right = 19.821297
-offset_bottom = -10.854111
-rotation = 1.5707964
-max_value = 0.0
-nine_patch_stretch = true
-texture_under = ExtResource("13_di8a4")
-texture_progress = ExtResource("14_hjgt5")
-
-[node name="count" type="Label" parent="HP_progress"]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.9990001
-offset_top = -1.0
-offset_right = 0.0008239746
-offset_bottom = 10.0
-text = "1000"
-label_settings = SubResource("LabelSettings_0pyek")
-horizontal_alignment = 1
-vertical_alignment = 1
+[node name="HP_indicator" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("14_vyw1x")]
+visible = false
+offset_left = -24.0
+offset_top = -48.0
+offset_right = 26.0
+offset_bottom = -40.0
+health_component = NodePath("../HealthComponent")
 
 [node name="front_armor" type="CollisionShape2D" parent="."]
 position = Vector2(30.5, 0.75)
@@ -302,5 +280,8 @@ texture = ExtResource("21_5ixb2")
 max_points = 3
 trail_width = 80.0
 tank = NodePath("..")
+
+[node name="taran" parent="." instance=ExtResource("22_e6wdd")]
+position = Vector2(39, 1)
 
 [connection signal="animation_finished" from="animation" to="." method="_on_animation_animation_finished"]

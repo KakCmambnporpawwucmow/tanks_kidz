@@ -24,15 +24,12 @@ func _ready():
 	assert(move_component != null, "Tank: BaseMoveComponent must be assigned")
 	assert(health_component != null, "Tank: HealthComponent must be assigned")
 	assert(weapon_system != null, "Tank: WeaponSystem must be assigned")
-	assert(death_holder != null, "Tank: death_holder must be assigned")
 	
 	# Подключаем сигналы здоровья
 	health_component.health_changed.connect(_on_health_changed)
 	health_component.death.connect(_on_death)
 	
 	$engine.playing = true
-	$HP_progress.max_value = health_component.max_health
-	$HP_progress.value = health_component.max_health
 	$ammo_stat.set_ammo_type(current_ammo_type)
 	
 	var trace = $trace
@@ -116,11 +113,7 @@ func reload_all_ammo():
 
 # Методы для обработки здоровья
 func _on_health_changed(new_health: float):
-	#print("Tank {0} health: {1} / {2}".format([name, new_health, health_component.max_health]))
-	$HP_progress/count.text = "{0}/{1}".format([int(new_health), int(health_component.max_health)])
-	var tween = create_tween()
-	tween.tween_property($HP_progress, "value", new_health, 1.0)
-	tween.set_ease(Tween.EASE_IN_OUT)
+	pass
 
 func _on_damage_taken(amount: float, source: Node):
 	print("Tank {0} took {1}, damage from {2}".format([name, amount, source.name if source else "unknown"]))
@@ -150,7 +143,6 @@ func _on_animation_animation_finished(anim_name: StringName) -> void:
 	get_parent().add_child(death_holder_imp)
 	queue_free()
 
-#func _process(delta: float) -> void:
-	#if $front_check.is_colliding() or $back_check.is_colliding():
-		#move(Vector2.ZERO)
+func get_health()->HealthComponent:
+	return health_component
 		
