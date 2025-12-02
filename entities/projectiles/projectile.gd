@@ -20,6 +20,8 @@ func on_death(_damage:int = 0):
 	if _damage > 0:
 		$PenetrationMarker/Label.text = str($DamageComponent.get_current_damage())
 		$AnimationPlayer.play("penetracion")
+	elif _damage == -1:
+		$AnimationPlayer.play("false_explose")
 	else:
 		queue_free()
 
@@ -39,4 +41,13 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 				on_death(damage)
 			else:
 				$AnimationPlayer.play("ricoshet")
-			$DamageComponent.done()
+		$DamageComponent.done()
+	elif body is Obstacle:
+		var health = body.get_health()
+		if health != null:
+			$DamageComponent.execute(health)
+			
+func _process(delta: float) -> void:
+	if linear_velocity.length() < min_speed:
+		set_process(false)
+		call_deferred("on_death", -1)
