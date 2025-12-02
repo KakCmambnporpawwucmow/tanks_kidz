@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqeiuxxlo2got"]
+
+[ext_resource type="PackedScene" uid="uid://b1gktdp8tnlbq" path="res://entities/obstacles/hedgehog.tscn" id="1_7utps"]
+
+[node name="Obstacle" instance=ExtResource("1_7utps")]
+
+[node name="view" parent="." index="0"]
+region_rect = Rect2(41.951996, 190.5, 28, 29.339294)
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(1, -1)

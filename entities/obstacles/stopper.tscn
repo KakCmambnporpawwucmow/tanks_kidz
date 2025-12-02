@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3gdwbyf3i2ns"]
+
+[ext_resource type="PackedScene" uid="uid://mjtsgm6mgke5" path="res://entities/obstacles/obstacle.tscn" id="1_j5p0i"]
+[ext_resource type="Texture2D" uid="uid://761o576n6ygd" path="res://assets/kenney_top-down-tanks-redux/Vector/topdownTanks_vector.svg" id="2_glvaf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qewkx"]
+size = Vector2(45, 14)
+
+[node name="Obstacle" instance=ExtResource("1_j5p0i")]
+
+[node name="view" parent="." index="0"]
+texture = ExtResource("2_glvaf")
+region_rect = Rect2(245.64398, 189.2396, 48.315308, 22.612823)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+position = Vector2(-1.5, 0)
+shape = SubResource("RectangleShape2D_qewkx")

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://mjtsgm6mgke5"]
+
+[ext_resource type="Script" uid="uid://b2w6g38kmh7h5" path="res://entities/obstacles/obstacle.gd" id="1_7t8yd"]
+
+[node name="Obstacle" type="StaticBody2D"]
+script = ExtResource("1_7t8yd")
+
+[node name="view" type="Sprite2D" parent="."]
+region_enabled = true
+region_rect = Rect2(1.6723328, 189.2396, 30.5997, 30.5997)

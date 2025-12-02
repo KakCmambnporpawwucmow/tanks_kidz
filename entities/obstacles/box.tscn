@@ -1,0 +1,148 @@
+[gd_scene load_steps=9 format=3 uid="uid://bbjqjtq8stvri"]
+
+[ext_resource type="PackedScene" uid="uid://rasxu3ms5ot6" path="res://entities/obstacles/destructible.tscn" id="1_2veql"]
+[ext_resource type="Texture2D" uid="uid://761o576n6ygd" path="res://assets/kenney_top-down-tanks-redux/Vector/topdownTanks_vector.svg" id="2_egfar"]
+[ext_resource type="AudioStream" uid="uid://c3tvoywilpm8u" path="res://assets/sounds/broken_box.mp3" id="3_egfar"]
+[ext_resource type="PackedScene" uid="uid://dgsy215usa2ne" path="res://entities/misc/hp_indicator.tscn" id="4_7v1ma"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7v1ma"]
+
+[sub_resource type="Animation" id="Animation_tln8r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("broken:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("placeholder:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("view:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("placeholder:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.1, 0.1)]
+}
+
+[sub_resource type="Animation" id="Animation_7v1ma"]
+resource_name = "done"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("broken:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("placeholder:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.100000024),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("view:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("placeholder:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.27),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ojrwi"]
+_data = {
+&"RESET": SubResource("Animation_tln8r"),
+&"done": SubResource("Animation_7v1ma")
+}
+
+[node name="Obstacle" node_paths=PackedStringArray("done_animation") instance=ExtResource("1_2veql")]
+done_animation = NodePath("AnimationPlayer")
+
+[node name="view" parent="." index="0"]
+texture = ExtResource("2_egfar")
+region_rect = Rect2(87.42999, 189.2396, 29, 30.5997)
+
+[node name="placeholder" parent="." index="2"]
+visible = false
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_egfar")
+region_rect = Rect2(392.47354, 233.42773, 35.138397, 21.961487)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="3"]
+shape = SubResource("RectangleShape2D_7v1ma")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+libraries = {
+&"": SubResource("AnimationLibrary_ojrwi")
+}
+
+[node name="broken" type="AudioStreamPlayer2D" parent="." index="5"]
+stream = ExtResource("3_egfar")
+
+[node name="HP_indicator" parent="." index="6" node_paths=PackedStringArray("health_component") instance=ExtResource("4_7v1ma")]
+visible = false
+offset_left = -26.0
+offset_top = -25.0
+offset_right = 24.0
+offset_bottom = -17.0
+health_component = NodePath("../HealthComponent")

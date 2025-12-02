@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://rasxu3ms5ot6"]
+
+[ext_resource type="PackedScene" uid="uid://mjtsgm6mgke5" path="res://entities/obstacles/obstacle.tscn" id="1_1nvqm"]
+[ext_resource type="Script" uid="uid://vve1oyg1dgf1" path="res://entities/obstacles/destructible.gd" id="2_4xj68"]
+[ext_resource type="PackedScene" uid="uid://ci10irdq7u6in" path="res://components/health_component.tscn" id="2_y221d"]
+
+[node name="Obstacle" node_paths=PackedStringArray("health") instance=ExtResource("1_1nvqm")]
+script = ExtResource("2_4xj68")
+health = NodePath("HealthComponent")
+
+[node name="HealthComponent" parent="." index="1" instance=ExtResource("2_y221d")]
+auto_destroy_on_death = false
+
+[node name="placeholder" type="Sprite2D" parent="." index="3"]
+region_enabled = true
+region_rect = Rect2(137.39102, 107.08601, 51.58487, 52.07196)
+
+[connection signal="death" from="HealthComponent" to="." method="_on_health_component_death"]

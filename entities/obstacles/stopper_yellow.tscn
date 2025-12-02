@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbwtyy3t5c5f8"]
+
+[ext_resource type="PackedScene" uid="uid://b3gdwbyf3i2ns" path="res://entities/obstacles/stopper.tscn" id="1_h8yxq"]
+
+[node name="Obstacle" instance=ExtResource("1_h8yxq")]
+
+[node name="view" parent="." index="0"]
+region_rect = Rect2(245.64398, 219.17291, 48.315308, 21.961517)

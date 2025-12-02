@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://b73o78igxvsm2"]
+
+[ext_resource type="PackedScene" uid="uid://bbjqjtq8stvri" path="res://entities/obstacles/box.tscn" id="1_3qs8l"]
+
+[node name="Obstacle" instance=ExtResource("1_3qs8l")]
+
+[node name="view" parent="." index="0"]
+region_rect = Rect2(125.58777, 189.2396, 26.35379, 28.469208)
+
+[node name="HealthComponent" parent="." index="1"]
+max_health = 400.0
+
+[node name="placeholder" parent="." index="2"]
+region_rect = Rect2(151.21011, 162.80515, 20.497406, 17.569183)
+
+[node name="HP_indicator" parent="." index="6"]
+visible = false
