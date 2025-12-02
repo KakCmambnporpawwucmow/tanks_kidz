@@ -14,6 +14,11 @@ config/name="tanks_kidz"
 run/main_scene="uid://btn1t3i446gl0"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1200
+
 [input]
 
 rotate_left={
