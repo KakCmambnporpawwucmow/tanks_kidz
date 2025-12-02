@@ -14,15 +14,8 @@ func _ready():
 
 func _apply_movement(movement: Vector2):
 	# Для CharacterBody2D используем velocity и move_and_slide
-	if is_moving_straight:
-		character_body.velocity = current_velocity
-	else:
-		character_body.velocity = current_velocity
-	
-	if use_snap and character_body.is_on_floor():
-		character_body.move_and_slide()
-	else:
-		character_body.move_and_slide()
+	character_body.velocity = current_velocity
+	character_body.move_and_slide()
 
 func _stop_physics_body():
 	character_body.velocity = Vector2.ZERO
