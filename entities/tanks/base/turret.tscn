@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://p0c48yw18unq" path="res://assets/graphics/tanks/tanks_turret1.png" id="3_wosp4"]
 [ext_resource type="PackedScene" uid="uid://c0lru8c5px8xl" path="res://components/base_move_component.tscn" id="5_fykkl"]
 [ext_resource type="Script" uid="uid://bku60ifu8avc3" path="res://entities/tanks/base/smart_crosshair.gd" id="6_txwkl"]
-[ext_resource type="Texture2D" uid="uid://dxwekdr11ih5f" path="res://assets/graphics/tanks/crosshair066.png" id="7_ieolg"]
 [ext_resource type="Texture2D" uid="uid://m38evhpltulw" path="res://assets/graphics/effects/tank_explosion9.png" id="8_741i7"]
+[ext_resource type="Texture2D" uid="uid://bpc2y14x38rhc" path="res://assets/graphics/tanks/crosshair006.png" id="8_xac3o"]
 [ext_resource type="AudioStream" uid="uid://d2gewkpow478" path="res://assets/sounds/tank_shot.ogg" id="9_xac3o"]
 [ext_resource type="Texture2D" uid="uid://bwpxgjfhuurq2" path="res://assets/graphics/effects/tank_explosion3.png" id="10_se7ov"]
 [ext_resource type="Texture2D" uid="uid://bfw4o1mytjyfv" path="res://assets/graphics/obstacles/sand.png" id="10_xac3o"]
@@ -206,7 +206,7 @@ deceleration = 15.0
 z_index = 1
 position = Vector2(30, 0)
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("7_ieolg")
+texture = ExtResource("8_xac3o")
 script = ExtResource("6_txwkl")
 
 [node name="CD_progress" type="TextureProgressBar" parent="CrosshairSprite"]
@@ -215,11 +215,27 @@ anchor_left = 0.51600003
 anchor_top = 0.5
 anchor_right = 0.51600003
 anchor_bottom = 0.5
-offset_left = -73.024
-offset_top = -72.0
-offset_right = 6.975998
-offset_bottom = -57.0
+offset_left = -58.024002
+offset_top = -57.0
+offset_right = -8.024002
+offset_bottom = -52.0
 max_value = 0.0
+nine_patch_stretch = true
+texture_under = ExtResource("10_xac3o")
+texture_progress = ExtResource("11_se7ov")
+
+[node name="CD_progress2" type="TextureProgressBar" parent="CrosshairSprite"]
+anchors_preset = -1
+anchor_left = 0.51600003
+anchor_top = 0.5
+anchor_right = 0.51600003
+anchor_bottom = 0.5
+offset_left = -58.024002
+offset_top = -12.0
+offset_right = -8.024002
+offset_bottom = -7.0
+max_value = 0.0
+fill_mode = 1
 nine_patch_stretch = true
 texture_under = ExtResource("10_xac3o")
 texture_progress = ExtResource("11_se7ov")
