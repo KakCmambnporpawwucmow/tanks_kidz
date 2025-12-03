@@ -1,0 +1,93 @@
+[gd_scene load_steps=6 format=3 uid="uid://25h0knnd01n8"]
+
+[ext_resource type="Script" uid="uid://clq06aaj2bdry" path="res://entities/misc/ammo_st.gd" id="1_aqagv"]
+[ext_resource type="Texture2D" uid="uid://dvi5v10167436" path="res://assets/graphics/projectiles/ap_shell.png" id="1_wdv76"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ncrx1"]
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.73333335, 0.8509804, 0.8, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_mb5o4"]
+font_color = Color(0.6982777, 0.6898761, 0, 1)
+outline_size = 5
+outline_color = Color(0.02745098, 0.023529412, 0.015686275, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ca7d5"]
+font_size = 12
+outline_size = 4
+outline_color = Color(0.03137255, 0.039215688, 0.039215688, 1)
+
+[node name="ammo_st" type="Panel"]
+custom_minimum_size = Vector2(50, 50)
+anchors_preset = -1
+anchor_right = 0.026
+anchor_bottom = 0.042000003
+offset_right = -49.920002
+offset_bottom = -50.400005
+theme_override_styles/panel = SubResource("StyleBoxFlat_ncrx1")
+script = ExtResource("1_aqagv")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="view" type="TextureRect" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(25, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("1_wdv76")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 3
+alignment = 1
+
+[node name="title" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "AP"
+label_settings = SubResource("LabelSettings_mb5o4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="count" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "00"
+label_settings = SubResource("LabelSettings_ca7d5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="bold" type="ReferenceRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+border_color = Color(0.039215688, 0.5019608, 0, 1)
+border_width = 4.5
+editor_only = false

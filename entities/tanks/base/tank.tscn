@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://15pucv5g7w3p"]
+[gd_scene load_steps=28 format=3 uid="uid://15pucv5g7w3p"]
 
 [ext_resource type="Script" uid="uid://jxqce0b0d6hr" path="res://entities/tanks/base/tank.gd" id="1_6u466"]
 [ext_resource type="Texture2D" uid="uid://ol82tm8544cy" path="res://assets/graphics/tanks/heavy_tank.png" id="2_ciwkk"]
@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://bbgt2gksvekjb" path="res://components/character_move_component.tscn" id="10_n8ip8"]
 [ext_resource type="AudioStream" uid="uid://dl2kom5a1lqtm" path="res://assets/sounds/tractor-digs-a-hole.ogg" id="12_pu3tq"]
 [ext_resource type="PackedScene" uid="uid://dgsy215usa2ne" path="res://entities/misc/hp_indicator.tscn" id="14_vyw1x"]
-[ext_resource type="PackedScene" uid="uid://52vbpdjmqg0y" path="res://entities/tanks/base/ammo_stat.tscn" id="15_hjgt5"]
 [ext_resource type="PackedScene" uid="uid://dnk82ft28fnqj" path="res://entities/tanks/base/death_holder.tscn" id="16_vyw1x"]
 [ext_resource type="AudioStream" uid="uid://chjirvo6bj5lu" path="res://assets/sounds/explosion.mp3" id="17_0pyek"]
 [ext_resource type="Texture2D" uid="uid://dv4sqiv4ee42m" path="res://assets/graphics/effects/tank_explosion4.png" id="18_vyw1x"]
@@ -222,9 +221,6 @@ reverse_speed = 70.0
 [node name="Turret" parent="." instance=ExtResource("3_raro8")]
 z_index = 1
 static_spread = 20
-
-[node name="ammo_stat" parent="." node_paths=PackedStringArray("weapon_system") instance=ExtResource("15_hjgt5")]
-weapon_system = NodePath("../WeaponSystem")
 
 [node name="engine" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("12_pu3tq")

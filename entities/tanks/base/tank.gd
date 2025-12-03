@@ -14,7 +14,6 @@ class_name Tank
 
 enum ERotate{LEFT, RIGHT, STOP}
 
-var current_ammo_type: WeaponSystem.ProjectileType = WeaponSystem.ProjectileType.AP
 var is_move:bool = false
 var is_rotate:bool = false
 var is_death:bool = false
@@ -28,10 +27,7 @@ func _ready():
 	# Подключаем сигналы здоровья
 	health_component.health_changed.connect(_on_health_changed)
 	health_component.death.connect(_on_death)
-	
 	$engine.playing = true
-	$ammo_stat.set_ammo_type(current_ammo_type)
-	
 	var trace = $trace
 	remove_child(trace)
 	get_parent().call_deferred("add_child", trace)
@@ -70,26 +66,17 @@ func fire()->bool:
 	if fire_direction == Vector2.ZERO:
 		print("Cannot fire to direction ", fire_direction)
 		return false
-	var success = weapon_system.fire_projectile(current_ammo_type, turret.get_fire_position(), turret.get_fire_direction())
+	var success = weapon_system.fire_projectile(turret.get_fire_position(), turret.get_fire_direction())
 	if success:
 		turret.fire_effect()
 		turret.CD_indicator(weapon_system.reload_time_ms)
-		if weapon_system.get_proj_count(current_ammo_type) == 0:
-			for ammo in WeaponSystem.ProjectileType.values():
-				if switch_ammo_type(ammo):
-					break
-		$ammo_stat.update()
-		print("Fired ", get_ammo_type_name(), " round")
-	else:
-		print("Cannot fire - reloading or out of ammo")
-		return false
-	return true
+		return true
+	return false
 
 func switch_ammo_type(new_type: WeaponSystem.ProjectileType)->bool:
 	if weapon_system.get_proj_count(new_type) > 0:
-		$ammo_stat.set_ammo_type(new_type)
-		current_ammo_type = new_type
-		print("Switched to: ", get_ammo_type_name())
+		weapon_system.switch_ammo_type(new_type)
+		print("Switched to: ", weapon_system.get_projectile_name(new_type))
 		return true
 	else:
 		print("Cannot switch to ", weapon_system.get_projectile_name(new_type), " - out of ammo")
@@ -97,12 +84,6 @@ func switch_ammo_type(new_type: WeaponSystem.ProjectileType)->bool:
 
 func rotating_to(position:Vector2):
 	turret.update_position(position)
-
-func get_ammo_type_name() -> String:
-	return weapon_system.get_projectile_name(current_ammo_type)
-
-func get_remaining_ammo() -> int:
-	return weapon_system.get_remaining_ammo(current_ammo_type)
 
 func reload_all_ammo():
 	weapon_system.reload_ammo(WeaponSystem.ProjectileType.AP, 10)
@@ -129,13 +110,6 @@ func get_health_status() -> Dictionary:
 		"max_health": health_component.max_health,
 		"health_percentage": health_component.get_health_percentage()
 	}
-
-# Метод для получения общей информации о танке
-func get_tank_status() -> Dictionary:
-	var status = get_health_status()
-	status["current_ammo_type"] = get_ammo_type_name()
-	status["remaining_ammo"] = get_remaining_ammo()
-	return status
 
 func _on_animation_animation_finished(anim_name: StringName) -> void:
 	var death_holder_imp = death_holder.instantiate()

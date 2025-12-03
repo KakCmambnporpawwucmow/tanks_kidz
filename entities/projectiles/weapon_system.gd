@@ -26,6 +26,7 @@ enum ProjectileType {
 @export var initial_he_rounds: int = 10
 @export var initial_heat_rounds: int = 5
 @export var initial_missile_rounds: int = 2
+@export var current_ammo_type: ProjectileType = WeaponSystem.ProjectileType.AP
 
 class ProjectileState:
 	var projectile:PackedScene = null
@@ -41,6 +42,8 @@ class ProjectileState:
 var projectile_storage: Dictionary = {}
 var last_reload_time: int = 0
 
+signal send_update()
+
 func _ready():
 	# Инициализация боеприпасов из настроек редактора
 	projectile_storage[ProjectileType.AP] = ProjectileState.new(ap_round, initial_ap_rounds, "AP")
@@ -50,13 +53,13 @@ func _ready():
 	print("WeaponSystem initialized")
 
 # Основные методы стрельбы
-func fire_projectile(projectile_type: ProjectileType, position: Vector2, direction: Vector2) -> bool:
-	if not can_fire(projectile_type):
+func fire_projectile(position: Vector2, direction: Vector2) -> bool:
+	if not can_fire(current_ammo_type):
 		return false
 	
-	var projectile = get_projectile_instance(projectile_type)
+	var projectile = get_projectile_instance(current_ammo_type)
 	if projectile == null:
-		push_error("WeaponSystem: No projectile instance assigned for type: ", get_projectile_name(projectile_type))
+		push_error("WeaponSystem: No projectile instance assigned for type: ", get_projectile_name(current_ammo_type))
 		return false
 
 	# Создаем копию снаряда и настраиваем
@@ -65,12 +68,29 @@ func fire_projectile(projectile_type: ProjectileType, position: Vector2, directi
 		return false
 	
 	# Расходуем боеприпасы и обновляем таймеры
-	consume_ammo(projectile_type)
+	consume_ammo(current_ammo_type)
+	check_ammo()
+	send_update.emit()
 	# Запускаем перезарядку
 	last_reload_time = Time.get_ticks_msec()
-	print("Fired ", get_projectile_name(projectile_type), " round")
-	
+	print("Fired ", get_projectile_name(current_ammo_type), " round")
 	return true
+	
+func check_ammo():
+	if get_proj_count(current_ammo_type) == 0:
+		for ammo in ProjectileType.values():
+				if switch_ammo_type(ammo):
+					break
+		
+func switch_ammo_type(new_type: WeaponSystem.ProjectileType)->bool:
+	if get_proj_count(new_type) > 0:
+		current_ammo_type = new_type
+		print("Switched to: ", get_projectile_name(current_ammo_type))
+		send_update.emit()
+		return true
+	else:
+		print("Cannot switch to ", get_projectile_name(current_ammo_type), " - out of ammo")
+	return false
 
 func get_projectile_instance(projectile_type: ProjectileType) -> Projectile:
 	if projectile_storage[projectile_type].projectile != null:
@@ -130,7 +150,12 @@ func get_projectile_name(projectile_type: ProjectileType) -> String:
 	return "Unknown"
 	
 func get_proj_max_load(projectile_type: ProjectileType)->int:
-	return projectile_storage[projectile_type].max_load
+	var state = projectile_storage.get(projectile_type, null)
+	return state.max_load if state != null else 0
 	
 func get_proj_count(projectile_type: ProjectileType)->int:
-	return projectile_storage[projectile_type].count
+	var state = projectile_storage.get(projectile_type, null) 
+	return state.count if state != null else 0
+
+func get_current_ammo_type()->ProjectileType:
+	return current_ammo_type
