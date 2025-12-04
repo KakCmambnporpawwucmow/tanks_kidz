@@ -1,9 +1,9 @@
 # commands/tank_commands.gd
-class_name TankShootCommand
+class_name ShootCommand
 extends Command
 
 func init() -> Command:
-	entity_id = "TankShootCommand"
+	entity_id = "ShootCommand"
 	timestamp = Time.get_ticks_msec()
 	return self
 

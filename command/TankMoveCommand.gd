@@ -1,11 +1,11 @@
 # commands/tank_commands.gd
-class_name TankMoveCommand
+class_name MoveCommand
 extends Command
 
 var direction: Vector2
 
 func init(dir: Vector2) -> Command:
-	entity_id = "TankMoveCommand"
+	entity_id = "MoveCommand"
 	timestamp = Time.get_ticks_msec()
 	direction = dir
 	return self
@@ -19,8 +19,8 @@ func serialize() -> Dictionary:
 	data["direction"] = {"x": direction.x, "y": direction.y}
 	return data
 
-static func deserialize(data: Dictionary) -> TankMoveCommand:
-	var command = TankMoveCommand.new()
+static func deserialize(data: Dictionary) -> MoveCommand:
+	var command = MoveCommand.new()
 	command.init(data.direction)
 	command.entity_id = data.entity_id
 	command.timestamp = data.timestamp

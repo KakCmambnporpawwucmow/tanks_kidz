@@ -1,9 +1,9 @@
 # commands/tank_commands.gd - ДОБАВИТЬ
-class_name TankReloadCommand
+class_name ReloadCommand
 extends Command
 
 func init() -> Command:
-	entity_id = "TankReloadCommand"
+	entity_id = "ReloadCommand"
 	timestamp = Time.get_ticks_msec()
 	return self
 

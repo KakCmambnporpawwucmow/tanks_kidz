@@ -4,18 +4,18 @@ class_name CommandProducer
 const add_method_name = "add_receiver"
 
 @export var resivers:Array[Node2D]
-var tankMoveCommand:TankMoveCommand = null
-var tankRotateCommand:TankRotateCommand = null
-var tankFireCommand:TankShootCommand = null
-var tankSwitchAmmoCommand:TankSwitchAmmoCommand = null
+var tankMoveCommand:MoveCommand = null
+var tankRotateCommand:RotateCommand = null
+var tankFireCommand:ShootCommand = null
+var tankSwitchAmmoCommand:SwitchAmmoCommand = null
 var rotateToCommand:RotateToCommand = null
 var currentCommand:Command = null
 
 func _ready() -> void:
-	tankMoveCommand = TankMoveCommand.new()
-	tankRotateCommand = TankRotateCommand.new()
-	tankFireCommand = TankShootCommand.new()
-	tankSwitchAmmoCommand = TankSwitchAmmoCommand.new()
+	tankMoveCommand = MoveCommand.new()
+	tankRotateCommand = RotateCommand.new()
+	tankFireCommand = ShootCommand.new()
+	tankSwitchAmmoCommand = SwitchAmmoCommand.new()
 	rotateToCommand = RotateToCommand.new()
 	
 	for item in resivers:
