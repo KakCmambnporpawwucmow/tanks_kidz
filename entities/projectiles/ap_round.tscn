@@ -5,7 +5,6 @@
 
 [node name="Projectile" instance=ExtResource("1_77q60")]
 initial_speed = 500.0
-min_speed = 100
 armor_penetration = 6
 
 [node name="view" parent="." index="2"]

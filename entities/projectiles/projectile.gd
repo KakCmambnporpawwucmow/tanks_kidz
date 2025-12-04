@@ -8,7 +8,7 @@ class_name Projectile
 @export var armor_penetration:int = 50
 
 @onready var visible_notifier = $VisibleOnScreenNotifier2D
-	
+
 func activate(fire_position: Vector2, fire_direction: Vector2):
 	global_position = fire_position
 	global_rotation = fire_direction.angle()
@@ -36,18 +36,17 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 		var body_shape_owner_id = body.shape_find_owner(body_shape_index)
 		if body_shape_owner_id != -1:
 			var body_shape = body.shape_owner_get_owner(body_shape_owner_id).shape
+			# пробили
 			if body_shape is RectangleShape2D and armor_penetration >= min(body_shape.size.x, body_shape.size.y): 
 				var damage = $DamageComponent.execute(body.health_component)
 				on_death(damage)
+			# не пробили
 			else:
 				$AnimationPlayer.play("ricoshet")
+		# попали в танк
 		$DamageComponent.done()
 	elif body is Obstacle:
 		var health = body.get_health()
 		if health != null:
-			$DamageComponent.execute(health)
-			
-func _process(delta: float) -> void:
-	if linear_velocity.length() < min_speed:
-		set_process(false)
-		call_deferred("on_death", -1)
+			var damage = $DamageComponent.execute(health)
+			on_death(damage)
