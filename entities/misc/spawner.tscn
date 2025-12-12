@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bx05wdlbll2ni"]
+
+[ext_resource type="Script" uid="uid://dm3r70e521hnm" path="res://entities/misc/spawner.gd" id="1_gfmpc"]
+[ext_resource type="Texture2D" uid="uid://dokgkoilf4q1c" path="res://assets/graphics/ui/tank_arrowEmpty.png" id="2_w0wjq"]
+
+[node name="spawner" type="Node2D"]
+script = ExtResource("1_gfmpc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_w0wjq")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

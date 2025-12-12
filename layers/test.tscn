@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://btn1t3i446gl0"]
+[gd_scene load_steps=21 format=4 uid="uid://btn1t3i446gl0"]
 
 [ext_resource type="TileSet" uid="uid://ceglheuvmpsvk" path="res://layers/test.tres" id="1_i5ewn"]
 [ext_resource type="PackedScene" uid="uid://15pucv5g7w3p" path="res://entities/tanks/base/tank.tscn" id="1_oifa8"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://b3gdwbyf3i2ns" path="res://entities/obstacles/stopper.tscn" id="5_a15s5"]
 [ext_resource type="PackedScene" uid="uid://dbwtyy3t5c5f8" path="res://entities/obstacles/stopper_yellow.tscn" id="6_djk84"]
 [ext_resource type="Texture2D" uid="uid://t0iw120g705a" path="res://assets/graphics/obstacles/tree.png" id="10_w1imp"]
+[ext_resource type="PackedScene" uid="uid://bx05wdlbll2ni" path="res://entities/misc/spawner.tscn" id="10_ys8h1"]
 [ext_resource type="PackedScene" uid="uid://duykyxxm1j4yp" path="res://entities/obstacles/house.tscn" id="12_cubdf"]
 [ext_resource type="PackedScene" uid="uid://52vbpdjmqg0y" path="res://entities/misc/ammo_stat.tscn" id="13_66mth"]
 
@@ -53,18 +54,21 @@ tile_set = ExtResource("1_i5ewn")
 tile_map_data = PackedByteArray("AAAPACcAAAAAAAAABAANACUAAAAAAAAABAAZAAsAAAAAAAAABgAcAAsAAAAAAAAABgAWABUAAAAAAAAABwAcABIAAAAAAAAAAgAfABIAAAAAAAAAAgASABMAAAAAAAAAAQAPABMAAAAAAAAAAQAZABMAAAAAAAAAAwAnAAsAAAAAAAAABAAhAAUAAAAAAAAABQA=")
 tile_set = SubResource("TileSet_bib83")
 
-[node name="PlayerTank" parent="." instance=ExtResource("1_oifa8")]
-position = Vector2(-537, 415)
-
-[node name="Camera2D" type="Camera2D" parent="PlayerTank"]
-limit_left = -640
+[node name="spawner_player" parent="." node_paths=PackedStringArray("command_producer", "ammo_stat") instance=ExtResource("10_ys8h1")]
+position = Vector2(-310, 411)
+tank_ps = ExtResource("1_oifa8")
+command_producer = NodePath("../command_producer")
+ammo_stat = NodePath("../CanvasLayer/MarginContainer/HUD/top/ammo_stat")
 limit_top = -640
+limit_bottom = 1470
 limit_right = 2176
-limit_bottom = 1472
+limit_left = -640
 
-[node name="Tank2" parent="." instance=ExtResource("1_oifa8")]
-position = Vector2(2057, 417)
-rotation = 3.1415927
+[node name="spawner_enemy" parent="." instance=ExtResource("10_ys8h1")]
+position = Vector2(2072, 414)
+rotation = -3.1415927
+tank_ps = ExtResource("1_oifa8")
+spawn_count = 2
 
 [node name="vegetation" type="TileMapLayer" parent="."]
 z_index = 2
@@ -75,8 +79,7 @@ tile_set = SubResource("TileSet_vlu43")
 tile_map_data = PackedByteArray("AAABAP7/AAAAAAAAAQADAPz/AAAAAAAAAQAJAAEAAAAAAAAAAQALAPz/AAAAAAAAAQADAAUAAAAAAAAAAQD//wMAAAAAAAAAAQA=")
 tile_set = SubResource("TileSet_ys8h1")
 
-[node name="command_producer" parent="." node_paths=PackedStringArray("_resivers") instance=ExtResource("3_i5ewn")]
-_resivers = [NodePath("../PlayerTank")]
+[node name="command_producer" parent="." instance=ExtResource("3_i5ewn")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -101,6 +104,5 @@ offset_bottom = 1190.0
 [node name="top" type="HBoxContainer" parent="CanvasLayer/MarginContainer/HUD"]
 layout_mode = 2
 
-[node name="ammo_stat" parent="CanvasLayer/MarginContainer/HUD/top" node_paths=PackedStringArray("game_object") instance=ExtResource("13_66mth")]
+[node name="ammo_stat" parent="CanvasLayer/MarginContainer/HUD/top" instance=ExtResource("13_66mth")]
 layout_mode = 2
-game_object = NodePath("../../../../../PlayerTank")

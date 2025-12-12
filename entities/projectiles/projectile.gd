@@ -51,6 +51,9 @@ func _on_body_shape_entered(_body_rid: RID, body: Node, body_shape_index: int, _
 		if health != null:
 			var damage = $DamageComponent.execute(health)
 			on_death(damage)
+	elif body is StaticBody2D:
+		$AnimationPlayer.play("ricoshet")
+		$DamageComponent.done()
 			
 func get_damage()->int:
 	return $DamageComponent.damage

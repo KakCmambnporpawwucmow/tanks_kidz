@@ -11,7 +11,6 @@ var last_point_position: Vector2
 var timer: float = 0.0
 
 func _ready():
-	assert(tank != null, "Tank must be assigned")
 	# Настройки линии
 	width = trail_width
 	if trail_texture:
@@ -35,7 +34,6 @@ func _process(delta):
 
 func add_trail_points():
 	if not is_instance_valid(tank):
-		queue_free()
 		return
 	var current_pos = tank.global_position
 	
