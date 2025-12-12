@@ -28,10 +28,7 @@ func _ready():
 	_health_component.health_changed.connect(_on_health_changed)
 	_health_component.death.connect(_on_death)
 	$engine.playing = true
-	var trace = $trace
-	remove_child(trace)
-	get_parent().call_deferred("add_child", trace)
-	LOG.info("Tank {0}: initialized".format([name]))
+	Logi.info("Tank {0}: initialized".format([name]))
 
 func proc_command(command:Command):
 	if is_death == false:
@@ -66,7 +63,7 @@ func rotating(_rotate:ERotate):
 func fire()->bool:
 	var fire_direction = _turret.get_fire_direction()
 	if fire_direction == Vector2.ZERO:
-		LOG.debug("Tank {0}: Cannot fire to direction {1}".format([name, fire_direction]))
+		Logi.debug("Tank {0}: Cannot fire to direction {1}".format([name, fire_direction]))
 		return false
 	var success = _weapon_system.fire_projectile(_turret.get_fire_position(), _turret.get_fire_direction())
 	if success:
@@ -78,10 +75,10 @@ func fire()->bool:
 func switch_ammo_type(new_type: WeaponSystem.ProjectileType)->bool:
 	if _weapon_system.get_proj_count(new_type) > 0:
 		_weapon_system.switch_ammo_type(new_type)
-		LOG.debug("Tank {0}: Switched to:  {1}".format([name, _weapon_system.get_projectile_name(new_type)]))
+		Logi.debug("Tank {0}: Switched to:  {1}".format([name, _weapon_system.get_projectile_name(new_type)]))
 		return true
 	else:
-		LOG.debug("Tank {0}: Cannot switch to:  {1} - out of ammo".format([name, _weapon_system.get_projectile_name(new_type)]))
+		Logi.debug("Tank {0}: Cannot switch to:  {1} - out of ammo".format([name, _weapon_system.get_projectile_name(new_type)]))
 	return false
 
 func rotating_to(_position:Vector2):
@@ -95,7 +92,7 @@ func _on_health_changed(new_health: float):
 	print("Tank health changed to", new_health)
 
 func _on_damage_taken(amount: float, _source: Node):
-	LOG.debug("Tank {0}: damage taken {1}".format([name, amount]))
+	Logi.debug("Tank {0}: damage taken {1}".format([name, amount]))
 
 func _on_death():
 	is_death = true
@@ -112,7 +109,7 @@ func get_health_status() -> Dictionary:
 func _on_animation_animation_finished(_anim_name: StringName) -> void:
 	var death_holder_imp = _death_holder.instantiate()
 	death_holder_imp.global_position = global_position
-	get_parent().add_child(death_holder_imp)
+	get_tree().current_scene.add_child(death_holder_imp)
 	queue_free()
 
 func get_health()->HealthComponent:

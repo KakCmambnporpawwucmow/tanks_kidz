@@ -11,7 +11,7 @@ var character_body: CharacterBody2D
 func _ready():
 	character_body = parent as CharacterBody2D
 	if character_body == null:
-		LOG.fatal("CharacterMoveComponent {0}: parent {1} has'nt type CharacterBody2D.".format([name, parent.name]))
+		Logi.fatal("CharacterMoveComponent {0}: parent {1} has'nt type CharacterBody2D.".format([name, parent.name]))
 	assert(character_body != null, "CharacterMoveComponent requires CharacterBody2D parent")
 
 func _apply_movement(_movement: Vector2):

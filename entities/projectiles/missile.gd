@@ -5,7 +5,7 @@ class_name MissileProjectile
 
 func _ready() -> void:
 	if move_component == null:
-		LOG.fatal("MissileProjectile {0}: move_component must be assigned.".format([name]))
+		Logi.fatal("MissileProjectile {0}: move_component must be assigned.".format([name]))
 	assert(move_component != null, "MissileProjectile: BaseMoveComponent must be assigned")
 	for item in get_tree().get_nodes_in_group("CommandProducers"):
 		if item is CommandProducer:

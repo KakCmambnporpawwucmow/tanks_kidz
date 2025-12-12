@@ -13,7 +13,7 @@ var text:String:
 
 func _ready() -> void:
 	if health_component == null:
-		LOG.fatal("HPIndicator {0}: health_component must be assigned.".format([name]))
+		Logi.fatal("HPIndicator {0}: health_component must be assigned.".format([name]))
 	assert(health_component != null, "HPIndicator: HealthComponent must be assigned")
 	max_value = health_component.max_health
 	value = health_component.max_health

@@ -12,7 +12,7 @@ var rotateToCommand:RotateToCommand = null
 var currentCommand:Command = null
 
 func _ready() -> void:
-	LOG.info("CommandProducer {0}: started.".format([name]))
+	Logi.info("CommandProducer {0}: started.".format([name]))
 	tankMoveCommand = MoveCommand.new()
 	tankRotateCommand = RotateCommand.new()
 	tankFireCommand = ShootCommand.new()
@@ -22,7 +22,7 @@ func _ready() -> void:
 	for item in _resivers:
 		if is_instance_valid(item):
 			if not item.has_method("proc_command"):
-				LOG.fatal("CommandProducer {0}: resiver {1} has'nt method 'proc_command'.".format([name, item.name]))
+				Logi.fatal("CommandProducer {0}: resiver {1} has'nt method 'proc_command'.".format([name, item.name]))
 			assert(item.has_method("proc_command"), "CommandProducer: all resivers must have method 'proc_command'")
 
 func _input(event):

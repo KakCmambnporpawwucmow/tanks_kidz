@@ -50,7 +50,7 @@ func _ready():
 	projectile_storage[ProjectileType.HE] = ProjectileState.new(he_round, initial_he_rounds, "HE")
 	projectile_storage[ProjectileType.HEAT] = ProjectileState.new(heat_round, initial_heat_rounds, "HEAT")
 	projectile_storage[ProjectileType.MISSILE] = ProjectileState.new(missile_round, initial_missile_rounds, "MISSILE")
-	LOG.info("WeaponSystem {0}: initialized.".format([name]))
+	Logi.info("WeaponSystem {0}: initialized.".format([name]))
 
 # Основные методы стрельбы
 func fire_projectile(position: Vector2, direction: Vector2) -> bool:
@@ -81,7 +81,7 @@ func check_ammo()->bool:
 		for ammo in ProjectileType.values():
 				if switch_ammo_type(ammo):
 					return true
-		LOG.info("WeaponSystem {0}: All the ammo are gone.".format([name]))
+		Logi.info("WeaponSystem {0}: All the ammo are gone.".format([name]))
 	return false
 		
 func switch_ammo_type(new_type: WeaponSystem.ProjectileType)->bool:
@@ -90,7 +90,7 @@ func switch_ammo_type(new_type: WeaponSystem.ProjectileType)->bool:
 		send_update.emit()
 		return true
 	else:
-		LOG.info("WeaponSystem {0}: Cannot switch to {1} - out of ammo".format([name, get_projectile_name(current_ammo_type)]))
+		Logi.info("WeaponSystem {0}: Cannot switch to {1} - out of ammo".format([name, get_projectile_name(current_ammo_type)]))
 	return false
 
 func get_projectile_instance(projectile_type: ProjectileType) -> Projectile:
@@ -119,7 +119,7 @@ func can_fire(projectile_type: ProjectileType) -> bool:
 func get_projectile_state(projectile_type: ProjectileType)->ProjectileState:
 	var proj_state:ProjectileState = projectile_storage.get(projectile_type, null)
 	if proj_state == null:
-		LOG.error("WeaponSystem {0}: No projectile with type {1}".format([name, get_projectile_name(projectile_type)]))
+		Logi.error("WeaponSystem {0}: No projectile with type {1}".format([name, get_projectile_name(projectile_type)]))
 	if proj_state == null or not is_instance_valid(proj_state.projectile):
 		proj_state = null
 	return proj_state
