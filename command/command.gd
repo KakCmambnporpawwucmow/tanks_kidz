@@ -6,7 +6,7 @@ var entity_id: String
 var timestamp: float
 
 func execute(_entity: Node) -> void:
-	print("Command.execute() not implemented")
+	LOG.debug("Command.execute() not implemented")
 
 func serialize() -> Dictionary:
 	return {
@@ -18,7 +18,7 @@ func serialize() -> Dictionary:
 static func deserialize(data: Dictionary) -> Command:
 	var script_path = "res://command/%s.gd" % data.type
 	if not ResourceLoader.exists(script_path):
-		print("Error. Command script not found: " + script_path)
+		LOG.error("Command script not found: " + script_path)
 		return null
 	
 	var command_script = load(script_path)

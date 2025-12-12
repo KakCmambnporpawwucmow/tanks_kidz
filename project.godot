@@ -14,6 +14,10 @@ config/name="tanks_kidz"
 run/main_scene="uid://btn1t3i446gl0"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 
+[autoload]
+
+LOG="*res://logger/Log.gd"
+
 [display]
 
 window/size/viewport_width=1920

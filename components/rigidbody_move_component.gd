@@ -11,6 +11,8 @@ var rigidbody: RigidBody2D = null
 
 func _ready():
 	rigidbody = parent as RigidBody2D
+	if rigidbody == null:
+		LOG.fatal("CharacterMoveComponent {0}: parent {1} has'nt type RigidBody2D.".format([name, parent.name]))
 	assert(rigidbody != null, "RigidBodyMoveComponent requires RigidBody2D parent")
 	
 	# Настройки по умолчанию для RigidBody2D
