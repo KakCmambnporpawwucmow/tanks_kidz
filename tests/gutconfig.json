@@ -1,0 +1,21 @@
+{
+	"dirs": ["res://tests/"],
+	"include_subdirs": true,
+	"should_exit": true,
+	"should_maximize": false,
+	"log_level": 1,
+	"ignore_pause": true,
+	"junit_xml_file": "user://test_results.xml",
+	"junit_xml_timestamp": true,
+	"double_strategy": "partial",
+	"test_prefix": "test_",
+	"file_prefix": "test_",
+	"file_extension": ".gd",
+	"include": [
+		"test_obstacle.gd",
+		"test_destructible.gd", 
+		"test_obstacles_types.gd",
+		"test_obstacles_integration.gd",
+		"test_destructible_animation.gd"
+	]
+}
