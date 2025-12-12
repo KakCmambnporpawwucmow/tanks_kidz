@@ -12,7 +12,7 @@ func _ready():
 	character_body = parent as CharacterBody2D
 	assert(character_body != null, "CharacterMoveComponent requires CharacterBody2D parent")
 
-func _apply_movement(movement: Vector2):
+func _apply_movement(_movement: Vector2):
 	# Для CharacterBody2D используем velocity и move_and_slide
 	character_body.velocity = current_velocity
 	character_body.move_and_slide()

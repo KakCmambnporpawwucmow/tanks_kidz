@@ -50,23 +50,26 @@ func rotate_stop():
 	is_rotating = false
 	rotation_finished.emit()
 	
-func move(direction:Vector2):
+func move(direction:Vector2)->float:
 	if direction != Vector2.ZERO:
 		_current_speed = reverse_speed if direction == Vector2.LEFT else move_speed
 		start_move_direction = direction
-		update_movement_direction()
+		update_movement_direction(parent.global_rotation)
 		is_moving_straight = true
 		movement_started.emit()
 	else:
 		is_moving_straight = false
 		movement_stopped.emit()
+	return _current_speed
 
 # === Внутренняя логика ===
-func update_movement_direction():
+func update_movement_direction(rot_angl:float)->bool:
 	var old_direction = move_direction
-	move_direction = start_move_direction.rotated(parent.global_rotation)
+	move_direction = start_move_direction.rotated(rot_angl)
 	if old_direction != move_direction:
 		direction_changed.emit(move_direction)
+		return true
+	return false
 
 func _process(delta):
 	_process_rotation(delta)
@@ -79,9 +82,9 @@ func _process_rotation(delta):
 		_process_continuous_rotation(delta)
 	
 	if (is_rotating_to or is_rotating) and is_moving_straight:
-		update_movement_direction()
+		update_movement_direction(parent.global_rotation)
 
-func _process_rotation_to_target(delta):
+func _process_rotation_to_target(delta)->float:
 	var target_global_angle = (_target_position - parent.global_position).angle()
 	var angle_diff = wrapf(target_global_angle - parent.global_rotation, -PI, PI)
 	var rotation_step = sign(angle_diff) * min(abs(angle_diff), rotation_speed * delta)
@@ -92,11 +95,12 @@ func _process_rotation_to_target(delta):
 		_apply_rotation(target_global_angle - parent.global_rotation)
 		is_rotating_to = false
 		rotation_finished.emit()
+	return angle_diff
 
 func _process_continuous_rotation(delta):
 	_apply_rotation(target_angle * delta)
 
-func _process_movement(delta):
+func _process_movement(delta)->Vector2:
 	var target_velocity = Vector2.ZERO
 	if is_moving_straight:
 		target_velocity = move_direction * _current_speed
@@ -113,6 +117,7 @@ func _process_movement(delta):
 	# Применяем движение
 	if current_velocity.length_squared() > 0.1:
 		_apply_movement(current_velocity * delta)
+	return current_velocity
 
 # === Виртуальные методы для переопределения ===
 func _apply_rotation(rotation_amount: float):

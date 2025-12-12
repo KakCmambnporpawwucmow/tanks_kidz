@@ -9,10 +9,11 @@ class_name Projectile
 
 @onready var visible_notifier = $VisibleOnScreenNotifier2D
 
-func activate(fire_position: Vector2, fire_direction: Vector2):
+func activate(fire_position: Vector2, fire_direction: Vector2)->Vector2:
 	global_position = fire_position
 	global_rotation = fire_direction.angle()
 	linear_velocity = fire_direction * initial_speed
+	return linear_velocity
 	
 func on_death(_damage:int = 0):
 	linear_velocity = Vector2.ZERO
@@ -31,14 +32,14 @@ func _on_animation_player_animation_finished(_anim_name: StringName) -> void:
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	queue_free()
 
-func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
+func _on_body_shape_entered(_body_rid: RID, body: Node, body_shape_index: int, _local_shape_index: int) -> void:
 	if body is Tank:
 		var body_shape_owner_id = body.shape_find_owner(body_shape_index)
 		if body_shape_owner_id != -1:
 			var body_shape = body.shape_owner_get_owner(body_shape_owner_id).shape
 			# пробили
 			if body_shape is RectangleShape2D and armor_penetration >= min(body_shape.size.x, body_shape.size.y): 
-				var damage = $DamageComponent.execute(body.health_component)
+				var damage = $DamageComponent.execute(body.get_health())
 				on_death(damage)
 			# не пробили
 			else:
@@ -50,3 +51,6 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 		if health != null:
 			var damage = $DamageComponent.execute(health)
 			on_death(damage)
+			
+func get_damage()->int:
+	return $DamageComponent.damage

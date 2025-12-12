@@ -13,13 +13,15 @@ func _on_health_component_death() -> void:
 	else:
 		done_state()
 
-func _on_done_animation_finished(anim_name: StringName) -> void:
+func _on_done_animation_finished(_anim_name: StringName) -> void:
 	done_state()
 	
-func done_state():
-	var glob_pos = $placeholder.global_position
-	var ph = $placeholder
-	remove_child(ph)
-	get_parent().call_deferred("add_child", ph)
-	ph.global_position = glob_pos
+func done_state()->bool:
+	if has_node("placeholder"):
+		var glob_pos = $placeholder.global_position
+		var ph = $placeholder
+		remove_child(ph)
+		get_parent().call_deferred("add_child", ph)
+		ph.global_position = glob_pos
 	queue_free()
+	return has_node("placeholder")

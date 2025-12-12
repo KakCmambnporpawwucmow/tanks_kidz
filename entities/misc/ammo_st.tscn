@@ -91,3 +91,8 @@ grow_vertical = 2
 border_color = Color(0.039215688, 0.5019608, 0, 1)
 border_width = 4.5
 editor_only = false
+
+[connection signal="ready" from="MarginContainer/VBoxContainer/view" to="." method="_on_view_ready"]
+[connection signal="ready" from="MarginContainer/VBoxContainer/HBoxContainer/title" to="." method="_on_title_ready"]
+[connection signal="ready" from="MarginContainer/VBoxContainer/HBoxContainer/count" to="." method="_on_count_ready"]
+[connection signal="ready" from="bold" to="." method="_on_bold_ready"]

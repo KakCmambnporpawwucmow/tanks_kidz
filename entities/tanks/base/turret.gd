@@ -22,7 +22,7 @@ func _ready() -> void:
 	last_position = global_position
 	$AnimationPlayer.active = true
 
-func _process(delta):
+func _process(_delta):
 	check_movement()
 
 func check_movement():
@@ -56,8 +56,8 @@ func get_fire_position() -> Vector2:
 func fire_effect():
 	$AnimationPlayer.play("fire")
 	
-func update_position(position:Vector2):
-	aim_position = position
+func update_position(_position:Vector2):
+	aim_position = _position
 	mover.smooth_look_at(aim_position)
 	aim.update_position(aim_position)
 	

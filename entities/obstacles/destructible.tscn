@@ -11,7 +11,7 @@ health = NodePath("HealthComponent")
 [node name="HealthComponent" parent="." index="1" instance=ExtResource("2_y221d")]
 auto_destroy_on_death = false
 
-[node name="placeholder" type="Sprite2D" parent="." index="3"]
+[node name="placeholder" type="Sprite2D" parent="." index="2"]
 region_enabled = true
 region_rect = Rect2(137.39102, 107.08601, 51.58487, 52.07196)
 

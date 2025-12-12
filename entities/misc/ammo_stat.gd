@@ -1,19 +1,25 @@
 extends HBoxContainer
 class_name AmmoStatistic
 
-@export var tank:Tank = null
-var weapon_system:WeaponSystem = null
+@export var game_object:Node2D = null
+var _weapon_system:WeaponSystem = null
 
 func _ready() -> void:
-	assert(tank != null, "AmmoStat: tank must be assigned")
-	weapon_system =  tank.weapon_system
-	assert(weapon_system != null, "AmmoStat: weapon_system must be assigned")
-	weapon_system.send_update.connect(update)
+	assert(game_object != null, "AmmoStat: game_object must be assigned")
+	if game_object.has_method("get_weapon_system"):
+		_weapon_system =  game_object.get_weapon_system()
+	assert(_weapon_system != null, "AmmoStat: weapon_system must be assigned")
+	if not _weapon_system.send_update.is_connected(update):
+		_weapon_system.send_update.connect(update)
 	update()
 	
 func update():
-	var current_ammo_type = weapon_system.get_current_ammo_type()
+	var current_ammo_type = _weapon_system.get_current_ammo_type()
 	for child in get_children():
 		if child is AmmoState:
 			child.bold_state = child.ammo_type ==  current_ammo_type
-			child.count = weapon_system.get_proj_count(child.ammo_type)
+			child.count = _weapon_system.get_proj_count(child.ammo_type)
+			
+func get_weapon_system()->WeaponSystem:
+	return _weapon_system
+			

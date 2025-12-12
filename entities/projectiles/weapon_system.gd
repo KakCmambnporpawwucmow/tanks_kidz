@@ -76,11 +76,13 @@ func fire_projectile(position: Vector2, direction: Vector2) -> bool:
 	print("Fired ", get_projectile_name(current_ammo_type), " round")
 	return true
 	
-func check_ammo():
+func check_ammo()->bool:
 	if get_proj_count(current_ammo_type) == 0:
 		for ammo in ProjectileType.values():
 				if switch_ammo_type(ammo):
-					break
+					return true
+	print("All the ammo are gone.")
+	return false
 		
 func switch_ammo_type(new_type: WeaponSystem.ProjectileType)->bool:
 	if get_proj_count(new_type) > 0:

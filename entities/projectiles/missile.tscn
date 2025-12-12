@@ -34,7 +34,6 @@ alpha_curve = SubResource("CurveTexture_4v70y")
 script = ExtResource("2_lt0se")
 move_component = NodePath("BaseMoveComponent")
 initial_speed = 200.0
-damage = 400
 armor_penetration = 8
 
 [node name="view" parent="." index="2"]

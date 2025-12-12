@@ -19,9 +19,9 @@ func _ready():
 		texture_mode = Line2D.LINE_TEXTURE_TILE
 	
 	# Градиент прозрачности
-	var gradient = Gradient.new()
-	gradient.colors = [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]  # От непрозрачного к прозрачному
-	gradient = gradient
+	var _gradient = Gradient.new()
+	_gradient.colors = [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]  # От непрозрачного к прозрачному
+	gradient = _gradient
 
 func _process(delta):
 	# Добавляем точки при движении

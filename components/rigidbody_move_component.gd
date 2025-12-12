@@ -7,7 +7,7 @@ extends BaseMoveComponent
 @export var force_multiplier: float = 100.0
 @export var max_force: float = 1000.0
 
-var rigidbody: RigidBody2D
+var rigidbody: RigidBody2D = null
 
 func _ready():
 	rigidbody = parent as RigidBody2D
@@ -46,11 +46,13 @@ func _stop_physics_body():
 	rigidbody.linear_velocity = Vector2.ZERO
 	rigidbody.angular_velocity = 0.0
 
-func set_gravity_enabled(enabled: bool):
+func set_gravity_enabled(enabled: bool)->float:
 	rigidbody.gravity_scale = 1.0 if enabled else 0.0
+	return rigidbody.gravity_scale
 
-func apply_impulse(impulse: Vector2, position: Vector2 = Vector2.ZERO):
+func apply_impulse(impulse: Vector2, position: Vector2 = Vector2.ZERO)->Vector2:
 	if position == Vector2.ZERO:
 		rigidbody.apply_central_impulse(impulse)
 	else:
 		rigidbody.apply_impulse(impulse, position)
+	return rigidbody.linear_velocity

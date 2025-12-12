@@ -21,9 +21,9 @@ func move(distance:int):
 func get_spread_norm()->float:
 	return 1 + (scale.x - min_scale.x) / delta_scale
 
-func update_position(position:Vector2 = Vector2.ZERO):
-	if position == Vector2.ZERO:
-		position = last_position
+func update_position(_position:Vector2 = Vector2.ZERO):
+	if _position == Vector2.ZERO:
+		_position = last_position
 	else:
-		last_position = position
-	move(get_parent().global_position.distance_to(position))
+		last_position = _position
+	move(get_parent().global_position.distance_to(_position))
