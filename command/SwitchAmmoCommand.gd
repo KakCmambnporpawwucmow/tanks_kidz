@@ -11,7 +11,7 @@ func init(ammo: WeaponSystem.ProjectileType) -> Command:
 	return self
 
 func execute(entity: Node) -> void:
-	if entity.has_method("switch_ammo_type"):
+	if is_instance_valid(entity) and entity.has_method("switch_ammo_type"):
 		entity.switch_ammo_type(ammo_type)
 
 func serialize() -> Dictionary:

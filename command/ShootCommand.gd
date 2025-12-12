@@ -8,7 +8,7 @@ func init() -> Command:
 	return self
 
 func execute(entity: Node) -> void:
-	if entity is Tank:
+	if is_instance_valid(entity) and entity.has_method("fire"):
 		entity.fire()
 
 func serialize() -> Dictionary:

@@ -11,7 +11,7 @@ func init(dir: Vector2) -> Command:
 	return self
 	
 func execute(entity: Node) -> void:
-	if entity is Tank:
+	if is_instance_valid(entity) and entity.has_method("move"):
 		entity.move(direction)
 
 func serialize() -> Dictionary:
@@ -21,7 +21,8 @@ func serialize() -> Dictionary:
 
 static func deserialize(data: Dictionary) -> MoveCommand:
 	var command = MoveCommand.new()
-	command.init(data.direction)
+	var dir = data.get("direction", {"x":0, "y":0})
+	command.init(Vector2(dir["x"], dir["y"]))
 	command.entity_id = data.entity_id
 	command.timestamp = data.timestamp
 	return command

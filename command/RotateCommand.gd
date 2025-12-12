@@ -11,7 +11,7 @@ func init(rot_dir: Tank.ERotate) -> Command:
 	return self
 
 func execute(entity: Node) -> void:
-	if entity is Tank:
+	if is_instance_valid(entity) and entity.has_method("rotating"):
 		entity.rotating(rotation_direction)
 
 func serialize() -> Dictionary:

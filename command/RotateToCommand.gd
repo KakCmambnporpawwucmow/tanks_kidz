@@ -11,6 +11,7 @@ func init(pos: Vector2) -> Command:
 	return self
 
 func execute(entity: Node) -> void:
+	if is_instance_valid(entity) and entity.has_method("rotating_to"):
 		entity.rotating_to(target_pos)
 
 func serialize() -> Dictionary:
