@@ -89,14 +89,14 @@ func reload_all_ammo():
 
 # Методы для обработки здоровья
 func _on_health_changed(new_health: float):
-	print("Tank health changed to", new_health)
+	Logi.debug("Tank health changed to {0}".format([new_health]))
 
 func _on_damage_taken(amount: float, _source: Node):
 	Logi.debug("Tank {0}: damage taken {1}".format([name, amount]))
 
 func _on_death():
 	is_death = true
-	print("Tank destroyed!")
+	Logi.info("Tank {0} destroyed!".format([name]))
 	$animation.play("death")
 
 func get_health_status() -> Dictionary:
