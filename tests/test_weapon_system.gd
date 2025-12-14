@@ -248,7 +248,7 @@ func test_is_reloading():
 	assert_true(_weapon_system.is_reloading(), "Должен быть в состоянии перезарядки")
 	
 	# Ждем больше времени перезарядки
-	await get_tree().create_timer(0.15).timeout
+	await wait_seconds(2.1)
 	assert_false(_weapon_system.is_reloading(), "Не должен быть в состоянии перезарядки после таймера")
 
 func test_integration_fire_and_switch():

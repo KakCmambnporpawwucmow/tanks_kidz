@@ -31,7 +31,7 @@ func before_each():
 	assert_not_null(_weapon_system, "WeaponSystem должен быть в сцене танка")
 	assert_not_null(_move_component, "BaseMoveComponent должен быть в сцене танка")
 	assert_not_null(_health_component, "HealthComponent должен быть в сцене танка")
-	
+	_weapon_system.projectiles_parent = self
 	# Настраиваем снаряды для тестов
 	_setup_real_ammo()
 	
