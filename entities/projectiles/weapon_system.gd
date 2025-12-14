@@ -37,6 +37,7 @@ class ProjectileState:
 		projectile = _projectile
 		count = _count
 		max_load = _count
+		desc = _desc
 
 # Хранилище боеприпасов
 var projectile_storage: Dictionary = {}
@@ -73,7 +74,7 @@ func fire_projectile(position: Vector2, direction: Vector2) -> bool:
 	send_update.emit()
 	# Запускаем перезарядку
 	last_reload_time = Time.get_ticks_msec()
-	print("Fired ", get_projectile_name(current_ammo_type), " round")
+	Logi.debug("WeaponSystem {0}: Fired {1} round.".format([name, get_projectile_name(current_ammo_type)]))
 	return true
 	
 func check_ammo()->bool:
