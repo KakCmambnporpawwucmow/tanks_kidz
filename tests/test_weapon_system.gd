@@ -68,6 +68,7 @@ func test_weapon_system_initialization():
 	assert_eq(_weapon_system.get_proj_count(WeaponSystem.ProjectileType.HE), 10)
 	assert_eq(_weapon_system.get_proj_count(WeaponSystem.ProjectileType.HEAT), 5)
 	assert_eq(_weapon_system.get_proj_count(WeaponSystem.ProjectileType.MISSILE), 2)
+	assert_true(true)
 
 func test_can_fire_with_ammo():
 	await wait_seconds(2) # ждём уверенного релоада
