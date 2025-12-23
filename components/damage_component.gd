@@ -19,7 +19,7 @@ func _ready() -> void:
 func execute(health:HealthComponent)->int:
 	if _current_damage == 0:
 		_current_damage = damage
-	return health.take_damage(_current_damage) if _is_done == false else 0
+	return health.take_damage(_current_damage) if health != null and _is_done == false else 0
 	
 func update(add_value:int, timeout:float = 0)->int:
 	_current_damage = add_value

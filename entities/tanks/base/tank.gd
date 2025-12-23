@@ -8,9 +8,13 @@ class_name Tank
 @export var _move_component: BaseMoveComponent = null
 @export var _health_component: HealthComponent = null
 @export var _weapon_system: WeaponSystem = null
+@export var _nav_component:CharNavigationMoveComponent = null
 
 @export_group("Dependencies")
 @export var _death_holder: PackedScene = null
+
+@export_group("State")
+#@export var is_ai_managing:bool = false
 
 enum ERotate{LEFT, RIGHT, STOP}
 
@@ -23,6 +27,7 @@ func _ready():
 	assert(_move_component != null, "Tank: BaseMoveComponent must be assigned")
 	assert(_health_component != null, "Tank: HealthComponent must be assigned")
 	assert(_weapon_system != null, "Tank: WeaponSystem must be assigned")
+	assert(_nav_component != null, "Tank: NavigationMoveComponent must be assigned")
 	
 	# Подключаем сигналы здоровья
 	_health_component.health_changed.connect(_on_health_changed)
@@ -43,6 +48,9 @@ func move(dir:Vector2):
 	else:
 		$engine.pitch_scale = 1.0
 	return speed
+	
+func move_to(pos:Vector2):
+	_nav_component.move(pos, 200)
 		
 func rotating(_rotate:ERotate):
 	match _rotate:
@@ -70,6 +78,7 @@ func fire()->bool:
 		_turret.fire_effect()
 		_turret.CD_indicator(_weapon_system.reload_time_ms)
 		return true
+	$NavigationAgent2D.target_position = _turret.aim_position
 	return false
 
 func switch_ammo_type(new_type: WeaponSystem.ProjectileType)->bool:
@@ -83,6 +92,9 @@ func switch_ammo_type(new_type: WeaponSystem.ProjectileType)->bool:
 
 func rotating_to(_position:Vector2):
 	_turret.update_position(_position)
+	
+func rotating_tank_to(_position:Vector2):
+	_move_component.smooth_look_at(_position)
 
 func reload_all_ammo():
 	print("Tank fully reloaded!")

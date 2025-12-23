@@ -29,3 +29,7 @@ health_component = NodePath("../HealthComponent")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="4"]
 position = Vector2(-1, 16)
 shape = SubResource("RectangleShape2D_qs067")
+
+[node name="NavigationObstacle2D" parent="." index="5"]
+position = Vector2(0, 15)
+radius = 76.38

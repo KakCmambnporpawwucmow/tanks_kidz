@@ -14,3 +14,6 @@ texture = ExtResource("2_y7fsl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 shape = SubResource("RectangleShape2D_y7fsl")
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+radius = 17.36

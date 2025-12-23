@@ -8,3 +8,6 @@ script = ExtResource("1_7t8yd")
 [node name="view" type="Sprite2D" parent="."]
 region_enabled = true
 region_rect = Rect2(1.6723328, 189.2396, 30.5997, 30.5997)
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+carve_navigation_mesh = true

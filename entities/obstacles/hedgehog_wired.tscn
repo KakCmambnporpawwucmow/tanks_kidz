@@ -9,3 +9,6 @@ region_rect = Rect2(41.951996, 190.5, 28, 29.339294)
 
 [node name="CollisionShape2D" parent="." index="1"]
 position = Vector2(1, -1)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+position = Vector2(1, -1)
