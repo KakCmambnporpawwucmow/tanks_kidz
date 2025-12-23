@@ -78,7 +78,6 @@ func fire()->bool:
 		_turret.fire_effect()
 		_turret.CD_indicator(_weapon_system.reload_time_ms)
 		return true
-	$NavigationAgent2D.target_position = _turret.aim_position
 	return false
 
 func switch_ammo_type(new_type: WeaponSystem.ProjectileType)->bool:

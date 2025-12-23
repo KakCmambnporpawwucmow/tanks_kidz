@@ -32,7 +32,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 
 func _on_body_shape_entered(_body_rid: RID, body: Node, body_shape_index: int, _local_shape_index: int) -> void:
 	var damage:int = 0
-	if body.has_method("get_health"):
+	if is_instance_valid(body) and body.has_method("get_health"):
 		if body is Tank:
 			var body_shape_owner_id = body.shape_find_owner(body_shape_index)
 			if body_shape_owner_id != -1:

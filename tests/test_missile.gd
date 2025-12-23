@@ -369,7 +369,7 @@ func test_missile_on_death_zero_damage():
 	missile.on_death(0)
 	
 	# Даем время на выполнение queue_free() (наследованного от Projectile)
-	await wait_frames(2)
+	await wait_seconds(2)
 	
 	# Проверяем что ракета удалилась
 	assert_true(freed_state[0], "Missile should be freed with zero damage (inherited from Projectile)")

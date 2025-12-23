@@ -130,7 +130,7 @@ func test_on_death_with_zero_damage():
 	projectile_instance.on_death(0)
 	
 	# Даем время на выполнение queue_free()
-	await wait_frames(2)
+	await wait_seconds(2)
 	
 	assert_true(freed_state[0], "Projectile should be freed with zero damage")
 
