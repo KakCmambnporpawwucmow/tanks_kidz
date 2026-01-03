@@ -6,9 +6,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5ixb2"]
 size = Vector2(2, 42)
 
-[node name="taran" type="Area2D" node_paths=PackedStringArray("damage")]
+[node name="taran" type="Area2D" node_paths=PackedStringArray("_damage")]
 script = ExtResource("1_0ll6f")
-damage = NodePath("DamageComponent")
+_damage = NodePath("DamageComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5ixb2")
