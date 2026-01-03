@@ -9,35 +9,48 @@ class_name Tank
 @export var _health_component: HealthComponent = null
 @export var _weapon_system: WeaponSystem = null
 @export var _nav_component:CharNavigationMoveComponent = null
+@export var _ai_crew:AICrew = null
 
 @export_group("Dependencies")
 @export var _death_holder: PackedScene = null
 
 @export_group("State")
-#@export var is_ai_managing:bool = false
+
+@export var _player_command:EPlayers = EPlayers.ENEMY
 
 enum ERotate{LEFT, RIGHT, STOP}
+enum EPlayers{MY, ENEMY}
 
 var is_move:bool = false
 var is_rotate:bool = false
 var is_death:bool = false
+var is_ai_managing:bool = true
 
 func _ready():
 	assert(_turret != null, "Tank: Turret must be assigned")
 	assert(_move_component != null, "Tank: BaseMoveComponent must be assigned")
 	assert(_health_component != null, "Tank: HealthComponent must be assigned")
 	assert(_weapon_system != null, "Tank: WeaponSystem must be assigned")
-	assert(_nav_component != null, "Tank: NavigationMoveComponent must be assigned")
+	assert(_nav_component != null, "Tank: CharNavigationMoveComponent must be assigned")
+	assert(_ai_crew != null, "Tank: _ai_crew must be assigned")
+	
+	if _ai_crew.get_enable():
+		_turret.hide_crosshair = true
 	
 	# Подключаем сигналы здоровья
 	_health_component.health_changed.connect(_on_health_changed)
 	_health_component.death.connect(_on_death)
+	_weapon_system.send_ammo_empty.connect(_ai_crew.ammo_empty)
+	
 	$engine.playing = true
 	Logi.info("Tank {0}: initialized".format([name]))
 
 func proc_command(command:Command):
 	if is_death == false:
 		command.execute(self)
+		if is_ai_managing == true and command is MoveCommand:
+			_ai_crew.set_enable(false)
+			_turret.hide_crosshair = false
 
 func move(dir:Vector2):
 	var speed = _move_component.move(dir)
@@ -50,7 +63,7 @@ func move(dir:Vector2):
 	return speed
 	
 func move_to(pos:Vector2):
-	_nav_component.move(pos, 200)
+	_nav_component.move(pos, _move_component.move_speed)
 		
 func rotating(_rotate:ERotate):
 	match _rotate:
@@ -96,7 +109,7 @@ func rotating_tank_to(_position:Vector2):
 	_move_component.smooth_look_at(_position)
 
 func reload_all_ammo():
-	print("Tank fully reloaded!")
+	_weapon_system.reload_all_ammo()
 
 # Методы для обработки здоровья
 func _on_health_changed(new_health: float):
@@ -108,6 +121,11 @@ func _on_damage_taken(amount: float, _source: Node):
 func _on_death():
 	is_death = true
 	Logi.info("Tank {0} destroyed!".format([name]))
+	var frag_bar = get_tree().get_first_node_in_group("frag_bar")
+	if is_instance_valid(frag_bar) and frag_bar is FragBar:
+		frag_bar.frag_count_changed(self)
+	else:
+		Logi.error("Tank {0}: No frag bar in scene".format([name]))
 	$animation.play("death")
 
 func get_health_status() -> Dictionary:
@@ -129,3 +147,11 @@ func get_health()->HealthComponent:
 func get_weapon_system():
 	return _weapon_system
 		
+func get_player_command()->EPlayers:
+	return _player_command
+	
+func set_player_command(player_command:EPlayers):
+	_player_command = player_command
+
+func get_nav_component()->CharNavigationMoveComponent:
+	return _nav_component

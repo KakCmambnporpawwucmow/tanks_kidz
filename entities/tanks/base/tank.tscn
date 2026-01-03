@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://15pucv5g7w3p"]
+[gd_scene load_steps=29 format=3 uid="uid://15pucv5g7w3p"]
 
 [ext_resource type="Script" uid="uid://jxqce0b0d6hr" path="res://entities/tanks/base/tank.gd" id="1_6u466"]
 [ext_resource type="Texture2D" uid="uid://ol82tm8544cy" path="res://assets/graphics/tanks/heavy_tank.png" id="2_ciwkk"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://m38evhpltulw" path="res://assets/graphics/effects/tank_explosion9.png" id="19_e6wdd"]
 [ext_resource type="Texture2D" uid="uid://djtcvrp8cro3s" path="res://assets/graphics/effects/tank_explosion8.png" id="20_albxe"]
 [ext_resource type="Texture2D" uid="uid://duqqt7gw33yni" path="res://assets/graphics/effects/tank_explosion6.png" id="21_5ixb2"]
+[ext_resource type="PackedScene" uid="uid://g050mx2ghxvd" path="res://ai/ai_crew.tscn" id="21_vyw1x"]
 [ext_resource type="PackedScene" uid="uid://bykltpew30wb8" path="res://entities/tanks/base/taran.tscn" id="22_e6wdd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n8ip8"]
@@ -190,7 +191,7 @@ _data = {
 &"death": SubResource("Animation_n8ip8")
 }
 
-[node name="Tank" type="CharacterBody2D" node_paths=PackedStringArray("_turret", "_move_component", "_health_component", "_weapon_system", "_nav_component")]
+[node name="Tank" type="CharacterBody2D" node_paths=PackedStringArray("_turret", "_move_component", "_health_component", "_weapon_system", "_nav_component", "_ai_crew")]
 self_modulate = Color(1, 1, 1, 0.011764706)
 script = ExtResource("1_6u466")
 _turret = NodePath("Turret")
@@ -198,6 +199,7 @@ _move_component = NodePath("CharacterMoveComponent")
 _health_component = NodePath("HealthComponent")
 _weapon_system = NodePath("WeaponSystem")
 _nav_component = NodePath("CharNavigationMoveComponent")
+_ai_crew = NodePath("ai_crew")
 _death_holder = ExtResource("16_vyw1x")
 
 [node name="view" type="Sprite2D" parent="."]
@@ -229,14 +231,6 @@ static_spread = 20
 stream = ExtResource("12_pu3tq")
 volume_db = -22.209
 parameters/looping = true
-
-[node name="HP_indicator" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("14_vyw1x")]
-visible = false
-offset_left = -24.0
-offset_top = -48.0
-offset_right = 26.0
-offset_bottom = -40.0
-health_component = NodePath("../HealthComponent")
 
 [node name="front_armor" type="CollisionShape2D" parent="."]
 position = Vector2(30.5, 0.75)
@@ -276,6 +270,21 @@ texture = ExtResource("20_albxe")
 texture = ExtResource("21_5ixb2")
 
 [node name="taran" parent="." instance=ExtResource("22_e6wdd")]
-position = Vector2(39, 1)
+position = Vector2(37, 1)
+collision_layer = 0
+
+[node name="ai_crew" parent="." node_paths=PackedStringArray("_nav_component", "_turret") instance=ExtResource("21_vyw1x")]
+_nav_component = NodePath("../CharNavigationMoveComponent")
+_turret = NodePath("../Turret")
+
+[node name="HP_indicator" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("14_vyw1x")]
+visible = false
+offset_left = -24.0
+offset_top = -48.0
+offset_right = 26.0
+offset_bottom = -40.0
+health_component = NodePath("../HealthComponent")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [connection signal="animation_finished" from="animation" to="." method="_on_animation_animation_finished"]
