@@ -1,0 +1,46 @@
+[gd_scene load_steps=4 format=3 uid="uid://be7imuuix186w"]
+
+[ext_resource type="Script" uid="uid://b5j1a8r4fhrqh" path="res://entities/misc/frag_bar.gd" id="1_iq8jy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aug7j"]
+bg_color = Color(0.7391501, 0.7391501, 0.7391501, 0.3372549)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.29803923, 0.3529412, 0.8, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_iq8jy"]
+font_size = 29
+outline_size = 7
+outline_color = Color(0.015686275, 0.015686275, 0.03137255, 1)
+
+[node name="frag_bar" type="Panel" groups=["frag_bar"]]
+anchors_preset = -1
+anchor_right = 0.087000005
+anchor_bottom = 0.05
+offset_right = -3.0400085
+offset_bottom = -4.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_aug7j")
+script = ExtResource("1_iq8jy")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "10/10"
+label_settings = SubResource("LabelSettings_iq8jy")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
