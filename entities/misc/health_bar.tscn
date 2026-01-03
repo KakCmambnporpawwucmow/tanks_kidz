@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://d2va1wjvevk1d"]
+
+[ext_resource type="Texture2D" uid="uid://cpqtnee70aa77" path="res://assets/ui/kenney_ui-pack/PNG/Blue/Default/button_round_flat.png" id="1_22sdn"]
+[ext_resource type="Texture2D" uid="uid://dc8dq1x7au8yd" path="res://assets/ui/kenney_ui-pack/PNG/Blue/Default/button_round_border_trans.png" id="2_soob6"]
+[ext_resource type="Texture2D" uid="uid://bbp4my4b1ma6k" path="res://assets/ui/kenney_ui-pack/PNG/Green/Default/button_round_flat.png" id="3_5gm6m"]
+[ext_resource type="Script" uid="uid://bvg7mbna7r1c3" path="res://entities/misc/health_bar.gd" id="4_soob6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_uvotb"]
+font_size = 26
+outline_size = 5
+outline_color = Color(0.015686275, 0.011764706, 0.015686275, 1)
+
+[node name="health_bar" type="TextureProgressBar"]
+anchors_preset = -1
+anchor_right = 0.35500002
+anchor_bottom = 0.05
+offset_right = 0.39996338
+rounded = true
+allow_lesser = true
+nine_patch_stretch = true
+stretch_margin_left = 30
+stretch_margin_top = 30
+stretch_margin_right = 30
+stretch_margin_bottom = 30
+texture_under = ExtResource("1_22sdn")
+texture_over = ExtResource("2_soob6")
+texture_progress = ExtResource("3_5gm6m")
+script = ExtResource("4_soob6")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+label_settings = SubResource("LabelSettings_uvotb")
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
