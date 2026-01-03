@@ -1,0 +1,95 @@
+[gd_scene load_steps=10 format=3 uid="uid://bcji3wuubxoil"]
+
+[ext_resource type="PackedScene" uid="uid://cxlsmjiweq51c" path="res://ui/layer_button.tscn" id="1_vqfsp"]
+[ext_resource type="PackedScene" uid="uid://ve76trygihxb" path="res://ui/blue_button_to.tscn" id="1_xvvcp"]
+[ext_resource type="Texture2D" uid="uid://qmi402exqpd" path="res://assets/ui/layers/test.png" id="2_i6jx3"]
+[ext_resource type="Texture2D" uid="uid://ca2vv0o7moc8d" path="res://assets/ui/icons/home.png" id="2_vqfsp"]
+[ext_resource type="Texture2D" uid="uid://bonwmxp0vw1sf" path="res://assets/ui/icons/signal3.png" id="3_vqfsp"]
+[ext_resource type="Texture2D" uid="uid://bvtp4320cmtkv" path="res://assets/ui/icons/gear.png" id="4_i6jx3"]
+[ext_resource type="Texture2D" uid="uid://d1sro0jah0amt" path="res://assets/ui/icons/cart.png" id="5_jn13j"]
+[ext_resource type="Texture2D" uid="uid://stoa1wjsy0sb" path="res://assets/ui/icons/leaderboardsComplex.png" id="6_6irmp"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dmaw2"]
+font_size = 44
+font_color = Color(1, 1, 0.65882355, 1)
+outline_size = 12
+outline_color = Color(0.16007765, 0.16007765, 0.13816993, 1)
+
+[node name="base" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.8787422, 0.9043261, 0.8494162, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "base"
+label_settings = SubResource("LabelSettings_dmaw2")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="layers" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="layer_button" parent="MarginContainer/VBoxContainer/layers" instance=ExtResource("1_vqfsp")]
+layout_mode = 2
+text = "Test"
+icon = ExtResource("2_i6jx3")
+next_scene = "res://layers/test.tscn"
+
+[node name="manager_buttons" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+size_flags_stretch_ratio = 0.0
+alignment = 1
+
+[node name="base" parent="MarginContainer/VBoxContainer/manager_buttons" instance=ExtResource("1_xvvcp")]
+layout_mode = 2
+icon = ExtResource("2_vqfsp")
+
+[node name="statistic" parent="MarginContainer/VBoxContainer/manager_buttons" instance=ExtResource("1_xvvcp")]
+layout_mode = 2
+icon = ExtResource("3_vqfsp")
+
+[node name="settings" parent="MarginContainer/VBoxContainer/manager_buttons" instance=ExtResource("1_xvvcp")]
+layout_mode = 2
+icon = ExtResource("4_i6jx3")
+
+[node name="shop" parent="MarginContainer/VBoxContainer/manager_buttons" instance=ExtResource("1_xvvcp")]
+layout_mode = 2
+icon = ExtResource("5_jn13j")
+
+[node name="liderboard" parent="MarginContainer/VBoxContainer/manager_buttons" instance=ExtResource("1_xvvcp")]
+layout_mode = 2
+icon = ExtResource("6_6irmp")
