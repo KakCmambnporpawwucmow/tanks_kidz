@@ -1,0 +1,147 @@
+[gd_scene load_steps=11 format=3 uid="uid://dp05vf3dnm02i"]
+
+[ext_resource type="Texture2D" uid="uid://761o576n6ygd" path="res://assets/kenney_top-down-tanks-redux/Vector/topdownTanks_vector.svg" id="1_f816i"]
+[ext_resource type="Script" uid="uid://dvli04ujk5l41" path="res://entities/misc/ammunition_supply_point.gd" id="1_k7e0g"]
+[ext_resource type="PackedScene" uid="uid://c5q2r2yvi5agq" path="res://entities/misc/circle.tscn" id="2_k7e0g"]
+[ext_resource type="Texture2D" uid="uid://n6d8g0aw4ybq" path="res://assets/graphics/ui/tanks_crateAmmo.png" id="3_y5sue"]
+[ext_resource type="Texture2D" uid="uid://bk51lvwr5lvg0" path="res://assets/graphics/ui/tanks_crateArmor.png" id="4_s8vub"]
+[ext_resource type="Texture2D" uid="uid://dihkit318bbhb" path="res://assets/graphics/ui/tanks_crateRepair.png" id="5_7krk1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w1imp"]
+radius = 113.137085
+
+[sub_resource type="Animation" id="Animation_2u3ta"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D2:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D3:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_s25pq"]
+resource_name = "supply_point"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.2, 0.2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D2:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.2, 0.2), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D3:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.01, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.2, 0.2), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ar88v"]
+_data = {
+&"RESET": SubResource("Animation_2u3ta"),
+&"supply_point": SubResource("Animation_s25pq")
+}
+
+[node name="ammunition_supply_point" type="Area2D"]
+script = ExtResource("1_k7e0g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_w1imp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-41, 17)
+texture = ExtResource("1_f816i")
+region_enabled = true
+region_rect = Rect2(205.02502, 105.05621, 30.746094, 27.817902)
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(-17, -23)
+texture = ExtResource("1_f816i")
+region_enabled = true
+region_rect = Rect2(251.50037, 140.11151, 38.06662, 26.353806)
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(15, 17)
+texture = ExtResource("1_f816i")
+region_enabled = true
+region_rect = Rect2(162.19028, 191.35501, 26.35379, 26.35379)
+
+[node name="circle" parent="." instance=ExtResource("2_k7e0g")]
+position = Vector2(-1, 1)
+radius = 150.0
+outline_width = 5.0
+
+[node name="animation" type="Node2D" parent="."]
+position = Vector2(-1, 65)
+
+[node name="Sprite2D" type="Sprite2D" parent="animation"]
+texture = ExtResource("3_y5sue")
+
+[node name="Sprite2D2" type="Sprite2D" parent="animation"]
+position = Vector2(56, 0)
+texture = ExtResource("4_s8vub")
+
+[node name="Sprite2D3" type="Sprite2D" parent="animation"]
+position = Vector2(-56, 0)
+texture = ExtResource("5_7krk1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="animation"]
+libraries = {
+&"": SubResource("AnimationLibrary_ar88v")
+}
+autoplay = "supply_point"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
