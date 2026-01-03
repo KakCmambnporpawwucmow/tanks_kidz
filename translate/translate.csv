@@ -3,3 +3,8 @@ AP,AP,ББ
 HE,HE,ФГ
 HT,HT,КМ
 MS,MS,РК
+battle_statistic, "Battle statistics", "Статистика боя"
+battle_win, "Battle is win!", Победа!
+battle_lose, "Battle is lost", "Бой проигран"
+base,Base,База
+next,Next,Дальше
