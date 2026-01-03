@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxlsmjiweq51c"]
+
+[ext_resource type="StyleBox" uid="uid://c42lalfg7jvug" path="res://ui/layer_button.tres" id="1_3xg4b"]
+[ext_resource type="Script" uid="uid://dhd01273c1ct3" path="res://ui/next.gd" id="2_yijki"]
+
+[node name="layer_button" type="Button"]
+custom_minimum_size = Vector2(250, 166)
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = ExtResource("1_3xg4b")
+theme_override_styles/pressed = ExtResource("1_3xg4b")
+theme_override_styles/hover = ExtResource("1_3xg4b")
+theme_override_styles/disabled = ExtResource("1_3xg4b")
+theme_override_styles/focus = ExtResource("1_3xg4b")
+icon_alignment = 1
+script = ExtResource("2_yijki")
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
