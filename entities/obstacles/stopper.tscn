@@ -15,3 +15,6 @@ region_rect = Rect2(245.64398, 189.2396, 48.315308, 22.612823)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
 position = Vector2(-1.5, 0)
 shape = SubResource("RectangleShape2D_qewkx")
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+radius = 36.23

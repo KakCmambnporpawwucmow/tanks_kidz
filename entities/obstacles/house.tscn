@@ -32,4 +32,4 @@ shape = SubResource("RectangleShape2D_qs067")
 
 [node name="NavigationObstacle2D" parent="." index="5"]
 position = Vector2(0, 15)
-radius = 76.38
+radius = 80.0

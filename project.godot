@@ -11,12 +11,12 @@ config_version=5
 [application]
 
 config/name="tanks_kidz"
-run/main_scene="uid://btn1t3i446gl0"
+run/main_scene="uid://bcji3wuubxoil"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 
 [autoload]
 
-Logi="*res://logger/Logi.gd"
+Logs="*res://logger/Logs.gd"
 
 [display]
 
@@ -85,6 +85,11 @@ navigate_to={
 [internationalization]
 
 locale/translations=PackedStringArray("res://translate/translate.en.translation", "res://translate/translate.ru.translation")
+
+[layer_names]
+
+2d_navigation/layer_1="static_objects"
+2d_navigation/layer_2="dynamic_objects"
 
 [rendering]
 
