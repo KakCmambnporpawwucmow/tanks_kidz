@@ -6,6 +6,13 @@ class_name Turret
 @export var mover: BaseMoveComponent = null
 @export var movement_threshold: float = 10.0  # Порог скорости для рассеивания
 @export var static_spread:int = 150
+@export var hide_crosshair:bool = false:
+	set(value):
+		hide_crosshair = value
+		if value:
+			$CrosshairSprite.modulate = Color(1,1,1,0)
+		else:
+			$CrosshairSprite.modulate = Color(1,1,1,1)
 
 var current_aim_position: Vector2 = Vector2.ZERO
 var is_moving: bool = false
@@ -16,6 +23,8 @@ var aim_position: Vector2 = Vector2.ZERO
 @onready var mark:Marker2D = $Marker2D
 @onready var cd_ind:TextureProgressBar = $CrosshairSprite/CD_progress
 @onready var cd_ind2:TextureProgressBar = $CrosshairSprite/CD_progress2
+
+signal send_ready_to_fire()
 
 func _ready() -> void:
 	assert(mover != null, "Turret: BaseMoveComponent must be assigned")
@@ -31,6 +40,8 @@ func check_movement():
 		mover.smooth_look_at(aim_position)
 		aim.update_position(aim_position)
 		last_position = global_position
+		if (aim_position - aim.global_position).length() < 20:
+			send_ready_to_fire.emit()
 
 # Получить направление выстрела с учетом рассеивания
 func get_fire_direction() -> Vector2:
