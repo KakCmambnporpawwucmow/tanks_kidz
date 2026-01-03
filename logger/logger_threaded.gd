@@ -29,7 +29,7 @@ static var _max_file_size: int = 10 * 1024 * 1024  # 10 MB
 static var _FILE_READ: int = FileAccess.READ
 static var _FILE_WRITE_READ: int = FileAccess.WRITE_READ
 static var _FILE_WRITE: int = FileAccess.WRITE
-static var _FILE_READ_WRITE: int = FileAccess.READ_WRITE
+#static var _FILE_READ_WRITE: int = FileAccess.READ_WRITE
 
 # Цвета для консоли
 static var _colors: Dictionary = {
@@ -72,8 +72,8 @@ static func initialize(config: Dictionary = {}) -> bool:
 	
 	# Запускаем поток записи
 	_write_thread = Thread.new()
-	var error = _write_thread.start(_write_thread_func)
-	if error != OK:
+	var _error = _write_thread.start(_write_thread_func)
+	if _error != OK:
 		push_error("Failed to start logging thread: %s" % error)
 		return false
 	
@@ -185,8 +185,8 @@ static func _ensure_log_directory() -> bool:
 		return false
 	
 	if not dir.dir_exists(_log_directory):
-		var error = dir.make_dir_recursive(_log_directory)
-		if error != OK:
+		var _error = dir.make_dir_recursive(_log_directory)
+		if _error != OK:
 			push_error("Failed to create log directory: %s" % error)
 			return false
 	
@@ -204,8 +204,8 @@ static func _create_new_log_file() -> bool:
 		debug("Created new log file", {"path": _log_file_path})
 		return true
 	else:
-		var error = FileAccess.get_open_error()
-		push_error("Failed to create log file: %s (error: %s)" % [_log_file_path, error])
+		var _error = FileAccess.get_open_error()
+		push_error("Failed to create log file: %s (error: %s)" % [_log_file_path, _error])
 		return false
 
 static func _log_internal(level: Level, message: String, context: Dictionary) -> void:
@@ -283,7 +283,7 @@ static func _add_to_write_queue(message: String) -> void:
 	_log_queue_mutex.unlock()
 	
 	# Сигнализируем потоку записи, если буфер достаточно большой
-	if _log_queue.size() >= max_buffer_size / 2:
+	if _log_queue.size() >= int(max_buffer_size / 2.0):
 		_write_semaphore.post()
 
 static func _check_file_size() -> void:
@@ -309,8 +309,8 @@ static func _cleanup_old_logs() -> void:
 	if not dir:
 		return
 	
-	var error = dir.list_dir_begin()
-	if error != OK:
+	var _error = dir.list_dir_begin()
+	if _error != OK:
 		push_error("Failed to list log directory: %s" % error)
 		return
 	
@@ -333,8 +333,8 @@ static func _cleanup_old_logs() -> void:
 	# Удаляем старые файлы
 	for i in range(_max_log_files, files.size()):
 		var full_path = "%s%s" % [_log_directory, files[i]]
-		error = dir.remove(full_path)
-		if error == OK:
+		_error = dir.remove(full_path)
+		if _error == OK:
 			debug("Removed old log file", {"file": files[i]})
 		else:
 			warn("Failed to remove log file", {"file": files[i], "error": error})
@@ -392,10 +392,10 @@ static func _write_batch() -> void:
 			debug("Written batch of log entries", {"count": to_write.size()})
 	else:
 		# Если не удалось открыть файл, пытаемся создать новый
-		var error = FileAccess.get_open_error()
+		var _error = FileAccess.get_open_error()
 		push_error("Failed to open log file", {
 			"path": _log_file_path,
-			"error": error,
+			"error": _error,
 			"batch_size": to_write.size()
 		})
 		
