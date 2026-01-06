@@ -25,6 +25,7 @@ var is_move:bool = false
 var is_rotate:bool = false
 var is_death:bool = false
 var is_ai_managing:bool = true
+var start_time_in_battle:int = 0
 
 func _ready():
 	assert(_turret != null, "Tank: Turret must be assigned")
@@ -51,6 +52,9 @@ func proc_command(command:Command):
 		if is_ai_managing == true and command is MoveCommand:
 			_ai_crew.set_enable(false)
 			_turret.hide_crosshair = false
+			is_ai_managing = false
+			_weapon_system.to_statistic = true
+			start_time_in_battle = Time.get_ticks_msec()
 
 func move(dir:Vector2):
 	var speed = _move_component.move(dir)
@@ -117,6 +121,8 @@ func _on_health_changed(new_health: float):
 
 func _on_damage_taken(amount: float, _source: Node):
 	Logi.debug("Tank {0}: damage taken {1}".format([name, amount]))
+	if is_ai_managing == false:
+		PlayerState.get_ps().battle_get_damage += amount
 
 func _on_death():
 	is_death = true
@@ -127,6 +133,10 @@ func _on_death():
 	else:
 		Logi.error("Tank {0}: No frag bar in scene".format([name]))
 	$animation.play("death")
+	if is_ai_managing == false:
+		PlayerState.get_ps().battle_get_frag += 1
+		if start_time_in_battle > 0:
+			PlayerState.get_ps().battle_time_s += (Time.get_ticks_msec() - start_time_in_battle) / 1000
 
 func get_health_status() -> Dictionary:
 	return {

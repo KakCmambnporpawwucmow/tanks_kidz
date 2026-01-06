@@ -194,13 +194,13 @@ _data = {
 [node name="Tank" type="CharacterBody2D" node_paths=PackedStringArray("_turret", "_move_component", "_health_component", "_weapon_system", "_nav_component", "_ai_crew")]
 self_modulate = Color(1, 1, 1, 0.011764706)
 script = ExtResource("1_6u466")
+_death_holder = ExtResource("16_vyw1x")
 _turret = NodePath("Turret")
 _move_component = NodePath("CharacterMoveComponent")
 _health_component = NodePath("HealthComponent")
 _weapon_system = NodePath("WeaponSystem")
 _nav_component = NodePath("CharNavigationMoveComponent")
 _ai_crew = NodePath("ai_crew")
-_death_holder = ExtResource("16_vyw1x")
 
 [node name="view" type="Sprite2D" parent="."]
 texture = ExtResource("2_ciwkk")
