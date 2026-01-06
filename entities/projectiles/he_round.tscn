@@ -5,8 +5,8 @@
 
 [node name="Projectile" instance=ExtResource("1_i37io")]
 initial_speed = 400.0
-damage = 300
 armor_penetration = 3
+projectile_type = 1
 
 [node name="view" parent="." index="2"]
 position = Vector2(-4.0000005, 4.172325e-07)
