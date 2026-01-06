@@ -61,7 +61,7 @@ func get_enable()->bool:
 	return _enable
 	
 func _process(_delta: float) -> void:
-	if not _enemys.is_empty():
+	if not _enemys.is_empty() and _enable:
 		rotate_to_enemy()
 
 func rotate_to_enemy():
