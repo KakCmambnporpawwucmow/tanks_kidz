@@ -10,11 +10,13 @@ class_name Spawner
 @export var command_producer:CommandProducer = null
 @export var ammo_stat:AmmoStatistic = null
 @export var health_bar_stat:HealthBar = null
+@export var highlighting :PackedScene = null 
 @export_group("Tank camera")
 @export var limit_top:int = 0
 @export var limit_bottom:int = 0
 @export var limit_right:int = 0
 @export var limit_left:int = 0
+
 
 
 func _ready() -> void:
@@ -44,6 +46,8 @@ func spawn():
 			camera.limit_left = limit_left
 			new_tank.add_child(camera)
 			camera.enabled = true
+			if highlighting:
+				new_tank.add_child(highlighting.instantiate())
 		spawn_count -= 1
 		
 		Logi.info("Spawn: add tank {0}, spawn count {1}".format([new_tank.name, spawn_count]))
