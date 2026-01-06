@@ -24,10 +24,10 @@ func _process(_delta: float) -> void:
 		move_component.move(Vector2.RIGHT)
 		
 func on_death(_damage:int = 0):
-	move_component.move(Vector2.ZERO)
+	if is_instance_valid(move_component):
+		move_component.move(Vector2.ZERO)
 	super.on_death(_damage)
 
 func _on_timer_timeout() -> void:
 	linear_velocity = Vector2.ZERO
 	$view.visible = false
-	$AnimationPlayer.play("penetracion")

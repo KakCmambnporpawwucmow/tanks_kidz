@@ -9,6 +9,7 @@ var tankRotateCommand:RotateCommand = null
 var tankFireCommand:ShootCommand = null
 var tankSwitchAmmoCommand:SwitchAmmoCommand = null
 var rotateToCommand:RotateToCommand = null
+var navigateMoveCommand:NavigateMoveCommand = null
 var currentCommand:Command = null
 
 func _ready() -> void:
@@ -18,6 +19,7 @@ func _ready() -> void:
 	tankFireCommand = ShootCommand.new()
 	tankSwitchAmmoCommand = SwitchAmmoCommand.new()
 	rotateToCommand = RotateToCommand.new()
+	navigateMoveCommand = NavigateMoveCommand.new()
 	
 	for item in _resivers:
 		if is_instance_valid(item):
@@ -59,6 +61,9 @@ func _input(event):
 
 	if event is InputEventMouseMotion:
 		currentCommand = rotateToCommand.init(get_global_mouse_position())
+		
+	if event.is_action_pressed("navigate_to") :
+		currentCommand = navigateMoveCommand.init(get_global_mouse_position())
 		
 	var is_need_filtering:bool = false
 	if currentCommand:

@@ -1,0 +1,215 @@
+[gd_scene load_steps=8 format=3 uid="uid://dkqcrkn0pwtmg"]
+
+[ext_resource type="Script" uid="uid://c3rdxlr0fh8w4" path="res://scenes/statistic.gd" id="1_1twgw"]
+[ext_resource type="PackedScene" uid="uid://cubsr0o1o17if" path="res://ui/next.tscn" id="1_ly1vi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xmodt"]
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_xmodt"]
+font_size = 40
+outline_size = 6
+outline_color = Color(0.015686275, 0.03137255, 0.039215688, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_snhov"]
+font_size = 66
+font_color = Color(0.4480263, 0.9999997, 0.99782103, 1)
+outline_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_e1hun"]
+font_size = 66
+font_color = Color(0.96259046, 0.28493494, 0.23209421, 1)
+outline_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_4kekj"]
+font_size = 25
+outline_size = 6
+outline_color = Color(0.16007765, 0.18281268, 0.23209421, 1)
+
+[node name="statistic" type="Panel"]
+custom_minimum_size = Vector2(500, 650)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -325.0
+offset_right = 250.0
+offset_bottom = 325.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_xmodt")
+script = ExtResource("1_1twgw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "a_battle_statistic"
+label_settings = SubResource("LabelSettings_xmodt")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="win_title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "a_battle_win"
+label_settings = SubResource("LabelSettings_snhov")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="lose_title" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "a_battle_lose"
+label_settings = SubResource("LabelSettings_e1hun")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="stata" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 8.5
+
+[node name="title" type="VBoxContainer" parent="VBoxContainer/stata"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="time" type="Label" parent="VBoxContainer/stata/title"]
+layout_mode = 2
+text = "a_time"
+label_settings = SubResource("LabelSettings_4kekj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="hit" type="Label" parent="VBoxContainer/stata/title"]
+layout_mode = 2
+text = "a_hit"
+label_settings = SubResource("LabelSettings_4kekj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ricoche" type="Label" parent="VBoxContainer/stata/title"]
+layout_mode = 2
+text = "a_ricoche"
+label_settings = SubResource("LabelSettings_4kekj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="miss" type="Label" parent="VBoxContainer/stata/title"]
+layout_mode = 2
+text = "a_miss"
+label_settings = SubResource("LabelSettings_4kekj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="damage" type="Label" parent="VBoxContainer/stata/title"]
+layout_mode = 2
+text = "a_damage"
+label_settings = SubResource("LabelSettings_4kekj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="get_damage" type="Label" parent="VBoxContainer/stata/title"]
+layout_mode = 2
+text = "a_get_damage"
+label_settings = SubResource("LabelSettings_4kekj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="frags" type="Label" parent="VBoxContainer/stata/title"]
+layout_mode = 2
+text = "a_frags"
+label_settings = SubResource("LabelSettings_4kekj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="get_frags" type="Label" parent="VBoxContainer/stata/title"]
+layout_mode = 2
+text = "a_get_frags"
+label_settings = SubResource("LabelSettings_4kekj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="values" type="VBoxContainer" parent="VBoxContainer/stata"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="time" type="Label" parent="VBoxContainer/stata/values"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_4kekj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="hit" type="Label" parent="VBoxContainer/stata/values"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_4kekj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ricoche" type="Label" parent="VBoxContainer/stata/values"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_4kekj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="miss" type="Label" parent="VBoxContainer/stata/values"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_4kekj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="damage" type="Label" parent="VBoxContainer/stata/values"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_4kekj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="get_damage" type="Label" parent="VBoxContainer/stata/values"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_4kekj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="frags" type="Label" parent="VBoxContainer/stata/values"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_4kekj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="get_frags" type="Label" parent="VBoxContainer/stata/values"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_4kekj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="next" parent="VBoxContainer" instance=ExtResource("1_ly1vi")]
+layout_mode = 2
+next_scene = "res://scenes/base.tscn"

@@ -35,6 +35,7 @@ script = ExtResource("2_lt0se")
 move_component = NodePath("BaseMoveComponent")
 initial_speed = 200.0
 armor_penetration = 8
+projectile_type = 3
 
 [node name="view" parent="." index="2"]
 position = Vector2(-3.9999998, 0)

@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://cla36wk7nvitx"]
+
+[ext_resource type="Script" uid="uid://dxtteoqx8nub5" path="res://components/char_navigation_move_component.gd" id="1_3eu4e"]
+
+[node name="CharNavigationMoveComponent" type="Node2D"]
+script = ExtResource("1_3eu4e")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+radius = 40.0
+debug_use_custom = true
+debug_path_custom_color = Color(0.17254902, 0.20392157, 1, 1)
+debug_path_custom_line_width = 2.0
+
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]

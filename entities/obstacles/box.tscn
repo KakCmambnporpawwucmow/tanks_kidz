@@ -146,3 +146,6 @@ offset_top = -25.0
 offset_right = 24.0
 offset_bottom = -17.0
 health_component = NodePath("../HealthComponent")
+
+[node name="NavigationObstacle2D" parent="." index="7"]
+radius = 17.36

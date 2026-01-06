@@ -6,3 +6,7 @@
 
 [node name="view" parent="." index="0"]
 region_rect = Rect2(245.64398, 219.17291, 48.315308, 21.961517)
+
+[node name="NavigationObstacle2D" parent="." index="2"]
+radius = 24.31
+affect_navigation_mesh = true

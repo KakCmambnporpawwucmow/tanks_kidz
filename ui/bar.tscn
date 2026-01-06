@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdqioaerwph2b"]
+
+[ext_resource type="Script" uid="uid://cgd43uba5jc6o" path="res://ui/bar.gd" id="1_7ixq8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7msaf"]
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9396342, 0.8191586, 0.38609558, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_7ixq8"]
+font_size = 25
+outline_size = 6
+outline_color = Color(0.21802102, 0.13816993, 0.13816993, 1)
+
+[node name="bar" type="Panel"]
+custom_minimum_size = Vector2(130, 40)
+anchors_preset = -1
+anchor_right = 0.081
+anchor_bottom = 0.033
+offset_right = 0.47999573
+offset_bottom = 0.40000153
+theme_override_styles/panel = SubResource("StyleBoxFlat_7msaf")
+script = ExtResource("1_7ixq8")
+
+[node name="view" type="Sprite2D" parent="."]
+
+[node name="value" type="Label" parent="."]
+layout_mode = 0
+offset_left = 40.0
+offset_right = 152.0
+offset_bottom = 40.0
+text = "0"
+label_settings = SubResource("LabelSettings_7ixq8")
+horizontal_alignment = 1
+vertical_alignment = 1

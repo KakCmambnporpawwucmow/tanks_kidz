@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://ve76trygihxb"]
+
+[ext_resource type="StyleBox" uid="uid://ct1uw0tih7jxg" path="res://ui/blue_style_box_flat.tres" id="1_jffuw"]
+[ext_resource type="Script" uid="uid://dhd01273c1ct3" path="res://ui/next.gd" id="2_emny1"]
+
+[node name="blue_button_to" type="Button"]
+custom_minimum_size = Vector2(50, 50)
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/normal = ExtResource("1_jffuw")
+theme_override_styles/pressed = ExtResource("1_jffuw")
+theme_override_styles/hover = ExtResource("1_jffuw")
+theme_override_styles/focus = ExtResource("1_jffuw")
+script = ExtResource("2_emny1")
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]

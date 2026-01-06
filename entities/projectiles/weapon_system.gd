@@ -42,8 +42,10 @@ class ProjectileState:
 # Хранилище боеприпасов
 var projectile_storage: Dictionary = {}
 var last_reload_time: int = 0
+var to_statistic:bool = false
 
 signal send_update()
+signal send_ammo_empty()
 
 func _ready():
 	# Инициализация боеприпасов из настроек редактора
@@ -62,7 +64,7 @@ func fire_projectile(position: Vector2, direction: Vector2) -> bool:
 	if projectile == null:
 		push_error("WeaponSystem: No projectile instance assigned for type: ", get_projectile_name(current_ammo_type))
 		return false
-
+	projectile.to_statistics = to_statistic
 	# Создаем копию снаряда и настраиваем
 	if not setup_projectile(projectile, position, direction):
 		projectile.queue_free()
@@ -82,6 +84,7 @@ func check_ammo()->bool:
 		for ammo in ProjectileType.values():
 				if switch_ammo_type(ammo):
 					return true
+		send_ammo_empty.emit()
 		Logi.info("WeaponSystem {0}: All the ammo are gone.".format([name]))
 	return false
 		
@@ -136,14 +139,23 @@ func consume_ammo(projectile_type: ProjectileType)->bool:
 		return true
 	return false
 
-func reload_ammo(projectile_type: ProjectileType, amount: int)->int:
+func reload_ammo(projectile_type: ProjectileType, amount: int = 0)->int:
 	var proj_state:ProjectileState = get_projectile_state(projectile_type)
 	if proj_state != null:
+		if amount == 0 or amount < 0:
+			proj_state.count = proj_state.max_load
+			return proj_state.count
 		proj_state.count += amount
 		if proj_state.count > proj_state.max_load:
 			proj_state.count = proj_state.max_load
 		return proj_state.count
 	return 0
+	
+func reload_all_ammo():
+	for ammo in ProjectileType.values():
+		reload_ammo(ammo)
+	Logi.info("WeaponSystem {0}: Reload all ammo.".format([name]))
+	send_update.emit()
 
 func get_projectile_name(projectile_type: ProjectileType) -> String:
 	var proj_state:ProjectileState = get_projectile_state(projectile_type)

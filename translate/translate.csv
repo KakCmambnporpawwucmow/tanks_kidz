@@ -3,3 +3,17 @@ AP,AP,ББ
 HE,HE,ФГ
 HT,HT,КМ
 MS,MS,РК
+a_battle_statistic, "Battle statistics", "Статистика боя"
+a_battle_win, "Battle is win!", Победа!
+a_battle_lose, "Battle is lost", "Бой проигран"
+a_base,Base,База
+a_next,Next,Дальше
+a_time,"Time in battle","Время в бою"
+a_hit,"Breakthroughs","Пробитий"
+a_ricoche,"Impenetrable","Непробитий"
+a_miss,"Miss","Промахов"
+a_damage,"Damage done","Нанесено урона"
+a_get_damage,"Damage received","Получено урона"
+a_frags,"Destroyed","Уничтожено"
+a_get_frags,"Was destroyed","Был уничтожен"
+a_test,"Test layer","Тестовый уровень"

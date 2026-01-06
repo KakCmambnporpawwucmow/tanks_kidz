@@ -1,6 +1,6 @@
 # autoload/log.gd
 extends Node
-#class_name Logi
+class_name Logi
 
 var level:LoggerThreaded.Level = LoggerThreaded.Level.DEBUG
 var max_buffer_size:int = 500

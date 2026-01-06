@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://g050mx2ghxvd"]
+
+[ext_resource type="Script" uid="uid://ch4tg570wr0ip" path="res://ai/ai_crew.gd" id="1_gqemn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bnkhd"]
+radius = 312.10254
+
+[node name="ai_crew" type="Node2D"]
+script = ExtResource("1_gqemn")
+
+[node name="enemy_detector" type="Area2D" parent="."]
+collision_layer = 0
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_detector"]
+shape = SubResource("CircleShape2D_bnkhd")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+
+[connection signal="body_entered" from="enemy_detector" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="enemy_detector" to="." method="_on_area_2d_body_exited"]

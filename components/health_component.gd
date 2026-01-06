@@ -13,7 +13,7 @@ var is_alive: bool = true
 
 signal health_changed(new_health: int)
 signal death()
-signal low_health(health_percentage: float)
+signal low_health(health_percentage: int)
 
 func _ready():
 	_current_health = max_health

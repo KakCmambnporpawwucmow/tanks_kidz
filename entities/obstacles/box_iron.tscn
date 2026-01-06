@@ -13,5 +13,5 @@ max_health = 400.0
 [node name="placeholder" parent="." index="2"]
 region_rect = Rect2(151.21011, 162.80515, 20.497406, 17.569183)
 
-[node name="HP_indicator" parent="." index="6"]
-visible = false
+[node name="NavigationObstacle2D" parent="." index="7"]
+radius = 13.89
