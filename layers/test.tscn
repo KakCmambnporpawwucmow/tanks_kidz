@@ -1,10 +1,8 @@
-[gd_scene load_steps=24 format=4 uid="uid://btn1t3i446gl0"]
+[gd_scene load_steps=17 format=4 uid="uid://btn1t3i446gl0"]
 
 [ext_resource type="TileSet" uid="uid://ceglheuvmpsvk" path="res://layers/test.tres" id="1_i5ewn"]
 [ext_resource type="PackedScene" uid="uid://15pucv5g7w3p" path="res://entities/tanks/base/tank.tscn" id="1_oifa8"]
 [ext_resource type="Script" uid="uid://dfm2nfcq0ajwp" path="res://layers/test.gd" id="1_yjjm7"]
-[ext_resource type="PackedScene" uid="uid://bbtdg7lou7s1l" path="res://entities/misc/game_changer.tscn" id="1_ys8h1"]
-[ext_resource type="PackedScene" uid="uid://dkqcrkn0pwtmg" path="res://scenes/statistic.tscn" id="2_wki07"]
 [ext_resource type="PackedScene" uid="uid://bvdf70d445trs" path="res://command/command_producer.tscn" id="3_i5ewn"]
 [ext_resource type="PackedScene" uid="uid://cqeiuxxlo2got" path="res://entities/obstacles/hedgehog_wired.tscn" id="4_a15s5"]
 [ext_resource type="PackedScene" uid="uid://b3gdwbyf3i2ns" path="res://entities/obstacles/stopper.tscn" id="5_a15s5"]
@@ -13,13 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://dp05vf3dnm02i" path="res://entities/misc/ammunition_supply_point.tscn" id="8_cubdf"]
 [ext_resource type="PackedScene" uid="uid://dm8eey2qyjmnx" path="res://entities/tanks/enemy_tank.tscn" id="8_djk84"]
 [ext_resource type="Texture2D" uid="uid://t0iw120g705a" path="res://assets/graphics/obstacles/tree.png" id="10_w1imp"]
-[ext_resource type="PackedScene" uid="uid://d2va1wjvevk1d" path="res://entities/misc/health_bar.tscn" id="12_66mth"]
 [ext_resource type="PackedScene" uid="uid://duykyxxm1j4yp" path="res://entities/obstacles/house.tscn" id="12_cubdf"]
-[ext_resource type="PackedScene" uid="uid://52vbpdjmqg0y" path="res://entities/misc/ammo_stat.tscn" id="13_66mth"]
-[ext_resource type="PackedScene" uid="uid://be7imuuix186w" path="res://entities/misc/frag_bar.tscn" id="13_ys8h1"]
-[ext_resource type="PackedScene" uid="uid://bdqioaerwph2b" path="res://ui/bar.tscn" id="15_s25pq"]
-[ext_resource type="Texture2D" uid="uid://761o576n6ygd" path="res://assets/kenney_top-down-tanks-redux/Vector/topdownTanks_vector.svg" id="16_2u3ta"]
-[ext_resource type="Texture2D" uid="uid://csnpfikm5j2fe" path="res://assets/graphics/tanks/death_tank.png" id="17_2u3ta"]
+[ext_resource type="PackedScene" uid="uid://bpnpda5s56byn" path="res://ui/hud.tscn" id="13_66mth"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ys8h1"]
 vertices = PackedVector2Array(1049, -255, 1269, -255, 1413, 103, 1193, 103, 661, -31, 661, -225, 1121, 354, 1193, 297, 1413, 297, 1121, 449, 1007, 449, 1007, 594, 1121, 594, 2166, 1477.7188, 799, 796, 799, 657, -630.1797, 1462.2734, 660, 796, 2166, -637.8594, 1269, -449, 1121, 209, 509.78125, 305, 500.53906, 289, 525, 289, 513, 305, -637.8125, -630.1328, 1049, -449, 1007, 209, 1007, 354, 534.3594, 347.5703, 525, 95, 441, -225, 305, 95, 513, 359.89844, 660, 657, 513, 450, 419.27344, 492.6875, 395.97656, 508.6328, 279.2578, 530.22656, 388.32813, 500.97656, 417.71875, 486.8828, 454.60938, 450, 305, 289, 368.89844, 289, 399, 341.1172, 399, 344.39063, 350.20313, 393.1797, 249.78906, 420.09375, 513, 310.5703, 441, -31, 409.21875, 495.3828)
@@ -192,105 +185,8 @@ tile_set = SubResource("TileSet_vlu43")
 
 [node name="command_producer" parent="." instance=ExtResource("3_i5ewn")]
 
-[node name="HUD" type="CanvasLayer" parent="."]
+[node name="HUD" parent="." instance=ExtResource("13_66mth")]
 
-[node name="MarginContainer" type="Control" parent="HUD"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-metadata/_edit_use_anchors_ = true
-
-[node name="HUD" type="VBoxContainer" parent="HUD/MarginContainer"]
-z_index = 2
-layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 1910.0
-offset_bottom = 1190.0
-
-[node name="top" type="HBoxContainer" parent="HUD/MarginContainer/HUD"]
-layout_mode = 2
-
-[node name="ammo_stat" parent="HUD/MarginContainer/HUD/top" instance=ExtResource("13_66mth")]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="health" type="VBoxContainer" parent="HUD/MarginContainer/HUD/top"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 14.33
-theme_override_constants/separation = 7
-
-[node name="health_bar" parent="HUD/MarginContainer/HUD/top/health" instance=ExtResource("12_66mth")]
-custom_minimum_size = Vector2(500, 0)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-size_flags_stretch_ratio = 8.34
-
-[node name="frag_bar" parent="HUD/MarginContainer/HUD/top/health" instance=ExtResource("13_ys8h1")]
-custom_minimum_size = Vector2(100, 45)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-my_command_max = 2
-enemy_command_max = 2
-
-[node name="damage" parent="HUD/MarginContainer/HUD/top" instance=ExtResource("15_s25pq")]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-size_flags_stretch_ratio = 0.0
-value_name = "battle_damage"
-
-[node name="view" parent="HUD/MarginContainer/HUD/top/damage" index="0"]
-position = Vector2(9, 28)
-rotation = 0.38048178
-scale = Vector2(2, 1.7777778)
-texture = ExtResource("16_2u3ta")
-region_enabled = true
-region_rect = Rect2(410, 275.5, 22, 40)
-
-[node name="value" parent="HUD/MarginContainer/HUD/top/damage" index="1"]
-offset_left = 28.0
-offset_right = 124.0
-
-[node name="frags" parent="HUD/MarginContainer/HUD/top" instance=ExtResource("15_s25pq")]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-size_flags_stretch_ratio = 0.0
-value_name = "battle_frags"
-
-[node name="view" parent="HUD/MarginContainer/HUD/top/frags" index="0"]
-position = Vector2(11.999968, 13.999998)
-rotation = -1.3089969
-scale = Vector2(0.49661154, 0.36666667)
-texture = ExtResource("17_2u3ta")
-
-[node name="value" parent="HUD/MarginContainer/HUD/top/frags" index="1"]
-offset_right = 124.0
-
-[node name="ColorRect" type="ColorRect" parent="HUD"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-color = Color(0, 0, 0, 0)
-metadata/_edit_use_anchors_ = true
-
-[node name="game_changer" parent="HUD/ColorRect" instance=ExtResource("1_ys8h1")]
-next_scene = ExtResource("2_wki07")
-
-[connection signal="send_game_done" from="HUD/MarginContainer/HUD/top/health/frag_bar" to="HUD/ColorRect/game_changer" method="game_done"]
-
+[editable path="HUD"]
 [editable path="HUD/MarginContainer/HUD/top/damage"]
 [editable path="HUD/MarginContainer/HUD/top/frags"]
