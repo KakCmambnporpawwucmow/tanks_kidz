@@ -1,0 +1,113 @@
+[gd_scene load_steps=9 format=3 uid="uid://bpnpda5s56byn"]
+
+[ext_resource type="PackedScene" uid="uid://52vbpdjmqg0y" path="res://entities/misc/ammo_stat.tscn" id="1_srpbi"]
+[ext_resource type="PackedScene" uid="uid://d2va1wjvevk1d" path="res://entities/misc/health_bar.tscn" id="2_spcu4"]
+[ext_resource type="PackedScene" uid="uid://be7imuuix186w" path="res://entities/misc/frag_bar.tscn" id="3_ff8ar"]
+[ext_resource type="PackedScene" uid="uid://bdqioaerwph2b" path="res://ui/bar.tscn" id="4_m0eg6"]
+[ext_resource type="Texture2D" uid="uid://761o576n6ygd" path="res://assets/kenney_top-down-tanks-redux/Vector/topdownTanks_vector.svg" id="5_b00kl"]
+[ext_resource type="Texture2D" uid="uid://csnpfikm5j2fe" path="res://assets/graphics/tanks/death_tank.png" id="6_so1yu"]
+[ext_resource type="PackedScene" uid="uid://bbtdg7lou7s1l" path="res://entities/misc/game_changer.tscn" id="7_65xic"]
+[ext_resource type="PackedScene" uid="uid://dkqcrkn0pwtmg" path="res://scenes/statistic.tscn" id="8_mp5xd"]
+
+[node name="HUD" type="CanvasLayer"]
+
+[node name="MarginContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="HUD" type="VBoxContainer" parent="MarginContainer"]
+z_index = 2
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 1910.0
+offset_bottom = 1190.0
+
+[node name="top" type="HBoxContainer" parent="MarginContainer/HUD"]
+layout_mode = 2
+
+[node name="ammo_stat" parent="MarginContainer/HUD/top" instance=ExtResource("1_srpbi")]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="health" type="VBoxContainer" parent="MarginContainer/HUD/top"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 14.33
+theme_override_constants/separation = 7
+
+[node name="health_bar" parent="MarginContainer/HUD/top/health" instance=ExtResource("2_spcu4")]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+size_flags_stretch_ratio = 8.34
+
+[node name="frag_bar" parent="MarginContainer/HUD/top/health" instance=ExtResource("3_ff8ar")]
+custom_minimum_size = Vector2(100, 45)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+my_command_max = 2
+enemy_command_max = 2
+
+[node name="damage" parent="MarginContainer/HUD/top" instance=ExtResource("4_m0eg6")]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
+value_name = "battle_damage"
+
+[node name="view" parent="MarginContainer/HUD/top/damage" index="0"]
+position = Vector2(9, 28)
+rotation = 0.38048178
+scale = Vector2(2, 1.7777778)
+texture = ExtResource("5_b00kl")
+region_enabled = true
+region_rect = Rect2(410, 275.5, 22, 40)
+
+[node name="value" parent="MarginContainer/HUD/top/damage" index="1"]
+offset_left = 28.0
+offset_right = 124.0
+
+[node name="frags" parent="MarginContainer/HUD/top" instance=ExtResource("4_m0eg6")]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+size_flags_stretch_ratio = 0.0
+value_name = "battle_frags"
+
+[node name="view" parent="MarginContainer/HUD/top/frags" index="0"]
+position = Vector2(11.999968, 13.999998)
+rotation = -1.3089969
+scale = Vector2(0.49661154, 0.36666667)
+texture = ExtResource("6_so1yu")
+
+[node name="value" parent="MarginContainer/HUD/top/frags" index="1"]
+offset_right = 124.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0, 0, 0, 0)
+metadata/_edit_use_anchors_ = true
+
+[node name="game_changer" parent="ColorRect" instance=ExtResource("7_65xic")]
+next_scene = ExtResource("8_mp5xd")
+
+[connection signal="send_game_done" from="MarginContainer/HUD/top/health/frag_bar" to="ColorRect/game_changer" method="game_done"]
+
+[editable path="MarginContainer/HUD/top/damage"]
+[editable path="MarginContainer/HUD/top/frags"]

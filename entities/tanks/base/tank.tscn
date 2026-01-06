@@ -285,6 +285,4 @@ offset_right = 26.0
 offset_bottom = -40.0
 health_component = NodePath("../HealthComponent")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
 [connection signal="animation_finished" from="animation" to="." method="_on_animation_animation_finished"]
