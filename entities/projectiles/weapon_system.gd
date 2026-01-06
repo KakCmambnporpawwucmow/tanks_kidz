@@ -42,6 +42,7 @@ class ProjectileState:
 # Хранилище боеприпасов
 var projectile_storage: Dictionary = {}
 var last_reload_time: int = 0
+var to_statistic:bool = false
 
 signal send_update()
 signal send_ammo_empty()
@@ -63,7 +64,7 @@ func fire_projectile(position: Vector2, direction: Vector2) -> bool:
 	if projectile == null:
 		push_error("WeaponSystem: No projectile instance assigned for type: ", get_projectile_name(current_ammo_type))
 		return false
-
+	projectile.to_statistics = to_statistic
 	# Создаем копию снаряда и настраиваем
 	if not setup_projectile(projectile, position, direction):
 		projectile.queue_free()
