@@ -4,11 +4,10 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aug7j"]
 bg_color = Color(0.7391501, 0.7391501, 0.7391501, 0.3372549)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.29803923, 0.3529412, 0.8, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -19,7 +18,7 @@ expand_margin_right = 5.0
 expand_margin_bottom = 5.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_iq8jy"]
-font_size = 29
+font_size = 25
 outline_size = 7
 outline_color = Color(0.015686275, 0.015686275, 0.03137255, 1)
 

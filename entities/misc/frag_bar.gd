@@ -21,4 +21,8 @@ func frag_count_changed(tank:Tank):
 			enemy_command_max -= 1
 	if my_command_max < 1 or enemy_command_max < 1:
 		send_game_done.emit()
+		if enemy_command_max < 1:
+			PlayerState.get_ps().battle_result = PlayerData.EBattleResult.WIN
+		else:
+			PlayerState.get_ps().battle_result = PlayerData.EBattleResult.LOSE
 	output_info()
